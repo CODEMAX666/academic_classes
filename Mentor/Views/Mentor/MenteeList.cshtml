@@ -1,0 +1,146 @@
+﻿@*@model List<Mentor.BE.MenteeListBE>*@
+@*@model IEnumerable<Mentor.BE.MenteeListBE>*@
+@model PagedList.IPagedList<Mentor.BE.MenteeListBE>
+
+@using PagedList.Mvc;
+
+@*@using PagedList;*@
+
+@using Mentor.Models
+@using Mentor.BE
+@{
+    ViewBag.Title = "MenteeList";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row row-grid">
+
+
+                    @if (Model != null && Model.Count() != 0)
+                    {
+
+                        foreach (var item in Model)
+                        {
+
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="card widget-profile user-widget-profile">
+                                    <div class="card-body">
+                                        <div class="pro-widget-content">
+                                            <div class="profile-info-widget">
+                                                <a href="profile-mentee.html" class="booking-user-img">
+                                                    <img src="~/assets/img/user/user.jpg" alt="User Image">
+
+                                                </a>
+                                                <div class="profile-det-info">
+                                                    <h3><a href="profile-mentee.html">@item.Name</a></h3>
+
+                                                    <div class="mentee-details">
+                                                        <h5><b></b></h5>
+                                                        <h5 class="mb-0"><i class=" "></i>@item.CategoryName,@item.SubCategoryName</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mentee-info" style="background-color:Menu">
+                                            <ul>
+                                                <li>Rate Per Hour <span>@item.PerHourRate</span></li>
+                                                <li>Phone <span>@item.PhoneNum</span></li>
+
+                                            </ul>
+
+                                        </div>
+                                        <br />
+
+                                        @*@Html.DropDownListFor(x => @item.Status, new SelectList(item.StatusList, "Value", "Text", item.Status), new { @placeholder = "Select Action List", @class = "form-control" })*@
+                                        @*<a class="btn btn-primary" href="/Mentor/AcceptRequest?id=@item.MenteeID" role="button">Accept</a>
+                                            <a class="btn btn-primary" href="/Mentor/RejectRequest?id=@item.MenteeID" role="button">Reject</a>*@
+
+                                        <div>
+                                            @if (item.Status == "Accept")
+                                            {
+                                                @*<a class="btn btn-primary" href="#" role="button">Chat</a>*@
+                                                <a href="#" class="btn btn-sm bg-info-light"><i class="fas fa-comment-dots"></i> Chat </a>
+
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-primary" href="/Mentor/AcceptRequest?id=@item.MenteeID" role="button">Accept</a>
+
+                                                <a class="btn btn-primary" href="/Mentor/RejectRequest?id=@item.MenteeID" role="button">Reject</a>
+                                            }
+
+                                            <a class="btn btn-primary" href="/Mentor/DeleteMentee?id=@item.MenteeID" role="button">Delete</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    }
+                    else
+                    {
+                        <h3>There is no Mentee</h3>
+                    }
+
+                </div>
+
+
+
+
+                <div class="blog-pagination mt-4">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+
+                            <li class="page-item">
+
+                                @*Page   @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                    of*@   <!--@Model.PageCount-->
+                                @Html.PagedListPager(Model, page => Url.Action("MenteeList", new { page }))
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("GetStatusList", "Mentor")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    debugger
+                    /*$('#getStatusList').empty();*/
+                    //$('#getStatusList').html('').append('<option value="0">Select Career Level</option> ')
+                    $(data).each(function (Value, Text) {
+
+
+                        $('#getStatusList').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                    });
+                }
+            });
+        });
+    </script>*@

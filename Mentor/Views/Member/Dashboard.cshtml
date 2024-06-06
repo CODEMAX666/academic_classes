@@ -1,0 +1,188 @@
+﻿@model List<Mentor.BE.MentorListBE>
+@*@model IEnumerable<Mentor.BE.MentorListBE>*@
+
+@*@model MentoreListBE*@
+@using Mentor.Models
+@using Mentor.BE
+@{
+    ViewBag.Title = "Dashboard";
+    //ViewData["getInfoAboutLoginUser"].;
+    //ViewData["Name"] = "Sunny";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+@{
+    //var data = TempData["MentoreListBE"] as MentoreListBE;
+
+    //var categories = (List<MentoreListBE>)ViewData["MyData"];
+}
+
+<!-- Page Content -->
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 dash-board-list blue">
+                        <div class="dash-widget">
+                            <div class="circle-bar">
+                                <div class="icon-col">
+                                    <i class="far fa-money-bill-alt"></i>
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h3>Rs. 23k</h3>
+                                <h6>Total Revenue</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-4 dash-board-list yellow">
+                        <div class="dash-widget">
+                            <div class="circle-bar">
+                                <div class="icon-col">
+                                    <i class="far fa-clock"></i>
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h3>12:40</h3>
+                                <h6>Spend Hours</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-4 dash-board-list pink">
+                        <div class="dash-widget">
+                            <div class="circle-bar">
+                                <div class="icon-col">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h3>06:00</h3>
+                                <h6>Average Response Time</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="mb-4">Mentor Lists</h4>
+                        <div class="card card-table">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>BASIC INFO</th>
+                                                <th>FOLLOW DATE</th>
+                                                @*<th class="text-center">CURRENT STATUS</th>*@
+                                                <th class="text-center">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @if (ViewBag.List != null && (ViewBag.List as IList<MentorListBE>).Count > 0)
+                                            {
+                                                @*<h2>You are following below mentors</h2>*@
+                                                foreach (MentorListBE item in (List<MentorListBE>)ViewBag.List)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/assets/img/user/user2.jpg" alt="User Image"></a>
+                                                                <a href="profile.html">@item.Name<span>@item.Email</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>08 April 2020</td>
+                                                        @*<td class="text-center"><span class="pending">PENDING</span></td>*@
+
+                                                        <td class="text-center">
+                                                            <a class="btn btn-primary" href="/Member/BookMentor?id=@item.MentorId" role="button">Book Mentor</a>
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            <a class="btn btn-primary" href="/Member/DeleteMentor?id=@item.MentorId" role="button">Delete</a>
+                                                        </td>
+
+                                                        <td>
+                                                            @if (item.Status == "Accept")
+                                                            {
+                                                                <a href="#" class="btn btn-sm bg-info-light"><i class="fas fa-comment-dots"></i> Chat </a>
+
+                                                            }
+                                                        </td>
+                                                        @*<button class="btn btn-sm bg-info-light" type="submit" onclick="DeleteButton()">Delete </button>*@
+                                                        @*<button class="btn btn-sm bg-info-light" type="submit" onclick="SaveButton()">Save </button>*@
+                                                        @*<a href="#" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> Delete</a></td>*@
+
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <p> You are not following any mentor </p>
+                                            }
+
+
+
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        function DeleteButton() {
+            window.alert("Are you sure you want to delete this user");
+        }
+    </script>
+
+
+@*<h1>Muhammad Umair</h1>
+    <h2>Dashboard Page</h2>
+
+    <h3>
+        @foreach(MentoreListBE obj in (List<MentoreListBE>)ViewBag.List)
+        {
+            <li>
+               @obj.Name
+               @obj.Email
+            </li>
+         }
+    </h3>*@
+
+@*<h3>Name : @data.Name</h3>
+    <h3>Email  @data.Email</h3>*@
+
+@*@foreach (Mentor.BE.MentoreList ppp in Mentor.DAL)
+    {
+        <div class="card" style="width: 18rem; margin-left:200px; background-color:cornflowerblue">
+            <div class="card-body">
+                <h5 class="card-title">@ppp.Name</h5>
+                <p class="card-text">@ppp.Email</p>
+            </div>
+        </div>
+    }*@
+
+
+
+

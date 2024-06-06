@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "MentorProfile";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    var temp = Model.IsMentor;
+}
+
+@using Mentor.BE
+
+@model MemberBE
+
+@ViewBag.msg
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="collapse-tabs new-property-step">
+                                <ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                                    <li class="nav-item col">
+                                        <a class="nav-link active" id="description-tab" data-number="1." href="#profile_update" role="tab" aria-controls="profile_update" aria-selected="true"><span class="number">1.</span> Profile Update</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="education-tab" data-number="2." href="/Member/MemberEducation" role="tab" aria-controls="education" aria-selected="false"><span class="number">2.</span> Education</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="experience-tab" data-number="3." href="/Member/MemberExperience" role="tab" aria-controls="experience" aria-selected="false"><span class="number">3.</span> Experience</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="interest-tab" data-number="4." href="/Member/MemberInterest" role="tab" aria-controls="interest" aria-selected="false"><span class="number">4.</span> interest</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content border-top-1">
+                                    <form enctype="multipart/form-data">
+                                        <div class="tab-content" id="collapse-tabs-accordion">
+                                            <div class="tab-pane fade active show" id="profile_update" role="tabpanel" aria-labelledby="profile_update-tab">
+                                                <div class="card-body">
+                                                    <div class="row form-row">
+                                                        <div class="col-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="change-avatar">
+                                                                    <div class="profile-img">
+                                                                        @{ if (Model.PhotoURL != null)
+                                                                            {
+                                                                                <img id="profileImage" src="@Model.PhotoURL" alt="Profile Picture" class="avatar-img rounded-circle">
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <img id="profileImage" src="/Images/MemberProfilePhotos/user.png" alt="Profile Picture" class="avatar-img rounded-circle">
+                                                                            }
+                                                                        }
+
+                                                                    </div>
+                                                                    <div class="upload-img">
+                                                                        <div class="change-photo-btn">
+                                                                            <span><i class="fa fa-upload"></i> Upload Photo</span>
+                                                                            @*@Html.EditorFor(model => model.PhotoURL, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                                                            <input id="imageUpload" type="file" class="upload" name="PhotoFile" validation="validateImage">
+                                                                        </div>
+                                                                        <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 3MB</small>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        @*@Html.LabelFor(x => x.PhotoURL, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                                                        <div class="col-md-10">
+                                                                            @*@Html.EditorFor(x => x.PhotoFile, new { htmlAttributes = new { @class = "form-control", @type="file", @id="PhotoURL"} })*@
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.HiddenFor(x => x.MemberId)
+                                                                <label>First Name</label>
+                                                                @Html.TextBoxFor(x => x.FirstName, new { @placeholder = "Enter First Name", @class = "form-control", @validation = "validateAlphabet", @*@required = "required"*@})
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Last Name</label>
+                                                                @Html.TextBoxFor(x => x.LastName, new { @placeholder = "Enter Last Name", @class = "form-control", @validation = "validateAlphabet", @required = "required" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                @Html.TextBoxFor(x => x.Email, new { @placeholder = "Enter Email", @class = "form-control", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Date of Birth</label>
+
+                                                                @Html.TextBoxFor(x => x.DateOfBirth, new { @placeholder = "Enter Date of Birth", @type = "date", @class = "form-control datepicker", @Value = Model.DateOfBirth.ToString("yyyy-MM-dd"), @validation = "validateDateOfBirth", @id = "txtForm", @onpaste = "return false" })
+
+                                                                @*<div class="cal-icon">
+                                                                        <input type="text" class="form-control datetimepicker" value="24-07-1983" validation='validateDateOfBirth'>
+                                                                    </div>*@
+                                                            </div>
+                                                        </div>
+                                                        @{ if (Model.IsFirstTimeLogin == true)
+                                                            {
+
+                                                                <script>
+                                                                    document.getElementById('txtForm').Value = 0;
+                                                                    $('#txtForm').val(0);
+                                                                </script>
+                                                            }
+                                                        }
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Gender</label>
+                                                                @Html.DropDownListFor(x => x.Gender, new SelectList(Model.GenderList, "Value", "Text", Model.Gender), new { @id = "Gender", @class = "form-control", @validation = "validateDDL" })
+                                                                @*@Html.TextBoxFor(x => x.Gender, new { @placeholder = "Your gender", @class = "form-control", @validation = "validate" })*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group" id="mobileField">
+                                                                <label>Mobile</label>
+                                                                @Html.TextBoxFor(x => x.PhoneNo, new { @placeholder = "Enter Phone Number", @class = "form-control", @validation = "validatePhoneNumber", @required = "required" })
+                                                                @if (!string.IsNullOrEmpty(Model.SecondaryPhoneNo))
+                                                                {
+                                                                    @Html.TextBoxFor(x => x.SecondaryPhoneNo, new { @placeholder = "Enter Phone Number", @class = "form-control", @id = "SecondaryPhone", @validation = "validateSecPhoneNumber" })
+                                                                    <button style="float:right" href="#" type="button" class="btn btn-danger trash " id="deletePhone" onclick="DeletePhone();"><i class="fas fa-trash-alt"></i></button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="add-phone-number" id="addPhone" onclick="AddFeild();"><i class="fa fa-plus-circle"></i> Add More</a>
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group" id="levelselector">
+                                                                <label>Career Level</label>
+                                                                @Html.DropDownListFor(o => o.MemberLevelID, new SelectList(Model.MemberLevelList, "Value", "Text", Model.MemberLevelID), new { @class = "form-control", @validation = "validateDDL", @id = "CareerLevel", @onchange = "GetCareerId(this);" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Domain</label>
+                                                                @Html.DropDownListFor(o => o.MemberDomainID, new SelectList(Model.MemberDomainList, "Value", "Text", Model.MemberDomainID), new { @class = "form-control", @validation = "validateDDL", @id = "Domain" })
+                                                                @*<select class="select">
+                                                                        <option>Select Domain</option>
+                                                                        <option value="1">IT</option>
+                                                                        <option value="2">Networking</option>
+                                                                        <option value="3">Database</option>
+                                                                        <option value="4">Data Science</option>
+                                                                    </select>*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Per Hour Rate</label>
+                                                                @Html.TextBoxFor(x => x.MemberCurrentRate, new { @class = "form-control", @validation = "validateNum", @placeholder = "Per Hour Charges PKR" })
+                                                                @*<input type="text" id="currency" max="100" class="form-control"
+                                                                           placeholder="Per Hour Rate">
+                                                                    <span class="form-text text-muted">$ 100.00</span>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 p-0" id="afterlevel">
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-control-xs custom-checkbox">
+                                                                @*@Html.CheckBoxFor(x=>x.IsMentor)*@
+                                                                @Html.CheckBoxFor(x => x.IsMentor, new { @class = "custom-control-input", @name = "agreeCheckboxUser", @id = "agree_checkbox_user", @onclick = "MyFun();" })
+                                                                <label class="custom-control-label" for="agree_checkbox_user" onkeypress="MyFun();">
+                                                                    Wanna become a
+                                                                    Mentor
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        @*@if (temp == true)
+                                                            {*@
+                                                        <div class="form-group MenteeList">
+                                                            <label>Who can be your Mentee?</label>
+                                                            @Html.ListBoxFor(o => o.MemberPossibleMenteeArray, new MultiSelectList(Model.CareerLevelForMenteeSelectionList, "Value", "Text", selectedValues: Model.MemberPossibleMenteeArray), new { @class = "select multiple form-control", @id = "Menteelist", @multiple = "multiple" })
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label>About Yourself</label>
+                                                            @Html.TextAreaFor(x => x.AboutYourSelf, new { @placeholder = "Describe About YourSelf", @class = "form-control" })
+                                                            @*<textarea rows="4" class="form-control"></textarea>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*@Html.ActionLink("Save", "MemberEducation", "Member")*@
+                                                <div class="submit-section text-right">
+                                                    <a class="edit-link mr-3" href="/Member/MemberEducation">Skip</a>
+                                                    <button type="submit" name="Save" formmethod="post" onclick="return ValidateClick();" class="btn btn-primary ">Save & Continue</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/assets/js/datepicker.js"></script>*@
+
+<script src="~/Scripts/ProfileSetting/ProfileValidation.js"></script>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+
+    $("#profileImage").click(function (e) {
+        $(".upload").click();
+    });
+
+    function fasterPreview(uploader) {
+        if (uploader.files && uploader.files[0]) {
+            $('#profileImage').attr('src',
+                window.URL.createObjectURL(uploader.files[0]));
+        }
+    }
+
+    $("#imageUpload").change(function () {
+        fasterPreview(this);
+    });
+    //****
+
+    $(document).ready(function () {
+        $("#Menteelist option[value='0']").remove();
+        //$("#Menteelist").select2("val", "0");
+        //$("#CareerLevel").val(0);
+        //$("#Domain").val(0);
+        //$('.MenteeList').hide();
+        let checkBox = document.getElementById("agree_checkbox_user");
+        //checkBox.checked = false;
+        //$('.MenteeList').hide();
+        let gender = document.getElementById('Gender');
+        gender.setAttribute("placeholder", "Select Gender");
+        gender.val(0);
+        $("#Gender option[value = '0']").remove();
+
+        //$("#txtForm").val(0);
+
+
+
+
+        var level = $('#CareerLevel').find(":selected").val();
+
+        debugger
+        if (level == 1) {
+
+            $('#afterlevel').hide();
+            $('#Menteelist').prop('disabled', true);
+            var $d = $('#Menteelist').val();
+        }
+        else {
+
+            $('#afterlevel').show();
+            $('#Menteelist').prop('disabled', false);
+            var $f = $('#Menteelist').val();
+        }
+
+
+    });
+
+
+
+
+    function MyFun() {
+        debugger;
+        let list = document.getElementById('Menteelist');
+
+        if ($('#agree_checkbox_user').is(':checked')) {
+            $('.MenteeList').show();
+            list.setAttribute("validation", "validateMultiDDL");
+        } else {
+            $('.MenteeList').hide();
+            $("#Menteelist").select2("val", "0");
+            list.removeAttribute("validation");
+        };
+
+        $('#agree_checkbox_user').change(function () {
+            debugger
+            if ($(this).is(':checked')) {
+                $('.MenteeList').show();
+                list.setAttribute("validation", "validateMultiDDL");
+            } else {
+                $('.MenteeList').hide();
+                $("#Menteelist").select2("val", "0");
+                list.removeAttribute("validation");
+            }
+
+        });
+    };
+
+
+
+    //$(document).ready(function () {
+    //    $(".datepicker").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //    });
+    //});
+    //$(function () {
+    //    $(".datepicker").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        yearRange: "-100:+0", // You can set the year range as per as your need
+    //        dateFormat: 'dd-M-yy'
+    //    });
+    //});
+    function ShowDDL(val) {
+        debugger
+        if ($(val).is(':checked')) {
+
+            $('#Menteelist').show();/*prop('disabled', true)*/;
+        } else {
+            // disable the dropdown:
+            $('#Menteelist').prop('disabled', false);
+        }
+    }
+
+    function GetCareerId(val) {
+        //debugger;
+        let checkBox = document.getElementById("agree_checkbox_user");
+        checkBox.checked = false;
+        $('.MenteeList').hide();
+        $("#Menteelist").select2("val", "0");
+        var level = $('#CareerLevel').find(":selected").val();
+        debugger
+        if (level == 1) {
+
+            $('#afterlevel').hide();
+            $('#Menteelist').prop('disabled', true);
+            var $d = $('#Menteelist').val();
+        }
+        else {
+
+            $('#afterlevel').show();
+            $('#Menteelist').prop('disabled', false);
+            var $f = $('#Menteelist').val();
+        }
+        var id = $(val).val();
+        $.ajax({
+            type: "POST",
+            url: '/Member/GetCareerLevelId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#Domain').empty();
+                jQuery.each(result, function (index, item) {
+                    //debugger;
+                    $("#Domain").append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+                debugger;
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+
+</script>

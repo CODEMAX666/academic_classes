@@ -1,0 +1,178 @@
+﻿@model  Mentor.BE.PaymentSumBE
+@{
+    ViewBag.Title = "PaymentSummary";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+<link href="~/Content/Mycss/StylingPaySumpopup.css" rel="stylesheet" />
+@*<h2>PaymentSummary</h2>*@
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-table">
+                            <div class="card-body">
+
+
+                                <!-- Invoice Table -->
+                                <div class="table-responsive">
+                                    <table id="dataTable" class="table table-hover table-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Payment Method</th>
+                                                <th>Transaction Id/Invoice</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Payment Type</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mytbody"></tbody>
+                                    </table>
+
+                                    @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                            &times;
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+
+                            </div>
+                            <!-- /Invoice Table -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/My_JS/paysumpopup.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    function dbHit(TransID,dbMessage) {
+
+    }
+    function myfunc(id) {
+
+        var row = id.split("-")[0];
+        var tranId = $("#" + row + "-Tran").html();
+        $.confirm({
+            title: 'Prompt!',
+            content: '' +
+                '<form action="" class="formName">' +
+                '<div class="form-group">' +
+                '<input type="radio" id="male" name="Option" value="Process">' +
+                ' <label for="Process">My Payment Still In Process</label><br>' +
+                '<input type="radio" id="female" name="Option" value="Amount">' +
+                '<label for="Amount">I did Not Received the Exact Amount</label><br>' +
+                '<input type="radio" id="other" name="Option" value="other">' +
+                '<label for="other">Other</label>' +
+                '<input id="OtherText" type="text" placeholder="Description" class="name form-control" />' +
+                '</div>' +
+                '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        var DBMessage = "";
+                        var value = $("input[type='radio'][name='Option']:checked").val();
+
+                        if (value == "Process") {
+                            DBMessage = "My Payment Still In Process";
+                            dbHit(tranId,"1",DBMessage);
+                        } else if (value == "Amount") {
+                            DBMessage = "I did Not Received the Exact Amount";
+                            dbHit(tranId, "2",DBMessage);
+
+                        } else {
+                            if ($("#OtherText").val().trim() != "") {
+                                DBMessage = $("#OtherText").val().trim();
+                                dbHit(tranId, "3",DBMessage);
+
+                            } else {
+                                alert("Please Provide your Description");
+                                return false;
+                            }
+                        }
+                    }
+                },
+                cancel: function () {
+                    //close
+                },
+            },
+            onContentReady: function () {
+                // bind to events
+                var jc = this;
+                this.$content.find('form').on('submit', function (e) {
+                    // if the user submits the form by pressing enter in the field.
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click'); // reference the button and click it
+                });
+            }
+        });
+    };
+    $(document).ready(function () {
+        var loop = 0;
+        $.ajax({
+            url: '/Payment/MySumData',
+            dataType: "json",
+            method: 'GET',
+            success: function (data) {
+                var SumTable = $('#dataTable tbody');
+                SumTable.empty();
+                $(data).each(function (index, emp) {
+                    debugger
+                    if (emp.Status == "In Process") {
+                        $('#mytbody').append('<tr><td>' + emp.PaymentMethod  + '</td><td id=' + loop + '-Tran>'
+                            + emp.TransactionID + '</td><td>' + emp.Amount + '</td><td><b><span style="color:#28a745">' + emp.Status
+                            + '</b></span></td><td>' + emp.PaymentType + '</td><td><button id=' + loop + '-mybtn class="btn btn-primary btn-sm"' + 'onclick="myfunc(this.id)"' + 'data-toggle="modal"' + 'data-target="#myModal">Open a Ticket</button></td ></tr> ');
+
+
+                    } else if (emp.Status == "Cancelled") {
+                        $('#mytbody').append('<tr><td>' + emp.PaymentMethod + '</td><td id=' + loop + '-Tran>'
+                            + emp.TransactionID + '</td><td>' + emp.Amount + '</td><td><b><span style="color:#dc3545">' + emp.Status
+                            + '</b></span></td><td>' + emp.PaymentType + '</td><td><button id=' + loop + '-mybtn class="btn btn-primary btn-sm"' + 'onclick="myfunc(this.id)"' + 'data-toggle="modal"' + 'data-target="#myModal">Open a Ticket</button></td></tr>');
+
+
+                    } else {
+                        $('#mytbody').append('<tr><td>' + emp.PaymentMethod + '</td><td id=' + loop + '-Tran>'
+                            + emp.TransactionID + '</td><td>' + emp.Amount + '</td><td><b><span style="color:blue">' + emp.Status
+                            + '</b></span></td><td>' + emp.PaymentType + '</td><td><button id=' + loop + '-mybtn class="btn btn-primary btn-sm"' + 'onclick="myfunc(this.id)"' + 'data-toggle="modal"' + ' data-target="#myModal">Open a Ticket</button></td></tr>');
+
+
+                    }
+                    loop = loop + 1;
+                });
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    });
+
+</script>

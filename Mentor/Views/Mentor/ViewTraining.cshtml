@@ -1,0 +1,434 @@
+﻿
+@{
+    ViewBag.Title = "ViewTraining";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    string id = ViewBag.Trainingid;
+}
+
+@using Mentor.BE
+@model MentorTraining
+<link href="~/Content/Mycss/togglebtn.css" rel="stylesheet" />
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="card card-body">
+                        <h2 id="head2">View Training</h2>
+                        <br />
+                        <form method="post">
+                            <div class="row">
+                                @Html.HiddenFor(x => x.MentorTrainingId)
+                                @Html.HiddenFor(x => x.MentorId)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Career Level</label>
+                                        @Html.TextBoxFor(x => x.CareerLevel, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.CareerLevel, new SelectList(Model.CareerLevelList, "Value", "Text", Model.CareerLevel), new { @class = "select ", @validation = "validateDDL", @id = "CareerLevel", @onchange = "GetCareerId(this);" })*@
+                                        @*<select class="form-control" id="carrr" validation="validateDDL">
+                                                <option value="0">Select Career Level</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Domain</label>
+                                        @Html.TextBoxFor(x => x.Domain, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.Domain, new SelectList(Model.DomainList, "Value", "Text", Model.Domain), new { @class = "select ", @validation = "validateDDL", @id = "Domain", @onchange = "GetDomainId(this);" })*@
+                                        @*<select class="form-control" id="dom" validation="validateDDL">
+                                                <option value="0">Select Domain</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Category</label>
+                                        @Html.TextBoxFor(x => x.Category, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.Category, new SelectList(Model.CategoryList, "Value", "Text", Model.Category), new { @class = "select", @validation = "validateDDL", @id = "Category", @onchange = "GetCategoryId(this);" })*@
+                                        @*<select class="form-control" id="categ" validation="validateDDL">
+                                                <option value="0">Select Category</option>
+                                            </select>*@
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Sub-Category</label>
+                                        @Html.TextBoxFor(x => x.SubCategory, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.SubCategory, new SelectList(Model.SubCategoryList, "Value", "Text", Model.SubCategory), new { @class = "select ", @validation = "validateDDL", @id = "SubCategory" })*@
+                                        @*<select class="form-control" id="sub_cat" validation="validateDDL">
+                                                <option value="0">Select Sub-Category</option>
+                                            </select>*@
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Duration</label>
+                                        @Html.TextBoxFor(x => x.Duration, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.Duration, new SelectList(Model.DurationList, "Value", "Text"), new { @class = "select ", @id = "DurationList", @validation = "validateDDL" })*@
+                                        @*<select class="form-control" id="Exp" validation="validateDDL">
+                                                <option value="0">Select Experience</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Experience</label>
+                                        @Html.TextBoxFor(x => x.Experience, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.DropDownListFor(o => o.Experience, new MultiSelectList(Model.ExperienceList, "Value", "Text", selectedValues: Model.Experience), new { @class = "select multiple", @id = "ExperienceList", @validation = "validateMultiDDL", @multiple = "multiple" })*@
+                                        @*<select class="form-control" id="Exp" validation="validateDDL">
+                                                <option value="0">Select Experience</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Title</label>
+                                        @Html.TextBoxFor(x => x.Title, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.TextBoxFor(x => x.Title, new { @placeholder = "Training Title", @class = "form-control", @validation = "validate", @id = "Title" })*@
+                                        @*<input type="text" id="title" class="form-control" validation="validateTitle" />*@
+                                    </div>
+
+                                </div>
+                                @*<div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="CompName" class="form-label">Company Name:</label>
+                                            <input type="text" id="CompName" class="form-control" validation="validate" />
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="CompEmail">Enter Company Email:</label>
+                                            <input class="form-control" type="email" id="CompEmail" name="email" validation="validateEmail" autocomplete="off">
+                                        </div>
+
+                                    </div>*@
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        @Html.TextBoxFor(x => x.City, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.TextBoxFor(x => x.City, new { @placeholder = "Training location", @class = "form-control", @validation = "validate", @id = "City" })*@
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        @Html.TextBoxFor(x => x.TrainingStartDate, new { @placeholder = "", @class = "form-control", @Value = Model.TrainingStartDate.ToString("dd-MM-yyy"), @disabled = "disabled" })
+                                        @*@Html.TextBoxFor(x => x.TrainingStartDate, new { @placeholder = "Enter Start Date ",@id= "TrainingStartDate", @type = "date", @class = "form-control datepicker", @Value = Model.TrainingStartDate.ToString("yyyy-MM-dd"), @validation = "validate", @onkeydown = "return false",@onpaste = "return false"})*@
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+                                @*<div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Total Hours</label>
+                                            @Html.TextBoxFor(x => x.TotalHours, new { @placeholder = "Total Training Hours", @class = "form-control", @validation = "validateNum", @id = "TotalHours" })
+                                            @*<input type="text" id="City" class="form-control" />
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Per Hour Rate</label>
+                                        @Html.TextBoxFor(x => x.TrainingPerHourRate, new { @placeholder = "", @class = "form-control", @disabled = "disabled" })
+                                        @*@Html.TextBoxFor(x => x.TrainingPerHourRate, new { @placeholder = "Per Hour Rate", @class = "form-control", @validation = "validateNum", @id = "TrainingRate" })*@
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-6">
+                                        <label class="form-label" for="Date">Closing Date</label>
+                                        <input class="form-control" type="date" id="Date" name="Date" validation="validateDate">
+                                    </div>*@
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Add a Description</label>
+                                        @Html.TextAreaFor(x => x.Description, new { @placeholder = "Add Training Description", @rows = "4", @cols = "50", @class = "form-control", @disabled = "disabled" })
+                                        @*<textarea id="descrip" class="form-control" rows="4" cols="50" validation="validate"></textarea>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text right">
+                                    <div class="submit-section text-right">
+                                        @*<a href="TrainingList" class="btn btn-primary" id="Back">Back</a>*@
+                                        <button id="ShowSchedule" class="btn btn-primary" onclick="return ShowTrainingSchedule();">Show Training Schedule</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="container">
+                                        @*<label class="switch">
+                                                @Html.CheckBoxFor(x => x.IsPublic, new { @type = "checkbox", @name = "My_Check", @id = "myCheck", @disabled = "disabled", @onclick = "myFunction();" })
+                                                <input type="checkbox" id="myCheck" name="My_Check" onclick="myFunction()">
+
+                                                <span class="slider round"></span>
+                                            </label>*@
+
+                                        <p id="text" style="display:block;font-weight: bold;">Public</p>
+                                        <p id="text1" style="display:none;font-weight: bold;">Only Mentee</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="ShowTable">
+                                <div class="col-md-12">
+                                    <div class="day-slot">
+                                        <ul>
+                                            <li id="Mon">
+                                                <span>Monday</span>
+                                            </li>
+                                            <li id="Tue">
+                                                <span>Tuesday</span>
+                                            </li>
+                                            <li id="Wed">
+                                                <span>Wednesday</span>
+                                            </li>
+                                            <li id="Thur">
+                                                <span>Thursday</span>
+                                            </li>
+                                            <li id="Fri">
+                                                <span>Friday</span>
+                                            </li>
+                                            <li id="Sat">
+                                                <span>Saturday</span>
+                                            </li>
+                                            <li id="Sun">
+                                                <span>Sunday</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="time-slot">
+                                        <ul class="clearfix">
+                                            <li id="Monday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Tuesday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Wednesday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Thursday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Friday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Saturday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                            <li id="Sunday">
+                                                <a class="timing" href="#">
+                                                    <span>No Slots</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="container">
+                                            <label>Note: </label>
+                                            @Html.DisplayFor(x => x.TotalHours, new { @class = "form-control", @disabled = "disabled" }) total hour and
+                                            @Html.DisplayFor(x => x.Duration, new { @class = "form-control", @disabled = "disabled" }) till training on given slots and days.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="container">
+                                            <label>Total Price in PKR: </label>
+                                            @Html.DisplayFor(x => x.Price, new { @class = "form-control", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <p id="hidden" style="display:none">"No Schedule Exist!"</p>
+                                    <a><i class="fa fa-minus-circle" onclick="return Hide();"></i>Hide</a>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6 align-left">
+                                    <a href="TrainingList" class="btn btn-primary" id="Back">Back</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="submit-section text-right">
+                                        <a class="btn btn-primary" id="book_btn" href="/Member/PaymentTraining?TrainingId=@id">Book Training</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+       // var checkBox = document.getElementById("myCheck");
+        // Get the output text
+        var text = document.getElementById("text");
+        var text1 = document.getElementById("text1");
+        // If the checkbox is checked, display the output text
+        //if (checkBox.checked == true) {
+        //    text1.style.display = "block";
+        //    text.style.display = "none";
+        //    CheckValue = 1;
+        //} else {
+            text.style.display = "/*block*/none";
+            text1.style.display = "none";
+            CheckValue = 0;
+        /*}*/
+        document.getElementById("ShowTable").style.display = "none";
+    });
+    function ShowTrainingSchedule() {
+        var $sundayslots = 0;
+        var $mondayslots = $tuesdayslots = $wednesdayslots = $thursdayslots = $fridayslots = $saturdayslots = 0;
+        debugger
+        $.ajax({
+            url: '/Mentor/GetTrainingSchedule',
+            dataType: "json",
+            type: 'POST',
+            data: { TrainingId: @Model.MentorTrainingId, MentorId:@Model.MentorId },
+            success: function (data) {
+                debugger
+                var length = data.length;
+                schobj = data;
+                if (length==0) {
+                    document.getElementById("hidden").style.display = "block";
+                }
+                document.getElementById("ShowTable").style.display = "block";
+                $(data).each(function (index, Text) {
+                    debugger
+                    if (Text.SlotDay == "Moday" || Text.SlotDay == "Monday") {
+                        $mondayslots++;
+                        if ($mondayslots == 1) {
+                            $('#Monday').empty();
+                        }
+                        $('#Monday').append('<a class="timing"  href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+                    if (Text.SlotDay == "Tuesday") {
+                        $tuesdayslots++;
+                        if ($tuesdayslots == 1) {
+                            $('#Tuesday').empty();
+                        }
+                        $('#Tuesday').append('<a class="timing" href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+                    if (Text.SlotDay == "Wednesday") {
+                        $wednesdayslots++;
+                        if ($wednesdayslots == 1) {
+                            $('#Wednesday').empty();
+                        }
+                        $('#Wednesday').append('<a class="timing" href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+                    if (Text.SlotDay == "Thursday") {
+                        $thursdayslots++;
+                        if ($thursdayslots == 1) {
+                            $('#Thursday').empty();
+                        }
+                        $('#Thursday').append('<a class="timing" href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+                    if (Text.SlotDay == "Friday") {
+                        $fridayslots++;
+                        if ($fridayslots == 1) {
+                            $('#Friday').empty();
+                        }
+                        $('#Friday').append('<a class="timing" href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+                    if (Text.SlotDay == "Saturday") {
+                        $saturdayslots++;
+                        if ($saturdayslots == 1) {
+                            $('#Saturday').empty();
+                        }
+                        $('#Saturday').append('<a class="timing" href="#">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                    }
+                    if (Text.SlotDay == "Sunday") {
+                        $sundayslots++;
+
+                        if ($sundayslots == 1) {
+                            $('#Sunday').empty();
+                        }
+                        $('#Sunday').append('<a class="timing" href="#">' +
+                            '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                            '</a>');
+                    }
+
+                });
+                if ($mondayslots == 0) {
+                    $('#Monday').hide();
+                    $('#Mon').hide();
+                }
+                if ($tuesdayslots == 0) {
+                    $('#Tuesday').hide();
+                    $('#Tue').hide();
+                }
+                if ($wednesdayslots == 0) {
+                    $('#Wednesday').hide();
+                    $('#Wed').hide();
+                }
+                if ($thursdayslots == 0) {
+                    $('#Thursday').hide();
+                    $('#Thur').hide();
+                }
+                if ($fridayslots == 0) {
+                    $('#Friday').hide();
+                    $('#Fri').hide();
+                }
+                if ($saturdayslots == 0) {
+                    $('#Saturday').hide();
+                    $('#Sat').hide();
+                }
+                if ($sundayslots == 0) {
+                    $('#Sunday').hide();
+                    $('#Sun').hide();
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+        $("#ShowSchedule").hide();
+        return false;
+    }
+    function Hide() {
+        document.getElementById("ShowTable").style.display = "none";
+        $("#ShowSchedule").show();
+        return false;
+    }
+</script>

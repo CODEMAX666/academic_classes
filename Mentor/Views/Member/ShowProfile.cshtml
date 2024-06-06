@@ -1,0 +1,680 @@
+﻿@using Mentor.BE
+@model Mentor.BE.ProfileBE
+
+@{
+    ViewBag.Title = "ShowProfile";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    string memberid = ViewBag.memberid;
+    string viewerid = ViewBag.Viewerid;
+}
+<link href="~/Content/Mycss/news-ticker.css" rel="stylesheet" />
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <!-- Mentor Widget -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mentor-widget">
+                                    <div class="user-info-left align-items-center">
+                                        <div class="mentor-img d-flex flex-wrap justify-content-center">
+                                            <div class="pro-avatar">
+                                                <img id="prof" src="/Images/MemberProfilePhotos/user.png" alt="Profile Picture">
+                                            </div>
+                                            @*<div class="rating text-center">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div class="mentor-details m-0">
+                                                @*<p class="user-location m-0"><i class="fas fa-map-marker-alt"></i> Tamil Nadu, India</p>s
+                                            </div>*@
+                                        </div>
+                                        <div class="user-info-cont">
+                                            <h4 id="username" class="usr-name"></h4>
+                                            <p id="career" class="mentor-type"></p>
+                                            <p id="domain" class="mentor-type"></p>
+                                            <div class="mentor-action">
+                                                <p class="mentor-type social-title">Contact Me</p>
+                                                <a href="javascript:void(0)" class="btn-blue">
+                                                    <i class="fas fa-comments"></i>
+                                                </a>
+                                                <a href="chat.html" class="btn-blue">
+                                                    <i class="fas fa-envelope"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="btn-blue" data-toggle="modal" data-target="#voice_call">
+                                                    <i class="fas fa-phone-alt"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-info-right d-flex align-items-end flex-wrap">
+                                        <div class="hireme-btn text-center">
+                                            <span id="rate" class="hire-rate"></span>
+                                            <a class="blue-btn-radius" href="booking.html">Hire Me</a>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-md-3 border">
+                                            <h3>Available Trainings</h3>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card card-body">
+                            <h3 class="text-center">Available Jobs to Reffer</h3>
+
+                            <table class="table container table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Job Title</th>
+                                        <th>Closing Date</th>
+                                        <th>Category</th>
+                                        <th>SubCategory</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                            <div class="container">
+                                <marquee behaviour="" width="100%" direction="up" height="100px" onmouseover="this.stop();" onmouseout="this.start()" ;>
+
+                                    <table class="table table-striped justify-content-center">
+                                        <thead style="display:none">
+                                            <tr>
+                                                <th style="display:none;">Job ID</th>
+                                                @*<th>Company</th>*@
+                                                <th>Job Title</th>
+                                                @*<th>City</th>*@
+                                                <th>Closing Date</th>
+                                                <th>Category</th>
+                                                <th>SubCategory</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="job"></tbody>
+                                    </table>
+
+                                </marquee>
+                            </div>
+                            @*<div class="row">
+                                    <div id="mylist" class="news-ticker">
+                                        <ul>
+                                          <li>helloooo</li>
+                                             <li>how r u</li>
+                                             <li>i am fine</li>
+                                          </ul>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="ticker col-md-5">
+                        <div class="card card-body">
+                            <h3 class="text-center">Available Trainings</h3>
+
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Task Title</th>
+                                        <th>Closing Date</th>
+                                        <th>No of Hours</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <marquee behaviour="" width="100%" direction="up" height="100px" onmouseover="this.stop();" onmouseout="this.start()" ;>
+
+                                <table class="table table-responsive table-striped">
+                                    <thead style="display:none">
+                                        <tr>
+
+                                            @*<th>Company</th>*@
+                                            <th>Task Title</th>
+                                            @*<th>City</th>*@
+                                            <th>Starting Date</th>
+                                            <th>No of Hours</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="MyTrainings"></tbody>
+                                </table>
+                            </marquee>
+                            @*<div class="row">
+                                    <div id="mylist" class="news-ticker">
+                                        <ul>
+                                          <li>helloooo</li>
+                                             <li>how r u</li>
+                                             <li>i am fine</li>
+                                          </ul>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                    <!-- /Mentor Widget -->
+                    <!-- Mentor Details Tab -->
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body custom-border-card pb-0">
+
+                                <!-- About Details -->
+                                <div class="widget about-widget custom-about mb-0">
+                                    <h4 class="widget-title">About Me</h4>
+                                    <hr />
+                                    <p id="about"></p>
+                                    @*<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>*@
+                                </div>
+                                <!-- /About Details -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body custom-border-card pb-0">
+
+                                <!-- Personal Details -->
+                                <div class="widget education-widget mb-0">
+                                    <h4 class="widget-title">Personal Details</h4>
+                                    <hr />
+                                    <div class="experience-box">
+                                        <ul class="experience-list profile-custom-list">
+                                            <li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>Gender</span>
+                                                        <div id="gender" class="row-result"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>Date of Join</span>
+                                                        <div id="date" class="row-result"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                @*<div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Where did you hear about us?</span>
+                                                            <div class="row-result">Through web search</div>
+                                                        </div>
+                                                    </div>*@
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Personal Details -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body custom-border-card pb-0">
+
+                                <!-- Qualification Details -->
+                                <div class="widget experience-widget mb-0">
+                                    <h4 class="widget-title">Qualification</h4>
+                                    <hr />
+                                    <div class="experience-box">
+                                        @*<ul class="experience-list profile-custom-list">
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Undergraduate College</span>
+                                                            <div class="row-result">Coimbatore University</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Undergraduate Major</span>
+                                                            <div class="row-result">Mathematics</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Graduate College</span>
+                                                            <div class="row-result">Coimbatore University</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Type of Degree</span>
+                                                            <div class="row-result">B.Sc (Maths)</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>*@
+                                        <table class="table table-center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        Degree Level
+                                                    </th>
+                                                    <th scope="col">
+                                                        Degree Title
+                                                    </th>
+                                                    <th scope="col">
+                                                        Institute
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Mytbody"></tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /Qualification Details -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body pb-1 custom-border-card">
+
+                                <!-- Location Details -->
+                                @*<div class="widget awards-widget m-0">
+                                        <h4 class="widget-title">Location</h4>
+                                        <hr />
+                                        <div class="experience-box">
+                                            <ul class="experience-list profile-custom-list">
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Address 1</span>
+                                                            <div class="row-result">No : 5 ABC Avenue</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Address 2</span>
+                                                            <div class="row-result">National highway road</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Country</span>
+                                                            <div class="row-result">India</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>City</span>
+                                                            <div class="row-result">Coimbatore</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>State</span>
+                                                            <div class="row-result">Tamil Nadu</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Postal Code</span>
+                                                            <div class="row-result">641001</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
+                                <!-- /Location Details -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body pb-1 custom-border-card">
+
+                                <!-- Location Details -->
+                                <div class="widget awards-widget m-0">
+                                    <h4 class="widget-title">Experience</h4>
+                                    <hr />
+                                    <div class="experience-box">
+                                        @*<ul class="experience-list profile-custom-list">
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Designation</span>
+                                                            <div class="row-result">No : 5 ABC Avenue</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Company</span>
+                                                            <div class="row-result">National highway road</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Category</span>
+                                                            <div class="row-result">India</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Sub Category</span>
+                                                            <div class="row-result">Coimbatore</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Total Experience</span>
+                                                            <div class="row-result">Tamil Nadu</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <span>Postal Code</span>
+                                                            <div class="row-result">641001</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>*@
+                                        <table class="table table-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Company</th>
+                                                    <th>Designation</th>
+                                                    <th>Category</th>
+                                                    <th>SubCategory</th>
+                                                    <th>Experience</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="expbody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /Location Details -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Mentor Details Tab -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body pb-1 custom-border-card">
+
+                                <!-- Location Details -->
+                                <div class="widget awards-widget m-0">
+                                    <h4 class="widget-title">Interest</h4>
+                                    <hr />
+                                    <div class="experience-box">
+                                        <table class="table table-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Category</th>
+                                                    <th>SubCategory</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Intbody"></tbody>
+                                        </table>
+
+                                        @*<li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>Country</span>
+                                                        <div class="row-result">India</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>City</span>
+                                                        <div class="row-result">Coimbatore</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>State</span>
+                                                        <div class="row-result">Tamil Nadu</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <span>Postal Code</span>
+                                                        <div class="row-result">641001</div>
+                                                    </div>
+                                                </div>
+                                            </li>*@
+                                    </div>
+                                </div>
+                                <!-- /Location Details -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="assets/js/jquery.min.js"></script>
+
+     Bootstrap Core JS
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>*@
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<!-- Custom JS -->
+@*<script src="assets/js/script.js"></script>*@
+<script>
+    
+    $(document).ready(function () {
+        debugger;
+        var id;
+
+        $.ajax({
+            type: "GET",
+            url: '/Member/GetDetails',
+            //contentType: "application/json; charset=utf-8",
+
+            //dataType: "json",
+            data: { memberid: @memberid, viewerid:@viewerid },
+            success: function (result) {
+                debugger;
+                $("#username").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+                $("#domain").html(result.DomainName);
+                $("#rate").html(result.PerHourRate);
+                $("#about").html(result.AboutYourself);
+                $("#date").html(result.DateofJoin);
+                //$("#date").html(result.DateofJoin);
+                $("#prof").attr("src",result.Photo);
+                $("#gender").html(result.Gender)
+
+
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/Member/GetEducationByMemID',
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            data: { memberID: @memberid},
+            success: function (result) {
+                debugger;
+                $(result).each(function (index, emp) {
+                    debugger
+                    $('#Mytbody').append('<tr><td>' + emp.DegreeLevel + '</td><td>' + emp.DegreeTitle + '</td><td>' + emp.Institute + '</td></tr>');
+                });
+                $("#myprof").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/Member/GetExperienceByMemId',
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            data: { memberid: @memberid },
+            success: function (result) {
+                debugger;
+                $(result).each(function (index, emp) {
+                    debugger
+                    $('#expbody').append('<tr><td>' + emp.Company + '</td><td>' + emp.Designation + '</td><td>' + emp.CategoryName + '</td><td>' + emp.SubCategoryName + '</td><td>' + emp.YearFrom + '-' + emp.YearTo + '</td></tr>');
+                });
+                $("#myprof").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/Member/GetInterestByMemId',
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            data: { memberid: @memberid },
+            success: function (result) {
+                debugger;
+                $(result).each(function (index, emp) {
+                    debugger
+                    $('#Intbody').append('<tr><td>' + emp.CategoryName + '</td><td>' + emp.SubCategoryName + '</td></tr>');
+                });
+                $("#myprof").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/Job/GetJobListByMemberId',
+            data: { MemberID:@memberid, menteeid:@viewerid },
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            success: function (result) {
+                debugger;
+                $(result).each(function (index, emp) {
+                    debugger
+                    $('#job').append('<tr><td style ="display:none;">' + emp.MarketJobID + '</td><td>' + emp.Title + '</td><td>' + emp.AppClosingDate + '</td><td>' + emp.CategoryName + '</td><td>' + emp.SubCategoryName + '</td><td><a class="btn btn-outline-primary btn-sm" href="#" onclick="DetailsFun(' + emp.MemberId + ',' + emp.MarketJobID + ');">View</a></td></tr>');
+                });
+                $("#myprof").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/member/GetTrainingsByMemID',
+            data: { mentorID: @memberid, menteeid: @viewerid },
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            success: function (result) {
+                debugger;
+                $(result).each(function (index, emp) {
+                    debugger
+                    $('#MyTrainings').append('<tr><td>' + emp.TaskTitle + '</td><td>' + emp.StartingDate + '</td><td>' + emp.TrainingHour + '</td><td><a class="btn btn-outline-info btn-sm" href="#">Hire Me</a></td></tr>');
+                });
+                $("#myprof").html(result.FullName);
+                $("#career").html(result.CareerLevelName);
+                id = result.FullName;
+                console.log(id);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+
+
+
+
+    });
+      function DetailsFun(Mem_ID, Job_ID) {
+        debugger;
+        window.location = '@Url.Action("JobDetails", "Job")?memberId=' + Mem_ID + '&JobId=' + Job_ID;
+
+      }
+
+</script>

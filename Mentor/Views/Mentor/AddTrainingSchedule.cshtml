@@ -1,0 +1,427 @@
+﻿@using Mentor.BE
+@model MentorTraining
+@{
+    ViewBag.Title = "AddTrainingSchedule";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    HttpCookie cookie = HttpContext.Current.Request.Cookies["MemberCookies"];
+    int id = Convert.ToInt32(cookie.Values["ID"]);
+    int trainingid=ViewBag.TrainingId;
+    MentorTraining temp = TempData["mydata"] as MentorTraining;
+}
+
+@*<h2>AddTrainingSchedule</h2>*@
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        @*<div class="card">
+                            <div class="card-body">
+                                <div class="booking-user-info">
+
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="row">
+                            <div class="col-12 col-sm-4 col-md-6">
+                                <h4 class="mb-1">Add Schedule</h4>
+                                <p class="text-muted">For Your Training Starting From @temp.TrainingStartDate.ToString("yyyy-MM-dd") Last Till @temp.DurationName</p>
+                            </div>
+                            @*<div class="col-12 col-sm-8 col-md-6 text-sm-right">
+                                <div class="bookingrange btn btn-white btn-sm mb-3">
+                                    <i class="far fa-calendar-alt mr-2"></i>
+                                    <span></span>
+                                    <i class="fas fa-chevron-down ml-2"></i>
+                                </div>
+                            </div>*@
+                        </div>
+                        <!-- Schedule Widget -->
+                        <div class="card booking-schedule schedule-widget">
+
+                            <!-- Schedule Header -->
+                            <div class="schedule-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- Day Slot -->
+                                        <div class="day-slot">
+                                            <ul>
+                                                
+                                            </ul>
+                                        </div>
+                                        <!-- /Day Slot -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Schedule Header -->
+                            <!-- Schedule Content -->
+                            <div class="schedule-cont">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- Time Slot -->
+                                        <div class="time-slot">
+                                            <ul class="clearfix">
+                                                
+                                            </ul>
+                                        </div>
+                                        <!-- /Time Slot -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Schedule Content -->
+
+                        </div>
+                        <!-- /Schedule Widget -->
+                        <!-- Submit Section -->
+                        <div class="submit-section proceed-btn text-right">
+                            <a href="AddTraining?TrainingId=@trainingid" class="btn btn-primary">Prev Step</a>
+                            <a class="btn btn-primary submit-btn" href="/Mentor/TrainingList" id="proceed_btn">Add Training</a>
+                        </div>
+                        <!-- /Submit Section -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    var Sch_id, Slot_id;
+    $(document).ready(function () {
+        var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        @*var today = @date.ToShortDateString();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var tday = weekday[today.getDay()];
+        t = yyyy + '-' + mm + '-' +dd ;*@
+        //var myDate= new Date();
+        //myDate.setDate(myDate.getDate() + 1);
+
+        for (var $i = 0; $i < 7; $i++) {
+
+            $('.day-slot').append('<li class="' + weekday[$i] + '" value="'+ weekday[$i] + '">' +
+                '<span>' + weekday[$i] + '</span >' +
+                //' <span class="slot-date">' + t+
+                //'</span >' +
+                '</li>'
+
+            );
+
+
+            $('.clearfix').append(
+                '<li id="' + weekday[$i] + '">' +
+                    '<a class="timing" style="pointer-events: none; cursor: default;">'+
+                        '<span>No Slots</span>'+
+                    '</a>'+
+                '</li>'
+
+
+            );
+
+            //today.setDate(today.getDate() + 1);
+            //dd = String(today.getDate()).padStart(2, '0');
+            //mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            //yyyy = today.getFullYear();
+            //tday = weekday[today.getDay()];
+            //t = yyyy + '-' + mm + '-' + dd;
+        }
+
+        debugger
+
+
+     
+
+                    @*$.ajax({
+                        url: '@Url.Action("GetSelectedMember", "Member")',
+                        type: 'POST',
+                        data: { memberid: $memid},
+                        success: function (data) {
+                            $(data).each(function (Value, Text) {
+                                var n = Text.FirstName + " " + Text.LastName;
+
+                                $('.booking-user-info').append('<a href="profile.html" class="booking-user-img">' +
+                                    '<img src="' + Text.PhotoURL + '" alt="User Image">' +
+                                    '</a>' +
+                                    ' <div class="booking-info">' +
+                                    '<h4><a href="profile.html">' + n + '</a></h4>' +
+                                    '<h5>Career Level: <b>' + Text.CareerLevelName + '</b></h5>' +
+                                    '<h5>Rate/hr: <b>' + Text.MemberCurrentRate + '<span>$</span></b></h5>' +
+
+                                    '</div>');
+
+                            });
+                        }
+                    });*@
+
+
+        var ExistingSlot = 0;
+        var $sundayslots = 0;
+        var $mondayslots = $tuesdayslots = $wednesdayslots = $thursdayslots = $fridayslots = $saturdayslots = 0;
+
+        $.ajax({
+
+
+
+
+            url: '@Url.Action("GetAllSlots", "Mentor")',
+            type: 'POST',
+            data: { memberid: @id },
+            success: function (data) {
+                debugger
+                $(data).each(function (Value, Text) {
+                    debugger
+                    if (Text.SlotDay == "Moday" || Text.SlotDay == "Monday") {
+                        $mondayslots++;
+                        if ($mondayslots == 1) {
+                            $('#Monday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Monday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+
+                            $('#Monday').append('<a class="timing" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Monday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+                    if (Text.SlotDay == "Tuesday") {
+                        $tuesdayslots++;
+                        if ($tuesdayslots == 1) {
+                            $('#Tuesday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Tuesday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+
+                            $('#Tuesday').append('<a class="timing" href="#" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Tuesday').attr('value').toString() + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Wednesday") {
+                        $wednesdayslots++;
+                        if ($wednesdayslots == 1) {
+                            $('#Wednesday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Wednesday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Wednesday').append('<a class="timing" href="#" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Wednesday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Thursday") {
+                        $thursdayslots++;
+                        if ($thursdayslots == 1) {
+                            $('#Thursday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Thursday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Thursday').append('<a class="timing" href="#" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Thursday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Friday") {
+                        $fridayslots++;
+                        if ($fridayslots == 1) {
+                            $('#Friday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Friday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Friday').append('<a class="timing" href="#" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Friday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Saturday") {
+                        $saturdayslots++;
+                        if ($saturdayslots == 1) {
+                            $('#Saturday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId==@trainingid) {
+                            $('#Saturday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Saturday').append('<a class="timing" href="#" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Saturday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+                    if (Text.SlotDay == "Sunday") {
+                        $sundayslots++;
+
+                        if ($sundayslots == 1) {
+                            $('#Sunday').empty();
+                        }
+                        if (Text.isReserved == "True" && Text.TrainingId ==@trainingid) {
+                            $('#Sunday').append('<a class="timing selected" href="#" onclick="DeleteSlot(this,\'' + Text.TrainingId + '\',\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                            ExistingSlot++;
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Sunday').append('<a class="timing" data-toggle="modal" href="#" class="delete_myslot" onclick="sp_value(this,\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Sunday').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+                    //<a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                    //             ' <i class="fa fa-trash"></i>' +
+                    //             ' </a>'
+
+                });
+
+            }
+
+        });
+
+        //$(document).on("click", "a.timing", function () {
+        //    debugger
+        //    //$('a.timing').removeClass("selected");
+        //    $(this).toggleClass("selected");
+
+        //});
+
+        debugger
+        $('#proceed_btn').on('click', function () {
+            debugger
+            var temp = TrainingSchedule.length;
+            if (temp > 0 || ExistingSlot > 0)
+            {
+                TrainingSchedule = JSON.stringify({ 'TrainingSchedule': TrainingSchedule });
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Mentor/AddTrainingSchedule',
+                    data: TrainingSchedule,
+                    success: function () {
+                        alert("Scheduled Successfully!");
+                        TrainingSchedule = [];
+                        console.log(TrainingSchedule.length);
+                    },
+                    failure: function (response) {
+                        $('#result').html(response);
+                    }
+                });
+                return true;
+            }
+            else {
+                alert("Please Select atleast one time slot!?");
+                return false;
+            
+            }
+        });
+
+    });
+    debugger
+    
+    function DeleteSlot(val,Tid,sh,sl,day) {
+        debugger
+        var ans = confirm("Are you sure you want to remove this slot from Training Schedule?");
+        if (ans) {
+            $(val).toggleClass("selected");
+            window.location = '/Mentor/DeleteTrainingSlot?TrainingId=' + Tid + '&ScheduleId=' + sh + '&SlotId=' + sl;
+            $(val).onclick = sp_value(val,sh,sl,day);
+            //$.ajax({
+            //    url: "/Mentor/DeleteTrainingSlot",
+            //    type: "POST",
+            //    contentType: "application/json;charset=UTF-8",
+            //    dataType: "json",
+            //    data: { ScheduleId: sh ,SlotId: sl },
+            //    success: function (data) {
+            //        debugger
+            //        alert('done');
+            //    },
+            //    error: function (errormessage) {
+            //        alert(errormessage.responseText);
+            //    }
+            //});
+        }
+        else {
+        }
+    }
+    var TrainingSchedule = [];
+    function sp_value(val, sh, sl, day) {
+        debugger
+        var temp = $(val).attr('class');
+        if (temp == 'timing') {
+            $(val).toggleClass("selected");
+            var obj = {};
+            obj.MemberMeetingScheduleId = sh;
+            obj.MemberMeetingSlotId = sl;
+            obj.SlotDay = day;
+            TrainingSchedule.push(obj);
+            console.log(obj);
+            console.log(TrainingSchedule);
+        }
+        if (temp == 'timing selected') {
+            debugger
+            $(val).toggleClass("selected");
+            //obj.MemberMeetingScheduleId = sh;
+            //obj.MemberMeetingSlotId = sl;
+            //obj.SlotDay = day;
+            //TrainingSchedule.push(obj);
+            //console.log(obj);
+            //console.log(TrainingSchedule);
+            TrainingSchedule = $.grep(TrainingSchedule, function (e) {
+                return e.MemberMeetingSlotId != sl;
+            });
+        }
+
+
+    }
+
+</script>
+
+
+

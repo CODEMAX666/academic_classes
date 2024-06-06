@@ -1,0 +1,21 @@
+*/bin/*
+*/obj/*
+.vs/*
+Installer/DeepArmorSMB-cache/*
+Installer/Setup Files/*
+ReleaseSMB/*
+ReleaseEPP/*
+Debug/*
+*.user
+/packages/*
+/WscComLibrary/WSC_Build
+/WscComLibrary/Release
+/WscComLibrary/Debug
+/Installer/WSC Helper/WscHelper.pdb
+/Installer/WSC Helper/WscHelper.exe.config
+/Installer/WSC Helper/WscComLibrary.pdb
+/Installer/WSC Helper/WscComLibrary.lib
+/Installer/WSC Helper/WscComLibrary.ipdb
+/Installer/WSC Helper/WscComLibrary.iobj
+/Installer/WSC Helper/WscComLibrary.exp
+ReleaseSMBpublish/

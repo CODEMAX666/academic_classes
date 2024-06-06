@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MentorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemberDomain" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemberLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsMentor" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsMentorFollowLimitMeet" Type="bit" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberCatagory">
+          <Key>
+            <PropertyRef Name="MemberCatagoryId" />
+          </Key>
+          <Property Name="MemberCatagoryId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberCatagoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberEducation">
+          <Key>
+            <PropertyRef Name="MemberEducationId" />
+          </Key>
+          <Property Name="MemberEducationId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberDegreeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemberDegreeInstitue" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemberDegreePercentage" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberExperiance">
+          <Key>
+            <PropertyRef Name="MemberExperianceId" />
+          </Key>
+          <Property Name="MemberExperianceId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberExperianceCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemberExperianceNoOfYears" Type="float" Nullable="false" />
+          <Property Name="MemberCatagoryId" Type="smallint" Nullable="false" />
+          <Property Name="MemberSubCatagoryId" Type="smallint" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberIntrest">
+          <Key>
+            <PropertyRef Name="MemberIntrestId" />
+          </Key>
+          <Property Name="MemberIntrestId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberCatagoryId" Type="smallint" Nullable="false" />
+          <Property Name="MemberSubCatagoryId" Type="smallint" />
+          <Property Name="MemberIntrestNoOfYears" Type="float" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberMentor">
+          <Key>
+            <PropertyRef Name="MemberMentorId" />
+          </Key>
+          <Property Name="MemberMentorId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId_Mentor" Type="int" Nullable="false" />
+          <Property Name="MemberId_Mentore" Type="int" Nullable="false" />
+          <Property Name="MentoreFollowRequestDateTime" Type="datetime" />
+          <Property Name="MentorFollowApproveDateTime" Type="datetime" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberRate">
+          <Key>
+            <PropertyRef Name="MemberRateId" />
+          </Key>
+          <Property Name="MemberRateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="PerHourRate" Type="float" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberSubCatagory">
+          <Key>
+            <PropertyRef Name="MemberSubCatagoryId" />
+          </Key>
+          <Property Name="MemberSubCatagoryId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberCatagoryId" Type="smallint" Nullable="false" />
+          <Property Name="MemberSubCatagoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Member_MemberEducation">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberEducation" Type="Self.MemberEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberEducation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberExperiance">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberIntrest">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberMentore1">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberMentor" Type="Self.MemberMentor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberMentor">
+              <PropertyRef Name="MemberId_Mentor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberMentore2">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberMentor" Type="Self.MemberMentor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberMentor">
+              <PropertyRef Name="MemberId_Mentore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberRate">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberRate" Type="Self.MemberRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberRate">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberCatagory_MemberSubCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberSubCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberExperiance_MemberCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberExperiance_MemberSubCatagory">
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="0..1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberSubCatagory">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberIntrest_MemberCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberIntrest_MemberSubCatagory">
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="0..1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberSubCatagory">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MentorModelStoreContainer">
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberCatagory" EntityType="Self.MemberCatagory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberEducation" EntityType="Self.MemberEducation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberExperiance" EntityType="Self.MemberExperiance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberIntrest" EntityType="Self.MemberIntrest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberMentor" EntityType="Self.MemberMentor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberRate" EntityType="Self.MemberRate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberSubCatagory" EntityType="Self.MemberSubCatagory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Member_MemberEducation" Association="Self.FK_Member_MemberEducation">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberEducation" EntitySet="MemberEducation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberExperiance" Association="Self.FK_Member_MemberExperiance">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberIntrest" Association="Self.FK_Member_MemberIntrest">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberMentore1" Association="Self.FK_Member_MemberMentore1">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberMentor" EntitySet="MemberMentor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberMentore2" Association="Self.FK_Member_MemberMentore2">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberMentor" EntitySet="MemberMentor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberRate" Association="Self.FK_Member_MemberRate">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberRate" EntitySet="MemberRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberCatagory_MemberSubCatagory" Association="Self.FK_MemberCatagory_MemberSubCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagory" />
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberExperiance_MemberCatagory" Association="Self.FK_MemberExperiance_MemberCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagory" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberExperiance_MemberSubCatagory" Association="Self.FK_MemberExperiance_MemberSubCatagory">
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagory" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberIntrest_MemberCatagory" Association="Self.FK_MemberIntrest_MemberCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagory" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberIntrest_MemberSubCatagory" Association="Self.FK_MemberIntrest_MemberSubCatagory">
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagory" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MentorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberDomain" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsMentor" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsMentorFollowLimitMeet" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MemberEducations" Relationship="Self.FK_Member_MemberEducation" FromRole="Member" ToRole="MemberEducation" />
+          <NavigationProperty Name="MemberExperiances" Relationship="Self.FK_Member_MemberExperiance" FromRole="Member" ToRole="MemberExperiance" />
+          <NavigationProperty Name="MemberIntrests" Relationship="Self.FK_Member_MemberIntrest" FromRole="Member" ToRole="MemberIntrest" />
+          <NavigationProperty Name="MemberMentors" Relationship="Self.FK_Member_MemberMentore1" FromRole="Member" ToRole="MemberMentor" />
+          <NavigationProperty Name="MemberMentors1" Relationship="Self.FK_Member_MemberMentore2" FromRole="Member" ToRole="MemberMentor" />
+          <NavigationProperty Name="MemberRates" Relationship="Self.FK_Member_MemberRate" FromRole="Member" ToRole="MemberRate" />
+        </EntityType>
+        <EntityType Name="MemberCatagory">
+          <Key>
+            <PropertyRef Name="MemberCatagoryId" />
+          </Key>
+          <Property Name="MemberCatagoryId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberCatagoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MemberSubCatagories" Relationship="Self.FK_MemberCatagory_MemberSubCatagory" FromRole="MemberCatagory" ToRole="MemberSubCatagory" />
+          <NavigationProperty Name="MemberExperiances" Relationship="Self.FK_MemberExperiance_MemberCatagory" FromRole="MemberCatagory" ToRole="MemberExperiance" />
+          <NavigationProperty Name="MemberIntrests" Relationship="Self.FK_MemberIntrest_MemberCatagory" FromRole="MemberCatagory" ToRole="MemberIntrest" />
+        </EntityType>
+        <EntityType Name="MemberEducation">
+          <Key>
+            <PropertyRef Name="MemberEducationId" />
+          </Key>
+          <Property Name="MemberEducationId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberDegreeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberDegreeInstitue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberDegreePercentage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Member_MemberEducation" FromRole="MemberEducation" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="MemberExperiance">
+          <Key>
+            <PropertyRef Name="MemberExperianceId" />
+          </Key>
+          <Property Name="MemberExperianceId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberExperianceCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberExperianceNoOfYears" Type="Double" Nullable="false" />
+          <Property Name="MemberCatagoryId" Type="Int16" Nullable="false" />
+          <Property Name="MemberSubCatagoryId" Type="Int16" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Member_MemberExperiance" FromRole="MemberExperiance" ToRole="Member" />
+          <NavigationProperty Name="MemberCatagory" Relationship="Self.FK_MemberExperiance_MemberCatagory" FromRole="MemberExperiance" ToRole="MemberCatagory" />
+          <NavigationProperty Name="MemberSubCatagory" Relationship="Self.FK_MemberExperiance_MemberSubCatagory" FromRole="MemberExperiance" ToRole="MemberSubCatagory" />
+        </EntityType>
+        <EntityType Name="MemberIntrest">
+          <Key>
+            <PropertyRef Name="MemberIntrestId" />
+          </Key>
+          <Property Name="MemberIntrestId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberCatagoryId" Type="Int16" Nullable="false" />
+          <Property Name="MemberSubCatagoryId" Type="Int16" />
+          <Property Name="MemberIntrestNoOfYears" Type="Double" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Member_MemberIntrest" FromRole="MemberIntrest" ToRole="Member" />
+          <NavigationProperty Name="MemberCatagory" Relationship="Self.FK_MemberIntrest_MemberCatagory" FromRole="MemberIntrest" ToRole="MemberCatagory" />
+          <NavigationProperty Name="MemberSubCatagory" Relationship="Self.FK_MemberIntrest_MemberSubCatagory" FromRole="MemberIntrest" ToRole="MemberSubCatagory" />
+        </EntityType>
+        <EntityType Name="MemberMentor">
+          <Key>
+            <PropertyRef Name="MemberMentorId" />
+          </Key>
+          <Property Name="MemberMentorId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId_Mentor" Type="Int32" Nullable="false" />
+          <Property Name="MemberId_Mentore" Type="Int32" Nullable="false" />
+          <Property Name="MentoreFollowRequestDateTime" Type="DateTime" Precision="3" />
+          <Property Name="MentorFollowApproveDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Member_MemberMentore1" FromRole="MemberMentor" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="Self.FK_Member_MemberMentore2" FromRole="MemberMentor" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="MemberRate">
+          <Key>
+            <PropertyRef Name="MemberRateId" />
+          </Key>
+          <Property Name="MemberRateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="PerHourRate" Type="Double" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Member_MemberRate" FromRole="MemberRate" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="MemberSubCatagory">
+          <Key>
+            <PropertyRef Name="MemberSubCatagoryId" />
+          </Key>
+          <Property Name="MemberSubCatagoryId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberCatagoryId" Type="Int16" Nullable="false" />
+          <Property Name="MemberSubCatagoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MemberCatagory" Relationship="Self.FK_MemberCatagory_MemberSubCatagory" FromRole="MemberSubCatagory" ToRole="MemberCatagory" />
+          <NavigationProperty Name="MemberExperiances" Relationship="Self.FK_MemberExperiance_MemberSubCatagory" FromRole="MemberSubCatagory" ToRole="MemberExperiance" />
+          <NavigationProperty Name="MemberIntrests" Relationship="Self.FK_MemberIntrest_MemberSubCatagory" FromRole="MemberSubCatagory" ToRole="MemberIntrest" />
+        </EntityType>
+        <Association Name="FK_Member_MemberEducation">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberEducation" Type="Self.MemberEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberEducation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberExperiance">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberIntrest">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberMentore1">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberMentor" Type="Self.MemberMentor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberMentor">
+              <PropertyRef Name="MemberId_Mentor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberMentore2">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberMentor" Type="Self.MemberMentor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberMentor">
+              <PropertyRef Name="MemberId_Mentore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_MemberRate">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberRate" Type="Self.MemberRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberRate">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberCatagory_MemberSubCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberSubCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberExperiance_MemberCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberIntrest_MemberCatagory">
+          <End Role="MemberCatagory" Type="Self.MemberCatagory" Multiplicity="1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCatagory">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberExperiance_MemberSubCatagory">
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="0..1" />
+          <End Role="MemberExperiance" Type="Self.MemberExperiance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberSubCatagory">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberExperiance">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberIntrest_MemberSubCatagory">
+          <End Role="MemberSubCatagory" Type="Self.MemberSubCatagory" Multiplicity="0..1" />
+          <End Role="MemberIntrest" Type="Self.MemberIntrest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberSubCatagory">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Principal>
+            <Dependent Role="MemberIntrest">
+              <PropertyRef Name="MemberSubCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MentorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="MemberCatagories" EntityType="Self.MemberCatagory" />
+          <EntitySet Name="MemberEducations" EntityType="Self.MemberEducation" />
+          <EntitySet Name="MemberExperiances" EntityType="Self.MemberExperiance" />
+          <EntitySet Name="MemberIntrests" EntityType="Self.MemberIntrest" />
+          <EntitySet Name="MemberMentors" EntityType="Self.MemberMentor" />
+          <EntitySet Name="MemberRates" EntityType="Self.MemberRate" />
+          <EntitySet Name="MemberSubCatagories" EntityType="Self.MemberSubCatagory" />
+          <AssociationSet Name="FK_Member_MemberEducation" Association="Self.FK_Member_MemberEducation">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberEducation" EntitySet="MemberEducations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberExperiance" Association="Self.FK_Member_MemberExperiance">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberIntrest" Association="Self.FK_Member_MemberIntrest">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberMentore1" Association="Self.FK_Member_MemberMentore1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberMentor" EntitySet="MemberMentors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberMentore2" Association="Self.FK_Member_MemberMentore2">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberMentor" EntitySet="MemberMentors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_MemberRate" Association="Self.FK_Member_MemberRate">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberRate" EntitySet="MemberRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberCatagory_MemberSubCatagory" Association="Self.FK_MemberCatagory_MemberSubCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagories" />
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberExperiance_MemberCatagory" Association="Self.FK_MemberExperiance_MemberCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagories" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberIntrest_MemberCatagory" Association="Self.FK_MemberIntrest_MemberCatagory">
+            <End Role="MemberCatagory" EntitySet="MemberCatagories" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberExperiance_MemberSubCatagory" Association="Self.FK_MemberExperiance_MemberSubCatagory">
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagories" />
+            <End Role="MemberExperiance" EntitySet="MemberExperiances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberIntrest_MemberSubCatagory" Association="Self.FK_MemberIntrest_MemberSubCatagory">
+            <End Role="MemberSubCatagory" EntitySet="MemberSubCatagories" />
+            <End Role="MemberIntrest" EntitySet="MemberIntrests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MentorModelStoreContainer" CdmEntityContainer="MentorEntities">
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="MentorModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="MemberDomain" ColumnName="MemberDomain" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+                <ScalarProperty Name="IsMentor" ColumnName="IsMentor" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsMentorFollowLimitMeet" ColumnName="IsMentorFollowLimitMeet" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberCatagories">
+            <EntityTypeMapping TypeName="MentorModel.MemberCatagory">
+              <MappingFragment StoreEntitySet="MemberCatagory">
+                <ScalarProperty Name="MemberCatagoryId" ColumnName="MemberCatagoryId" />
+                <ScalarProperty Name="MemberCatagoryName" ColumnName="MemberCatagoryName" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberEducations">
+            <EntityTypeMapping TypeName="MentorModel.MemberEducation">
+              <MappingFragment StoreEntitySet="MemberEducation">
+                <ScalarProperty Name="MemberEducationId" ColumnName="MemberEducationId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberDegreeName" ColumnName="MemberDegreeName" />
+                <ScalarProperty Name="MemberDegreeInstitue" ColumnName="MemberDegreeInstitue" />
+                <ScalarProperty Name="MemberDegreePercentage" ColumnName="MemberDegreePercentage" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberExperiances">
+            <EntityTypeMapping TypeName="MentorModel.MemberExperiance">
+              <MappingFragment StoreEntitySet="MemberExperiance">
+                <ScalarProperty Name="MemberExperianceId" ColumnName="MemberExperianceId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberExperianceCompany" ColumnName="MemberExperianceCompany" />
+                <ScalarProperty Name="MemberExperianceNoOfYears" ColumnName="MemberExperianceNoOfYears" />
+                <ScalarProperty Name="MemberCatagoryId" ColumnName="MemberCatagoryId" />
+                <ScalarProperty Name="MemberSubCatagoryId" ColumnName="MemberSubCatagoryId" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberIntrests">
+            <EntityTypeMapping TypeName="MentorModel.MemberIntrest">
+              <MappingFragment StoreEntitySet="MemberIntrest">
+                <ScalarProperty Name="MemberIntrestId" ColumnName="MemberIntrestId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberCatagoryId" ColumnName="MemberCatagoryId" />
+                <ScalarProperty Name="MemberSubCatagoryId" ColumnName="MemberSubCatagoryId" />
+                <ScalarProperty Name="MemberIntrestNoOfYears" ColumnName="MemberIntrestNoOfYears" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberMentors">
+            <EntityTypeMapping TypeName="MentorModel.MemberMentor">
+              <MappingFragment StoreEntitySet="MemberMentor">
+                <ScalarProperty Name="MemberMentorId" ColumnName="MemberMentorId" />
+                <ScalarProperty Name="MemberId_Mentor" ColumnName="MemberId_Mentor" />
+                <ScalarProperty Name="MemberId_Mentore" ColumnName="MemberId_Mentore" />
+                <ScalarProperty Name="MentoreFollowRequestDateTime" ColumnName="MentoreFollowRequestDateTime" />
+                <ScalarProperty Name="MentorFollowApproveDateTime" ColumnName="MentorFollowApproveDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberRates">
+            <EntityTypeMapping TypeName="MentorModel.MemberRate">
+              <MappingFragment StoreEntitySet="MemberRate">
+                <ScalarProperty Name="MemberRateId" ColumnName="MemberRateId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PerHourRate" ColumnName="PerHourRate" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberSubCatagories">
+            <EntityTypeMapping TypeName="MentorModel.MemberSubCatagory">
+              <MappingFragment StoreEntitySet="MemberSubCatagory">
+                <ScalarProperty Name="MemberSubCatagoryId" ColumnName="MemberSubCatagoryId" />
+                <ScalarProperty Name="MemberCatagoryId" ColumnName="MemberCatagoryId" />
+                <ScalarProperty Name="MemberSubCatagoryName" ColumnName="MemberSubCatagoryName" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

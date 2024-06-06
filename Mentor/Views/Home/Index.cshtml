@@ -1,0 +1,483 @@
+﻿<!-- Main Wrapper -->
+<div class="main-wrapper">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-relative">
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <!-- <a id="mobile_btn" href="javascript:void(0);">
+                        <span class="bar-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        </span>
+                        </a> -->
+                        <a href="/Home/Index" class="navbar-brand logo">
+                            <img src="~/assets/img/user/logo.jpg">
+                        </a>
+                    </div>
+                    <ul class="nav header-navbar-rht">
+                         <li class="nav-item">
+                            <a class="nav-link header-login" href="/Member/Login">Login</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link header-login" href="/Register/RegisterNewMember">Register</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+    <!-- Home Banner -->
+    <section class="section section-search">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="slide-content">
+                        <div class="content-child">
+                            <h1 class="slide-title">What we provide to STUDENT !</h1>
+                            <ul class="tags">
+                                <li>
+                                    <a href="#" class="tag">
+                                        Find a Mentor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tag">
+                                        Find market available job
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tag">
+                                        Find jobs & Referrals
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tag">
+                                        Get paid task from Mentor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tag">
+                                        Learn New Skills
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="owl-carousel owl-theme2">
+                        <div class="single-slide">
+                            <div class="video-section">
+                                <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                    <source src="/assets/videos/my-fancy-video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="single-slide">
+                            <div class="video-section">
+                                <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                    <source src="/assets/videos/my-head-turning-video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="single-slide">
+                            <div class="video-section">
+                                <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                    <source src="/assets/videos/my-joy-sparking-video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="single-slide">
+                            <div class="video-section">
+                                <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                    <source src="/assets/videos/my-pretty-video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="single-slide">
+                            <div class="video-section">
+                                <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                    <source src="/assets/videos/my-great-video.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Home Banner -->
+    <section class="section how-it-works">
+        <div class="container-fluid">
+            <div class="search-box">
+                <form action="#">
+                    <div class="form-group">
+                        <select class="select" id="career">
+                            <option value="0">Select Career Level</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="select" id="domaindd">
+                            <option value="0">Select Domain</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <select class="select" id="categorydd">
+                            <option value="0">Select Category</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <select class="select" id="sub_categorydd">
+                            <option value="0">Select Sub-Category</option>
+                        </select>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary search-btn" id="search"><i><img src="assets/img/search-submit.png" alt=""></i> <span>Search</span></button>
+                </form>
+            </div>
+            <div class="search-populate">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="single-search-box">
+                            <h3>Available Market Jobs</h3>
+                            <div class="holder">
+                                <div class="table-scroll marketJobs">
+                                    <div class="table-head">
+                                        <div class="table-row">
+                                            <div class="table-col">Job Title</div>
+                                            <div class="table-col">Closing Date</div>
+                                            <div class="table-col">Level</div>
+                                            <div class="table-col" title="No.Of Mentor who are available to mentor you for this job">No.Of Mentor?</div>
+                                            <div class="table-col">Action</div>
+                                        </div>
+                                    </div>
+                                    <ul class="search-table" id="ticker04"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-search-box">
+                            <h3>Available Trainings</h3>
+                            <div class="holder">
+                                <div class="table-scroll paidTasks">
+                                    <div class="table-head">
+                                        <div class="table-row">
+                                            <div class="table-col">Task Title</div>
+                                            <div class="table-col">Closing Date</div>
+                                            <div class="table-col">No. Of Hours</div>
+                                            <div class="table-col">Action</div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="search-table" id="ticker03"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-search-box">
+                            <h3>Available Paid Task</h3>
+                            <div class="holder">
+                                <div class="table-scroll paidTasks">
+                                    <div class="table-head">
+                                        @*<div class="table-row">
+                                                <div class="table-col">Task Title</div>
+                                                <div class="table-col">Closing Date</div>
+                                                <div class="table-col">No. Of Hours</div>
+                                                <div class="table-col">Action</div>
+                                            </div>*@
+                                    </div>
+                                    <ul class="search-table" id="ticker03">
+                                        <b style="font-size:25px">Comming Soon...</b>
+                                        @*<li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Develope Web Page</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Hire Me</a></div>
+                                            </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-search-box">
+                            <h3>Available Project Ideas</h3>
+                            <div class="holder">
+                                <div class="table-scroll projectIdeas">
+                                    <div class="table-head">
+                                        @*<div class="table-row">
+                                                <div class="table-col">Project Title</div>
+                                                <div class="table-col">Closing Date</div>
+                                                <div class="table-col">No. Of Hours</div>
+                                                <div class="table-col">Invest/Mentor</div>
+                                            </div>*@
+                                    </div>
+                                    <ul class="search-table" id="ticker03">
+                                        <b style="font-size:25px">Comming Soon...</b>
+                                        @*<li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>
+                                            <li class="table-row">
+                                                <div class="table-col">Build a B2B Plateform</div>
+                                                <div class="table-col">27-08-2021</div>
+                                                <div class="table-col">4</div>
+                                                <div class="table-col"><a href="#">Invest/Mentor</a></div>
+                                            </li>*@
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section find-job">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Broadcast a job, Job will be added to relvent mentor bucket.</h2>
+            </div>
+            <div class="view-all text-center"><a href="/Job/AddJobs" class="btn btn-primary">Post a Job</a></div>
+        </div>
+    </section>
+    <!-- Path section start -->
+    <section class="section popular-courses">
+        <div class="section-header text-center">
+            <h2>Success Stories</h2>
+        </div>
+        <div class="container">
+            <div class="owl-carousel owl-theme">
+                <div class="course-box">
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="author-info">
+                                <p class="mb-0">With the Open To Work feature, you can privately tell recruiters or publicly share with the LinkedIn community that you are looking for new job opportunities</p>
+                            </div>
+                            <h3 class="title">Hina Aziz</h3>
+                            <h6>SQA</h6>
+                        </div>
+                        <div class="product-img">
+                            <a href="profile.html">
+                                <img class="img-fluid" alt="img-thumbnail" src="/assets/img/user/user13.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-box">
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="author-info">
+                                <p class="mb-0">Sending messages to people you know is a great way to strengthen relationships as you take the next step in your career</p>
+                            </div>
+                            <h3 class="title">Aniqurehman</h3>
+                            <h6>Software Developer</h6>
+                        </div>
+                        <div class="product-img">
+                            <a href="profile.html">
+                                <img class="img-fluid" alt="img-thumbnail" src="/assets/img/user/user12.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-box">
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="author-info">
+                                <p class="mb-0">With the Open To Work feature, you can privately tell recruiters or publicly share with the LinkedIn community that you are looking for new job opportunities</p>
+                            </div>
+                            <h3 class="title">Hina Aziz</h3>
+                            <h6>SQA</h6>
+                        </div>
+                        <div class="product-img">
+                            <a href="profile.html">
+                                <img class="img-fluid" alt="img-thumbnail" src="/assets/img/user/user13.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-box">
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="author-info">
+                                <p class="mb-0">Sending messages to people you know is a great way to strengthen relationships as you take the next step in your career</p>
+                            </div>
+                            <h3 class="title">Aniqurehman</h3>
+                            <h6>Software Developer</h6>
+                        </div>
+                        <div class="product-img">
+                            <a href="profile.html">
+                                <img class="img-fluid" alt="img-thumbnail" src="/assets/img/user/user12.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section path-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="path-box">
+                        <figure>
+                            <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                <source src="/assets/videos/my-amazing-video.mp4" type="video/mp4">
+                            </video>
+                        </figure>
+                        <div class="main-hero">
+                            <div class="headline">
+                                <span id="1on1word">1-on-1</span>
+                                <b id="typed-headline">Tech</b>
+                                <span id="mentorship-word" style="margin-left: -5px;">Mentorment</span>
+                            </div>
+                        </div>
+                        <div class="view-all text-center"><a href="/Register/RegisterNewMember" class="btn btn-primary">Find a Mentor / Mentoree</a></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="path-box">
+                        <figure>
+                            <video autoplay="" muted="" loop="" playsinline="" class="full_screen" id="vid" width="100%">
+                                <source src="/assets/videos/my-great-video.mp4" type="video/mp4">
+                            </video>
+                        </figure>
+                        <div class="main-hero">
+                            <div class="headline">
+                                <span>Learn the skills that can help you now</span>
+                            </div>
+                        </div>
+                        <div class="sort-by">
+                            <span class="sortby-fliter">
+                                <select id="training" class="select">
+                                    <option value="0">Choose a training to learn</option>
+                                    @*<option class="sorting">Web Development</option>
+                                    <option class="sorting">.Net</option>
+                                    <option class="sorting">App Development</option>
+                                    <option class="sorting">Short Cources</option>*@
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section forward-step">
+        <div class="container">
+            <div class="marketing">
+                <div class="marketing-media">
+                    <iframe class="marketing__iframe" src="/assets/videos/my-amazing-video-4.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="marketing-media">
+                    <h2 class="marketing__header">
+                        Let's step forward
+                    </h2>
+                    <h3 class="marketing__subtitle">
+                        With our communities by our side, there's no telling where our next small steps could lead
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    @{Html.RenderPartial("Footer");}
+    <!-- /Footer -->
+</div>
+<!-- /Main Wrapper -->
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/Index/Index.js"></script>

@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "MentorProfile";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+@using Mentor.BE
+@model MentorPackageBE
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="collapse-tabs new-property-step">
+
+                                @*<ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                                        <li class="nav-item col">
+                                            <a class="nav-link" id="description-tab" data-number="1." href="http://localhost:3744/Member/MemberProfileSetting" role="tab" aria-controls="profile_update" aria-selected="true"><span class="number">1.</span> Profile Update</a>
+                                        </li>
+                                        <li class="nav-item col">
+                                            <a class="nav-link" id="education-tab" data-number="2." href="http://localhost:3744/Member/MemberEducation" role="tab" aria-controls="education" aria-selected="false"><span class="number">2.</span> Education</a>
+                                        </li>
+                                        <li class="nav-item col">
+                                            <a class="nav-link" id="experience-tab" data-number="3." href="http://localhost:3744/Member/MemberExperience" role="tab" aria-controls="experience" aria-selected="false"><span class="number">3.</span> Experience</a>
+                                        </li>
+                                        <li class="nav-item col">
+                                            <a class="nav-link active" id="interest-tab" data-toggle="pill" data-number="4." href="#interest" role="tab" aria-controls="interest" aria-selected="true"><span class="number">4.</span> interest</a>
+                                        </li>
+                                    </ul>*@
+                                <div class="tab-content border-top-1">
+                                    <h4 class="card-title">Package Management</h4>
+                                    <form>
+                                        <div class="tab-pane fade active show" id="interest" role="tabpanel" aria-labelledby="interest-tab">
+                                            <div class="card-body">
+                                                <div class="row form-row">
+                                                    <div class="col-xl-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-nowrap mb-0 package-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Career Level</th>
+                                                                        <th scope="col">Package Name</th>
+                                                                        <th scope="col">Package Description</th>
+                                                                        <th scope="col">Package Rate</th>
+                                                                        <th scope="col">Validity Start</th>
+                                                                        <th scope="col">Validity End</th>
+                                                                        <th scope="col"> </th>
+                                                                        <th scope="col"> </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @if (Model != null && Model.MentorPackageList.Count!=0)
+                                                                    {
+                                                                        var Count = 1;
+                                                                        foreach (var item in Model.MentorPackageList)
+                                                                        {
+                                                                            <tr class="packageRow" id="packageRowID_@(Count)">
+                                                                                @Html.HiddenFor(o => item.MentorOwnPackageId, new { @class = "form-control", @id = "PackageId" + Count })
+                                                                                <td class="align-middle">
+                                                                                    @Html.DropDownListFor(o => item.MemberMenteeCareerLevel, new SelectList(Model.MemberMenteeCareerLevelList, "Value", "Text", item.MemberMenteeCareerLevel), new { @class = "form-control ", @validation = "validateDDL", @id = "CareerLevel" + Count, @onchange = "GetCareerId(this," + Count + ");" })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.DropDownListFor(o => item.MenteePackageName, new SelectList(item.MenteePackageNameList, "Value", "Text", item.MenteePackageId), new { @class = "form-control ", @validation = "validateDDL", @id = "MenteePackageName" + Count, @onchange = "GetPackageId(this," + Count + ");" })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextAreaFor(o => item.MenteePackageDescription, new { @class = "form-control", @rows = "5", @cols = "200", @placeholder = "Package Description", @id = "PackageDescription" + Count, @readonly = "readonly" })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.PackageRate, new { @placeholder = "Package Rate", @class = "form-control", @validation = "validateNum", @id = "PackageRate" + Count })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.ValidityStart, new { @placeholder = "Validity Start", @type = "date", @class = "form-control datepicker", @Value = item.ValidityStart.ToString("yyyy-MM-dd"), @id = "ValidityStart" + Count, @validation = "validate", @onkeydown = "return false", @onpaste = "return false" })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.ValidityEnd, new { @placeholder = "Validity End", @type = "date", @class = "form-control datepicker", @Value = item.ValidityEnd.ToString("yyyy-MM-dd"), @id = "ValidityEnd" + Count, @validation = "validate", @onkeydown = "return false", @onpaste = "return false" })
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    <button type="submit" class="btn btn-primary" onclick="return SubmitPackage(@Count);">Save</button>
+                                                                                    @*<button href="#" class="btn btn-danger trash " id="delete1" onclick="DeletePackage();"><i class="fas fa-trash-alt"></i></button>*@
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    <button href="#" class="btn btn-danger trash " id="delete@(Count)" onclick="DeletePackage(@Count);"><i class="fas fa-trash-alt"></i></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            Count++;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <tr class="packageRow" id="packageRowID_1">
+                                                                            @Html.HiddenFor(x => x.MentorOwnPackageId, new { @class = "form-control", @id = "PackageId1" })
+                                                                            <td class="align-middle">
+                                                                                @Html.DropDownListFor(x => x.MemberMenteeCareerLevel, new SelectList(Model.MemberMenteeCareerLevelList, "Value", "Text"), new { @class = "form-control select ", @validation = "validateDDL", style = "max-width: 30px;", @id = "CareerLevel1", @onchange = "GetCareerId(this,1);" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.DropDownListFor(x => x.MenteePackageName, new SelectList(Model.MenteePackageNameList, "Value", "Text"), new { @class = "form-control ", @validation = "validateDDL", @id = "MenteePackageName1", @onchange = "GetPackageId(this,1);" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.TextAreaFor(x => x.MenteePackageDescription, new { @class = "form-control", @rows = "5", @cols = "200", @placeholder = "Package Description", @id = "PackageDescription1", @readonly = "readonly" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.TextBoxFor(x => x.PackageRate, new { @placeholder = "Package Rate", @class = "form-control", @validation = "validateNum", @id = "PackageRate1" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.TextBoxFor(x => x.ValidityStart, new { @placeholder = "Validity Start", @type = "date", @class = "form-control datepicker", @Value = "", @id = "ValidityStart1", @validation = "validate", @onkeydown = "return false", @onpaste = "return false" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.TextBoxFor(x => x.ValidityEnd, new { @placeholder = "Validity End", @type = "date", @class = "form-control datepicker", @Value ="", @id = "ValidityEnd1", @validation = "validate", @onkeydown = "return false", @onpaste = "return false" })
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                <button type="submit" class="btn btn-primary" onclick="return SubmitPackage(1);">Save</button>
+                                                                                @*<button href="#" class="btn btn-danger trash " id="delete1" onclick="DeletePackage();"><i class="fas fa-trash-alt"></i></button>*@
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @*<button href="#" class="btn btn-danger trash " id="delete1" onclick="DeletePackage(1);"><i class="fas fa-trash-alt"></i></button>*@
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td colspan="4" class="align-middle">
+                                                                            <a class="add-package" onclick="AddPackage();"><i class="fa fa-plus-circle"></i> Add More</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        @*<a href="http://localhost:3744/Member/MemberExperience" class="btn btn-primary">
+                                                            Prev step
+                                                        </a>*@
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="submit-section text-right">
+                                                            @*<a href="http://localhost:3744/Member/MemberInterest" class="btn btn-primary">
+                                                                Continue
+                                                            </a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script src="~/Scripts/Mentor/PackageManagement.js"></script>
+<script>
+    function GetCareerId(val, count) {
+        debugger;
+        var id = $(val).val();
+        $('#PackageDescription' + count).val("");
+        $.ajax({
+            type: "POST",
+            url: '/Mentor/GetCareerLevelId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#MenteePackageName' + count).empty();
+                jQuery.each(result, function (index, item) {
+                    //debugger;
+                    $("#MenteePackageName" + count).append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+    function GetPackageId(val, count) {
+        debugger;
+        var id = $(val).val();
+        var careerId = $("#CareerLevel" + count).val();
+        $.ajax({
+            type: "POST",
+            url: '/Mentor/GetPackageId',
+            contentType: "application/json; charset=utf-8",
+            data: '{ "Id": ' + id + ', "careerId": ' + careerId + ' }',
+            dataType: "json",
+            success: function (result) {
+                debugger;
+                $('#PackageDescription' + count).empty();
+                $("#PackageDescription" + count).val(result);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("please select a valid value.");
+            }
+        });
+    }
+</script>
+
+
+

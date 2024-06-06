@@ -1,0 +1,379 @@
+﻿
+@{
+    ViewBag.Title = "BookMentor";
+    int id = ViewBag.Id;
+
+
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="booking-user-info">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-4 col-md-6">
+                                <h4 class="mb-1">Slots</h4>
+                                <p class="text-muted">Available</p>
+                            </div>
+                            <div class="col-12 col-sm-8 col-md-6 text-sm-right">
+                                <div class="bookingrange btn btn-white btn-sm mb-3">
+                                    <i class="far fa-calendar-alt mr-2"></i>
+                                    <span></span>
+                                    <i class="fas fa-chevron-down ml-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Schedule Widget -->
+                        <div class="card booking-schedule schedule-widget">
+
+                            <!-- Schedule Header -->
+                            <div class="schedule-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- Day Slot -->
+                                        <div class="day-slot">
+                                            <ul>
+                                                <li class="left-arrow">
+                                                    <a href="#">
+                                                        <i class="fa fa-chevron-left"></i>
+                                                    </a>
+                                                </li>
+                                                <!--<li>
+                                                    <span>Mon</span>
+                                                    <span class="slot-date">11 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Tue</span>
+                                                    <span class="slot-date">12 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Wed</span>
+                                                    <span class="slot-date">13 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Thu</span>
+                                                    <span class="slot-date">14 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Fri</span>
+                                                    <span class="slot-date">15 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Sat</span>
+                                                    <span class="slot-date">16 Nov <small class="slot-year">2019</small></span>
+                                                </li>
+                                                <li>
+                                                    <span>Sun</span>
+                                                    <span class="slot-date">17 Nov <small class="slot-year">2019</small></span>
+                                                </li>-->
+                                                <li class="right-arrow">
+                                                    <a href="#">
+                                                        <i class="fa fa-chevron-right"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /Day Slot -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Schedule Header -->
+                            <!-- Schedule Content -->
+                            <div class="schedule-cont">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- Time Slot -->
+                                        <div class="time-slot">
+                                            <ul class="clearfix">
+                                                <!--  <li id="Monday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Tuesday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Wednesday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Thursday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Friday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Saturday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>
+                                                  <li id="Sunday">
+                                                      <a class="timing" href="#">
+                                                          <span>No Slots</span>
+                                                      </a>
+                                                  </li>-->
+                                            </ul>
+                                        </div>
+                                        <!-- /Time Slot -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Schedule Content -->
+
+                        </div>
+                        <!-- /Schedule Widget -->
+                        <!-- Submit Section -->
+                        <div class="submit-section proceed-btn text-right">
+                            <a class="btn btn-primary submit-btn" id="proceed_btn">Proceed to Pay</a>
+                        </div>
+                        <!-- /Submit Section -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    var Sch_id, Slot_id;
+    $(document).ready(function () {
+        var weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var tday = weekday[today.getDay()];
+        t = yyyy + '-' + mm + '-' +dd ;
+        //var myDate= new Date();
+        //myDate.setDate(myDate.getDate() + 1);
+
+        for (var $i = 0; $i < 7; $i++) {
+
+            $('.day-slot').append('<li class="' + tday+'" value="'+t+'">' +
+                '<span>' + tday + '</span >' +
+                ' <span class="slot-date">' + t+
+                '</span >' +
+                '</li>'
+
+            );
+
+
+            $('.clearfix').append(
+                '<li id="' + tday + '">' +
+                    '<a class="timing" style="pointer-events: none; cursor: default;">'+
+                        '<span>No Slots</span>'+
+                    '</a>'+
+                '</li>'
+
+
+            );
+
+            today.setDate(today.getDate() + 1);
+            dd = String(today.getDate()).padStart(2, '0');
+            mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            yyyy = today.getFullYear();
+            tday = weekday[today.getDay()];
+            t = yyyy + '-' + mm + '-' + dd;
+        }
+
+        debugger
+
+
+    var $memid=@id;
+
+                    $.ajax({
+                        url: '@Url.Action("GetSelectedMember", "Member")',
+                        type: 'POST',
+                        data: { memberid: $memid},
+                        success: function (data) {
+                            $(data).each(function (Value, Text) {
+                                var n = Text.FirstName + " " + Text.LastName;
+
+                                $('.booking-user-info').append('<a href="profile.html" class="booking-user-img">' +
+                                    '<img src="' + Text.PhotoURL + '" alt="User Image">' +
+                                    '</a>' +
+                                    ' <div class="booking-info">' +
+                                    '<h4><a href="profile.html">' + n + '</a></h4>' +
+                                    '<h5>Career Level: <b>' + Text.CareerLevelName + '</b></h5>' +
+                                    '<h5>Rate/hr: <b>' + Text.MemberCurrentRate + '<span>$</span></b></h5>' +
+
+                                    '</div>');
+
+                            });
+                        }
+        });
+
+
+
+        var $sundayslots = 0;
+        var $mondayslots = $tuesdayslots = $wednesdayslots = $thursdayslots = $fridayslots = $saturdayslots = 0;
+
+        $.ajax({
+
+
+
+
+            url: '@Url.Action("GetSlots", "Member")',
+            type: 'POST',
+            data: { memberid: $memid },
+            success: function (data) {
+                debugger
+                $(data).each(function (Value, Text) {
+                    debugger
+                    if (Text.SlotDay == "Moday" || Text.SlotDay == "Monday") {
+                        $mondayslots++;
+                        if ($mondayslots == 1) {
+                            $('#Mon').empty();
+                        }
+                        if (Text.isReserved == "False") {
+
+                            $('#Mon').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Mon').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+                    if (Text.SlotDay == "Tuesday") {
+                        $tuesdayslots++;
+                        if ($tuesdayslots == 1) {
+                            $('#Tues').empty();
+                        }
+                        if (Text.isReserved == "False") {
+
+                            $('#Tues').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Tues').attr('value').toString() + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Wednesday") {
+                        $wednesdayslots++;
+                        if ($wednesdayslots == 1) {
+                            $('#Wed').empty();
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Wed').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Wed').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Thursday") {
+                        $thursdayslots++;
+                        if ($thursdayslots == 1) {
+                            $('#Thurs').empty();
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Thurs').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Thurs').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Friday") {
+                        $fridayslots++;
+                        if ($fridayslots == 1) {
+                            $('#Fri').empty();
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Fri').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Fri').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    } if (Text.SlotDay == "Saturday") {
+                        $saturdayslots++;
+                        if ($saturdayslots == 1) {
+                            $('#Sat').empty();
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Sat').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Sat').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+                    if (Text.SlotDay == "Sunday") {
+                        $sundayslots++;
+                      
+                        if ($sundayslots == 1) {
+                            $('#Sun').empty();
+                        }
+                        if (Text.isReserved == "False") {
+                            $('#Sun').append('<a class="timing" href="#" onclick="sp_value(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MemberMeetingSlotId + '\',\'' + $('.Sun').attr('value') + '\');">' +
+                                '<span>' + Text.SlotStartTime.substring(0, 5) + ' - </span > <span>' + Text.SlotEndTime.substring(0, 5) + '</span>' +
+                                '</a>');
+                        }
+
+                    }
+
+                });
+
+            }
+
+        });
+       
+        $(document).on("click", "a.timing", function () {
+          
+            $('a.timing').removeClass("selected");
+            $(this).toggleClass("selected");
+
+        });
+
+        debugger
+        $('#proceed_btn').on('click', function () {
+            debugger
+            $('#proceed_btn').attr("href", "/Member/PaymentToBook?mentorid=" + $memid + "&schid=" + Sch_id + "&slid=" + Slot_id + "&d=" + dat);
+
+
+        });
+
+    });
+    debugger
+
+    function sp_values(sh,sl) {
+        debugger
+        Sch_id = sh;
+        Slot_id = sl;
+    }
+    var dat;
+    function sp_value(sh, sl,da) {
+        debugger
+        Sch_id = sh;
+        Slot_id = sl;
+        dat = da.toString();
+    }
+
+</script>
+

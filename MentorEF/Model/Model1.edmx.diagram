@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82686342a3564707af9721687fa2313b" Name="Diagram1">
+        <EntityTypeShape EntityType="MentorModel.Member" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberCatagory" Width="1.5" PointX="3.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberEducation" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberExperiance" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberIntrest" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberMentor" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberRate" Width="1.5" PointX="3" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MentorModel.MemberSubCatagory" Width="1.5" PointX="3.75" PointY="23.25" IsExpanded="true" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberEducation" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberExperiance" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberIntrest" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberMentore1" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberMentore2" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_Member_MemberRate" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_MemberCatagory_MemberSubCatagory" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_MemberExperiance_MemberCatagory" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_MemberIntrest_MemberCatagory" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_MemberExperiance_MemberSubCatagory" ManuallyRouted="false" />
+        <AssociationConnector Association="MentorModel.FK_MemberIntrest_MemberSubCatagory" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

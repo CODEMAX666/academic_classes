@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC4022A6-F2C3-4014-A6A2-CEB2F47FC8F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mentor.DAL</RootNamespace>
+    <AssemblyName>Mentor.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddBookingDAL.cs" />
+    <Compile Include="AddExpDAL.cs" />
+    <Compile Include="AddJobDAL.cs" />
+    <Compile Include="DataUtil.cs" />
+    <Compile Include="GenericFunctionsDAL.cs" />
+    <Compile Include="JobListDAL.cs" />
+    <Compile Include="JobRefferDAL.cs" />
+    <Compile Include="LoginDAL.cs" />
+    <Compile Include="MemberDAL.cs" />
+    <Compile Include="MemberEducationDAL.cs" />
+    <Compile Include="MemberExperienceDAL.cs" />
+    <Compile Include="MemberInterestDAL.cs" />
+    <Compile Include="MenteeListDAL.cs" />
+    <Compile Include="MenteeMentorFollowshipDAL.cs" />
+    <Compile Include="MentorPackageDAL.cs" />
+    <Compile Include="MentorSearchDAL.cs" />
+    <Compile Include="MentorTrainingDAL.cs" />
+    <Compile Include="PaymentDAL.cs" />
+    <Compile Include="PaySumDAL.cs" />
+    <Compile Include="ProfileDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DropDownPopulate.cs" />
+    <Compile Include="ScheduleTimingsDAL.cs" />
+    <Compile Include="SearchMentoreDropDown.cs" />
+    <Compile Include="StoredProcedure.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mentor.BE\Mentor.BE.csproj">
+      <Project>{5EC89E04-9D1D-4321-BD09-8B367B6AAB0E}</Project>
+      <Name>Mentor.BE</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

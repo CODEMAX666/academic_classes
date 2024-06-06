@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "MemberExperience";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "MentorProfile";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+@using Mentor.BE
+@model MemberExperience
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="collapse-tabs new-property-step">
+                                <ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="description-tab" data-number="1." href="/Member/MemberProfileSetting" role="tab" aria-controls="profile_update" aria-selected="true"><span class="number">1.</span> Profile Update</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="education-tab" data-number="2." href="/Member/MemberEducation" role="tab" aria-controls="education" aria-selected="false"><span class="number">2.</span> Education</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link active" id="experience-tab" data-toggle="pill" data-number="3." href="#experience" role="tab" aria-controls="experience" aria-selected="true"><span class="number">3.</span> Experience</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="interest-tab" data-number="4." href="/Member/MemberInterest" role="tab" aria-controls="interest" aria-selected="false"><span class="number">4.</span> interest</a>
+                                    </li>>
+                                </ul>
+                                <div class="tab-content border-top-1">
+                                    <form>
+                                        <div class="tab-pane fade active show" id="experience" role="tabpanel" aria-labelledby="experience-tab">
+                                            <div class="card-body">
+
+                                                @if (Model != null && Model.MemberExperienceList.Count() > 0)
+                                                {
+                                                    var ExpCount = 1;
+                                                    foreach (var item in Model.MemberExperienceList)
+                                                    {
+                                                        <div style="border-bottom:inset" class="row form-row Experience" id="Exp_@(ExpCount)">
+                                                            @*<form onsubmit="SubmitExperience(@ExpCount);">*@
+                                                            @Html.HiddenFor(o => item.MemberExperienceId, new { @class = "form-control", @id = "ExpId" + ExpCount })
+
+                                                            <div class="col-12 col-md-4 ">
+                                                                <div class="form-group">
+                                                                    <label>Category</label>
+                                                                    @Html.DropDownListFor(o => item.MemberCategory, new SelectList(Model.MemberCategoryList, "Value", "Text", item.MemberCategory), new { @class = "form-control", @validation = "validateDDL", @id = "Category" + ExpCount, @onchange = "GetCategoryId(this," + ExpCount + ");" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 ">
+                                                                <div class="form-group">
+                                                                    <label>Sub Category</label>
+                                                                    @Html.ListBoxFor(o => item.MemberSubCategoryArray, new MultiSelectList(item.MemberSubCategoryList, "Value", "Text", selectedValues: item.MemberSubCategoryArray), new { @class = "select multiple form-control", @validation = "validateMultiDDL", @multiple = "multiple", @id = "SubCategory" + ExpCount })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Designation</label>
+                                                                    @Html.TextBoxFor(x => item.Designation, new { @class = "form-control", @id = "Designation" + ExpCount, @validation = "validate", @placeholder = "Designation" })
+                                                                    @*<input type="text" class="form-control" value="Web Developer">*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Company</label>
+                                                                    @Html.TextBoxFor(x => item.Company, new { @class = "form-control", @id = "Company" + ExpCount, @validation = "validate", @placeholder = "Company" })
+                                                                    @*<input type="text" class="form-control" value="Mentorment">*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <label>Year From</label>
+                                                                    @*<div class="cal-icon">*@
+                                                                    @Html.TextBoxFor(x => item.YearFrom, new { @class = "form-control", @id = "YearFrom" + ExpCount, @validation = "validateYear", @placeholder = "YearFrom" })
+                                                                    @*<input type="text" class="form-control datetimepicker" value="24-07-1983">*@
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-3 ">
+                                                                <div class="form-group">
+                                                                    <label>Year To</label>
+                                                                    @*<div class="cal-icon">*@
+                                                                    @Html.TextBoxFor(x => item.YearTo, new { @class = "form-control", @id = "YearTo" + ExpCount, @validation = "validateYear", @placeholder = "YearTo" })
+                                                                    @*<input type="text" class="form-control datetimepicker" value="24-07-1983">*@
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <label></label>
+                                                                    <button type="submit" align="middle" class="btn btn-primary" id="saveExp@(ExpCount)" onclick="return SubmitExpeience(@ExpCount);">Save</button>
+                                                                    @{
+                                                                        if (ExpCount != 1)
+                                                                        {
+                                                                            <button href="#" style="float:right" class="btn btn-danger trash " id="deleteExp@(ExpCount)" onclick="DeleteExp(@ExpCount);"><i class="fas fa-trash-alt"></i></button>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            @*</form>*@
+
+                                                        </div>
+                                                        ExpCount++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div style="border-bottom:inset" class="row form-row Experience" id="Exp_1">
+                                                        <div class="col-12 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label>Category</label>
+                                                                @Html.DropDownListFor(o => o.MemberCategory, new SelectList(Model.MemberCategoryList, "Value", "Text"), new { @class = "form-control", @validation = "validateDDL", @id = "Category1", @onchange = "GetCategoryId(this,1);" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label>SubCategory</label>
+                                                                @Html.DropDownListFor(o => o.MemberSubCategory, new MultiSelectList(Model.MemberSubCategoryList, "Value", "Text"), new { @class = "select multiple form-control", @validation = "validateMultiDDL", @multiple = "multiple", @id = "SubCategory1" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Designation</label>
+                                                                @Html.TextBoxFor(x => x.Designation, new { @class = "form-control", @id = "Designation1", @validation = "validate", @placeholder = "Designation" })
+                                                                @*<input type="text" class="form-control" value="Web Developer">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Company</label>
+                                                                @Html.TextBoxFor(x => x.Company, new { @class = "form-control", @id = "Company1", @validation = "validate", @placeholder = "Company" })
+                                                                @*<input type="text" class="form-control" value="Mentorment">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Years From</label>
+                                                                @*<div class="cal-icon">*@
+                                                                @Html.TextBoxFor(x => x.YearFrom, new { @class = "form-control", @id = "YearFrom1", @validation = "validateYear", @placeholder = "YearFrom" })
+                                                                @*<input type="text" class="form-control datetimepicker" value="24-07-1983">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-3 ">
+                                                            <div class="form-group">
+                                                                <label>Year To</label>
+                                                                @*<div class="cal-icon">*@
+                                                                @Html.TextBoxFor(x => x.YearFrom, new { @class = "form-control", @id = "YearTo1", @validation = "validateYear", @placeholder = "YearTo" })
+                                                                @*<input type="text" class="form-control datetimepicker" value="24-07-1983">*@
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <div class="form-group">
+                                                                <div>
+                                                                    <label></label>
+                                                                    <button type="submit" class="btn btn-primary" id="saveExp1" onclick="return SubmitExperience(1)">Save</button>
+
+                                                                    @*<button href="#" style="float:right" class="btn btn-danger trash " id="deleteExp1" onclick="DeleteExp(1);"><i class="fas fa-trash-alt"></i></button>*@
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                }
+
+                                                <div class="experience-info">
+
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-lg-12">
+                                                        <a href="javascript:;" class="add-experience"><i class="fa fa-plus-circle"></i> Add More</a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <a href="/Member/MemberEducation" class="btn btn-primary">
+                                                            Prev step
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="submit-section text-right">
+                                                            <a class="edit-link mr-3" href="/Member/MemberInterest">Skip</a>
+                                                            @*@Html.ActionLink("Skip", "MemberInterest", "Member")*@
+                                                            @*<button type="submit" class="btn btn-primary" id="submit" onclick="return SubmitExperience();">Continue</button>*@
+                                                            <a href="/Member/MemberInterest" class="btn btn-primary">Continue</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/ProfileSetting/ExperienceValidation.js"></script>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script>
+    function GetCategoryId(val, count) {
+
+        var id = $(val).val();
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: '/Member/GetCategoryId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#SubCategory' + count).empty();
+                jQuery.each(result, function (index, item) {
+                    $("#SubCategory" + count).append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+
+
+</script>

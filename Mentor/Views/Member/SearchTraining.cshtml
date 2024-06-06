@@ -1,0 +1,406 @@
+﻿
+@{
+    ViewBag.Title = "SearchTraining";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    int id=0;
+    HttpCookie cookie = HttpContext.Current.Request.Cookies["MemberCookies"];
+    if (cookie!=null){
+         id = Convert.ToInt32(cookie.Values["ID"].ToString());
+    }
+    else
+    {
+        Url.Action("Login", "Member");
+    }
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div id="listcontainer">
+                            <!-- Mentor Widget -->
+
+                        </div>
+                        <!-- /Mentor Widget -->
+                        <div class="load-more text-center">
+                            <a class="btn btn-primary btn-sm" id="loadmore">Load More</a>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-lg-4 dash-board-list blue">
+                        <!-- Search Filter -->
+                        <div class="card search-filter" id="filtercontainer">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Search Filter</h4>
+                            </div>
+                            <div class="card-body">
+
+
+                                <div class="filter-widget">
+
+
+                                    <div class="filter-widget">
+
+                                        <div class="form-group">
+                                            <select class="select" id="career">
+                                                <option value="0">Select Career Level</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select class="select" id="domaindd">
+                                                <option value="0">Select Domain</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select class="select" id="categorydd">
+                                                <option value="0">Select Category</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select class="select" id="sub_categorydd">
+                                                <option value="0">Select Sub-Category</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="filter-widget">
+                                    <h4>Rate Range (Per/hr in PKR)</h4>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 ">
+                                                <input type="number" id="startrate" class="form-control" placeholder="Min" />
+
+                                            </div>
+                                            <div class="col-sm-6 ">
+                                                <input type="number" id="endrate" class="form-control" placeholder="Max" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-search">
+                                        <button type="submit" class="btn btn-block" id="searchbtn">Search</button>
+                                    </div>
+                                </div>
+                                <!-- </div>-->
+                            </div>
+                            <!-- /Search Filter -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+        $('#book_btn').prop('disabled', true);
+
+        //$('#follow_btn').on('click', function () {
+        //    $('#book_btn').prop('disabled', false);
+
+        //});
+
+        // FollowUnfollow
+
+        function FollowRequest(temp,MentID )
+        {
+           var thisbutton = temp;
+
+            debugger
+            $.ajax({
+                url: '@Url.Action("SendRequestFollowUnfollow", "Member")',
+                type: "POST",
+                data: {mentorID: MentID },
+
+            success: function (result) {
+
+
+                $(thisbutton).html("Pending");
+
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+
+
+        }
+
+        //Document Load
+
+        var $count = 0, $remaing = 0, $startindex = 0;
+
+        $(document).ready(function () {
+
+
+            // Career List
+
+            $.ajax({
+                url: '@Url.Action("GetMeCareerList", "Member")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+
+                    $(data).each(function (Value, Text) {
+
+
+                        $('#career').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                    });
+                }
+            });
+
+            //$('#career').addClass("select");
+
+            $('#career').on('change', function () {
+
+                $.ajax({
+                    url: '@Url.Action("GetMeDomainList", "Member")',
+                    type: 'POST',
+                    dataType: 'json',
+
+                    data: { CurrentCareerLevelId: $('#career').val() },
+                    success: function (data) {
+                        $('#domaindd').html('').append('<option value="0">Select Domain</option>');
+                        $('#categorydd').html('').append('<option value="0">Select Category</option>');
+                        $('#sub_categorydd').html('').append('<option value="0">Select Sub-Category</option>');
+                        $(data).each(function (Value, Text) {
+
+                            $('#domaindd').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                        });
+                    }
+                });
+            });
+
+
+            $('#domaindd').on('change', function () {
+                $.ajax({
+                    url: '@Url.Action("GetMeCategoryList", "Member")',
+                    type: 'POST',
+                    dataType: 'json',
+
+                    data: { CurrentDomainId: $('#domaindd').val() },
+                    success: function (data) {
+                        $('#categorydd').html('').append('<option value="0">Select Category</option>');
+                        $('#sub_categorydd').html('').append('<option value="0">Select Sub-Category</option>');
+                        $(data).each(function (Value, Text) {
+
+                            $('#categorydd').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                        });
+                    }
+                });
+            });
+
+            $('#categorydd').on('change', function () {
+                $.ajax({
+                    url: '@Url.Action("GetMeSubCategoryList", "Member")',
+                    type: 'POST',
+                    dataType: 'json',
+
+                    data: { CurrentCategoryId: $('#categorydd').val() },
+                    success: function (data) {
+                        $('#sub_categorydd').html('').append('<option value="0">Select Sub-Category</option>');
+                        $(data).each(function (Value, Text) {
+                            $('#sub_categorydd').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                        });
+                    }
+                });
+            });
+            // DropDowns End
+
+
+            debugger
+            var careervalue = -1, domainvalue = -1, categoryvalue = -1, subcategoryvalue = -1, startratevalue = -1, endratevalue = -1;
+            DisplayMentorList(careervalue, domainvalue, categoryvalue, subcategoryvalue, startratevalue, endratevalue);
+
+            $('#searchbtn').on('click', function () {
+                debugger
+
+                if ($('#career').val() == 0) {
+                    careervalue = -1;
+                }
+                else {
+                    careervalue = $('#career').val();
+                }
+                if ($('#domaindd').val() == 0) {
+                    domainvalue = -1;
+                }
+                else {
+                    domainvalue = $('#domaindd').val();
+                }
+                if ($('#categorydd').val() == 0) {
+                    categoryvalue = -1;
+                }
+                else {
+                    categoryvalue = $('#categorydd').val();
+                }
+
+                if ($('#sub_categorydd').val() == 0) {
+                    subcategoryvalue = -1;
+                }
+                else {
+                    subcategoryvalue = $('#sub_categorydd').val();
+                }
+
+                if ($('#startrate').val() == "") {
+                    startratevalue = -1;
+                }
+                else {
+                    startratevalue = $('#startrate').val();
+                }
+                if ($('#endrate').val() == "") {
+                    endratevalue = -1;
+                }
+                else {
+                    endratevalue = $('#endrate').val();
+                }
+
+                if (careervalue != -1 || domainvalue != -1 || categoryvalue != -1 || subcategoryvalue != -1 || startratevalue != -1 || endratevalue != -1) {
+                    $remaing = 0;
+                    $startindex = 0;
+                    $count = 0;
+                    $('#listcontainer').empty();
+                    DisplayMentorList(careervalue, domainvalue, categoryvalue, subcategoryvalue, startratevalue, endratevalue);
+                    $('#loadmore').show();
+                }
+            });
+
+
+            $('#loadmore').on('click', function () {
+                DisplayMentorList(careervalue, domainvalue, categoryvalue, subcategoryvalue, startratevalue, endratevalue);
+                $('#loadmore').show();
+            });
+            //Search Result
+        });
+
+
+
+    function DisplayMentorList(cid, did, catid, subcatid, srate, erate) {
+            var $iterations = 2;
+            var $size;
+            $startindex = $count;
+            $.ajax({
+                url: '@Url.Action("FilteredTrainingList", "Member")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+
+                    mcareerid: cid,
+                    mdomianid: did,
+                    mcategoryid: catid,
+                    msubcategoryid: subcatid,
+                    min: srate,
+                    max: erate,
+                },
+                success: function (data) {
+                    debugger
+                    $size = Array.isArray(data) ? data.length : Object.keys(data).length;
+                    if ($size < 3) {
+                        $iterations = $size;
+                    }
+
+
+                    $(data).each(function (Value, Text) {
+                        debugger
+                        if ($iterations == 0) {
+                            return false;
+                        }
+
+                        if (Value >= $startindex) {
+                            $('#listcontainer').append(
+
+                                '<div class="card"  >' +
+                                '<div class="card-body">' +
+                                '<div class="mentor-widget">' +
+                                '<div class="user-info-left">' +
+                                '<div class="user-info-cont">' +
+                                '<h4 class="usr-name"><a href="/Mentor/ViewTraining?TrainingId=' + Text.MentorTrainingId + '"><b>' + Text.Title + '</b></a ></h4 >' +
+                                '<h6 class="usr-name"></h6 >'+
+                                '<div class="user-infos">' +
+                                '<ul>' +
+                                '<li data-toggle="tooltip" title="Mentor Name"><i> Mentor :  </i><a href="/Member/ShowProfile?memberid=' + Text.MentorId + '&viewerid=@id"><b>' + Text.MentorName + '</b></a ></li>'+
+                                '<li data-toggle="tooltip" title="Domain"><i> Domain :  </i> <b>' + Text.Domain + '</b></li>' +
+                                '<li data-toggle="tooltip" title="Category"><i> Category :  </i><b>' + Text.Category + '</b></li>' +
+                                '<li data-toggle="tooltip" title="Sub-Category"><i> SubCategory :  </i><b>' + Text.SubCategory + '</b></li>' +
+
+                                '</ul>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="user-info-right">' +
+                                '<div class="user-infos">' +
+                                '<ul>' +
+
+                                '<li data-toggle="tooltip" title="Start Date"></i><i class="fas fa-calendar-day"></i><b>' + Text.StartDate + '</b></li>' +
+                                '<li data-toggle="tooltip" title="Location"><i class="fas fa-map-marker-alt"></i> <b>'+Text.City+'</b></li>' +
+                                '<li data-toggle="tooltip" title="PerHourRate"><i class="far fa-money-bill-alt"></i> <b>' + Text.TrainingPerHourRate + '</b> <i class="fas fa-info-circle" data-toggle="tooltip" title="" data-original-title="Lorem Ipsum"></i> </li>' +
+                                '<li data-toggle="tooltip" title="Total Price"><i class="far fa-money-bill-alt"></i> <b>' + Text.TotalHours * Text.TrainingPerHourRate + '</b><b> RS</b> </li>' +
+                                '</ul>' +
+                                '</div>' +
+                                '<div class="mentor-booking">' +
+                                '<a class="apt-btn" id="book_btn" href="/Member/PaymentTraining?TrainingId=' + Text.MentorTrainingId +'">Book Training</a>' +
+                                '<a class="apt-btn" id="follow_btn" href="/Mentor/ViewTraining?TrainingId=' + Text.MentorTrainingId+'" >View</a>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>'
+
+                            );
+
+
+                            $iterations--;
+                            $count++;
+                            //$(document).ready(function () {
+                            //    document.getElementById("chat_btn").disabled = true;
+                            //    /*$('#chat_btn').attr('disabled', true);*/
+                            //});
+
+
+                        }
+
+                        // $remaining--;
+
+                    });
+                    debugger;
+                    $remaing = $size - $count;
+                    if ($remaing <= 0) {
+                        $('#listcontainer').append('<p> No more record!!!</p>');
+                        $('#loadmore').hide();
+                        return false;
+                    }
+                    //$coun = 3;
+                }
+
+            });
+            debugger
+
+            if ($remaing < 3 && $remaing > 0) {
+                $iterations = $remaing;
+                $('#loadmore').show();
+            }
+
+    }
+
+</script>
+
+
+
+

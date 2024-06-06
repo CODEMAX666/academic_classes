@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "MentorProfile";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+@using Mentor.BE
+@model  MemberEducation
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="collapse-tabs new-property-step">
+                                <ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                                    <li class="nav-item col">
+                                        <a class="nav-link " id="description-tab" data-number="1." href="/Member/MemberProfileSetting" role="tab" aria-controls="profile_update" aria-selected="false"><span class="number">1.</span> Profile Update</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link active" id="education-tab" data-number="2." href="#education" role="tab" aria-controls="education" aria-selected="true"><span class="number">2.</span> Education</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="experience-tab" data-number="3." href="/Member/MemberExperience" role="tab" aria-controls="experience" aria-selected="false"><span class="number">3.</span> Experience</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="interest-tab" data-number="4." href="/Member/MemberInterest" role="tab" aria-controls="interest" aria-selected="false"><span class="number">4.</span> interest</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content border-top-1">
+                                    <form id="FormEdu" action="/Member/MemberExperience">
+
+                                        <div class="tab-pane fade active show" id="education" role="tabpanel" aria-labelledby="education-tab">
+                                            <div class="card-body">
+                                                <div class="row form-row">
+                                                    <div class="col-xl-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-nowrap mb-0 education-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Degree Level</th>
+                                                                        <th scope="col">Degree Title</th>
+                                                                        <th scope="col">Percentage</th>
+                                                                        <th scope="col">Year From</th>
+                                                                        <th scope="col">Year To</th>
+                                                                        <th scope="col">Institute</th>
+                                                                        <th scope="col"></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @if (Model != null && Model.MemberEducationList.Count() > 0)
+                                                                    {
+                                                                        var EduCount = 1;
+                                                                        foreach (var item in Model.MemberEducationList)
+                                                                        {
+                                                                            <tr class="eduRow" id=@("eduRowID_"+EduCount)>
+                                                                                <td class="align-middle">
+                                                                                    @Html.DropDownListFor(o => item.DegreeLevelName, new SelectList(Model.DegreeLevelList, "Value", "Text", item.DegreeLevelName), new { @class = "form-control", @validation = "validateDDL", @id = "DegreeLevelName" + EduCount, onchange = "GetDegreeId(this," + EduCount + ");" })
+
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.DropDownListFor(o => item.DegreeTitleName, new SelectList(item.DegreeTitleList, "Value", "Text", item.DegreeTitleName), new { @class = "form-control", @validation = "validateDDL", @id = "DegreeTitleName" + EduCount })
+
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.Percentage, new { @placeholder = "", @class = "form-control", @id = "percentage" + EduCount, @validation = "validatePercentage", @required = "required" })
+                                                                                    @*<input class="form-control" name="percentage" type="text" id="percentage1">*@
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.YearFrom, new { @placeholder = "", @class = "form-control", @id = "yearFrom" + EduCount, @validation = "validateYear", @required = "required" })
+                                                                                    @*<input class="form-control" name="yearFrom" type="text" id="yearFrom1">*@
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.YearTo, new { @placeholder = "", @class = "form-control", @id = "yearTo" + EduCount, @validation = "validateYear", @required = "required" })
+
+                                                                                    @*<input class="form-control" name="yearTo" type="text" id="yearTo1">*@
+                                                                                </td>
+                                                                                <td class="align-middle">
+                                                                                    @Html.TextBoxFor(x => item.Institute, new { @placeholder = "", @class = "form-control", @id = "institute" + EduCount, @validation = "validate", @required = "required" })
+
+                                                                                    @*<input class="form-control" name="institute" type="text" id="institute1">*@
+                                                                                </td>
+                                                                                @{ if (EduCount != 1)
+                                                                                    {
+                                                                                        <td class="align-middle">
+                                                                                            <button href="#" class="btn btn-danger trash " id="deleteRow @(EduCount)" onclick="DeleteRow(@EduCount);"><i class="fas fa-trash-alt"></i></button>
+                                                                                        </td>
+                                                                                    }
+                                                                                }
+                                                                            </tr>
+                                                                            EduCount++;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <tr class="eduRow" id="eduRowID_1">
+                                                                            <td class="align-middle">
+                                                                                @Html.DropDownListFor(o => o.DegreeLevelName, new SelectList(Model.DegreeLevelList, "Value", "Text"), new { @class = "form-control", @validation = "validateDDL", @id = "DegreeLevelName1", @onchange = "GetDegreeId(this,1);" })
+
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                @Html.DropDownListFor(o => o.DegreeTitleName, new SelectList(Model.DegreeTitleList, "Value", "Text"), new { @class = "form-control", @validation = "validateDDL", @id = "DegreeTitleName1" })
+
+                                                                            </td>
+                                                                            <td class="align-middle col-md-1">
+                                                                                <input class="form-control" name="percentage" type="text" id="percentage1" validation="validatePercentage">
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                <input class="form-control" name="yearFrom" type="text" id="yearFrom1">
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                <input class="form-control" name="yearTo" type="text" id="yearTo1">
+                                                                            </td>
+                                                                            <td class="align-middle">
+                                                                                <input class="form-control" name="institute" type="text" id="institute1" validation="validate">
+                                                                            </td>
+                                                                            @*<td class="align-middle">
+                                                                                    <a href="javascript:void(0);" class="delete-education" onclick="DeleteRow(this);"><i class="fa fa-plus-circle"></i> Delete</a>
+                                                                                </td>*@
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td colspan="4" class="align-middle">
+                                                                            <a href="javascript:void(0);" class="add-education" @*onclick="AddRow();"*@><i class="fa fa-plus-circle"></i> Add More</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                            @*<a href="~/Views/Member/MemberEducation.cshtml">~/Views/Member/MemberEducation.cshtml</a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <a href="/Member/MemberProfileSetting" class="btn btn-primary">
+                                                            Prev step
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="submit-section text-right">
+                                                            <a class="edit-link mr-3" href="/Member/MemberExperience">Skip</a>
+                                                            <button type="submit" class="btn btn-primary" id="submit" onclick="return SubmitEdu(); ">Save & Continue</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/ProfileSetting/EducationValidation.js"></script>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script>
+    function GetDegreeId(val, count) {
+        var id = $(val).val();
+        $.ajax({
+            type: "POST",
+            url: '/Member/GetDegreeLevelId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#DegreeTitleName' + count).empty();
+                jQuery.each(result, function (index, item) {
+                    $("#DegreeTitleName" + count).append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+
+</script>
+@*<script>
+        ("#FormEdu").validate({
+            rules: {
+                degree_name: "required",
+                year: {
+                    required: true,
+                    length: 4
+                }
+            },
+            messages: {
+                degree_name: "Select this",
+                year: {
+                    required: "Enter Value",
+                    length: "only 4digit value"
+                }
+            }
+        });
+    </script>*@

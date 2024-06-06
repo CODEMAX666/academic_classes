@@ -1,0 +1,297 @@
+﻿@using Mentor.BE
+
+@model RegisterBE
+
+<!-- Page Content -->
+<div class="bg-pattern-style bg-pattern-style-register">
+    <div class="content full-width">
+
+        <!-- Register Content -->
+        @using (Ajax.BeginForm("RegisterNewMember", "Register", new AjaxOptions { }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="account-content">
+                <div class="account-box">
+                    <div class="login-right">
+                        <div class="login-header">
+                            <h3><span>Mentorment</span> Register</h3>
+                            @*<p class="text-muted">Access to our dashboard</p> *@
+                        </div>
+                        @*  @{
+                                if (ViewBag.Validation == "False")
+                                {
+                                    //<p style="color:red;" id="ErrorMsg"> Having some issue! Account not Created</p>
+                                    <p style="color:red;" id="ErrorMsg"> @ViewBag.msg</p>
+                                }
+                                else
+                                {
+                                    if (ViewBag.Validation == "True")
+                                    {
+                                        <p style="color:red;" id="ErrorMsg"> Account Created! Please Check your Email to acesss Login</p>
+                                    }
+                                }
+                            }*@
+                        @{ if (ViewBag.msg != null)
+                            {
+                                var b = ViewBag.msg;
+                                if (b == "Successfully Registe")
+                                {
+                                    <script>
+                        @*let a ="Thanks for joining Mentorment.You will get a verification Email soon.";
+                        alert(`Successfully Registered! ${a}`);
+                        window.location = '@Url.Action("Login", "Member")';*@
+                        window.onload = function () {
+                                  debugger
+                            $.confirm({
+
+                               title: 'Successfully Registered!',
+                                   content: 'Thanks for joining Mentorment. You will get a verification Email soon.',
+                                   type: 'blue',
+                                    typeAnimated: true,
+                                   buttons: {
+                                   OK: function () {
+                                       window.location = '@Url.Action("RegisterNewMember", "Register")';
+                                       @*window.location = '@Url.Action("Login","Member")';*@
+
+                                       }
+                                   }
+
+                               })
+                        }
+                                    </script>
+                                }
+                                else
+                                {
+                                    <p style="color:red;" id="ErrorMsg"> @ViewBag.msg</p>
+
+                                }
+
+
+                            }
+                        }
+
+                        <!-- Register Form -->
+                        <div class="row" id="clear">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.FirstName, new { @placeholder = "Enter First Name", @class = "form-control", @validation = "validateAlphabet", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.LastName, new { @placeholder = "Enter Last Name", @class = "form-control", @validation = "validateAlphabet", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.Email, new { @placeholder = "Enter Email", @class = "form-control", @validation = "validateEmail", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="CountryCode" id="CountryCode" value="92" />
+                                    @Html.TextBoxFor(x => x.PhoneNo, new { @placeholder = "Phone Number:03212345678", @id = "PhoneNumber", @class = "form-control", @validation = "validatePhoneNumber", @required = "required" })
+                                    <span class="field-validation-valid" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+                                    @*<input autocomplete="off" class="text-box form-control" data-val="true" validation="validatePhoneNumber"
+                                               data-val-length="Phone number cannot be longer than 15 digits and less than 6 digits"
+                                               data-val-length-max="15" data-val-length-min="6"
+                                               data-val-regex="Invalid Mobile Number."
+                                               data-val-regex-pattern="([0-9]+)"
+                                               data-val-required="Mobile Number is required." id="PhoneNumber"
+                                               name="PhoneNumber" required="" type="text" value="" />
+                                        <span class="field-validation-valid" data-valmsg-for="PhoneNumber"
+                                              data-valmsg-replace="true"></span>*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.PasswordFor(x => x.Password, new { @placeholder = "Password", @class = "form-control", @autocomplete = "off", @id = "MemberPassword", @matchid = "txtReTypePassword", @validation = "validation8" })
+                                    @*<input id="MemberPassword" type="password" placeholder="Password" autocomplete="off" class="form-control" name="MemberPassword" matchid="txtReTypePassword" validationmatch="validationMatch">*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.PasswordFor(x => x.ConfirmPassword, new { @placeholder = "Confirm Password", @class = "form-control", @autocomplete = "off", id = "txtReTypePassword", @matchid = "MemberPassword", @validationmatch = "validationMatch" })
+                                    @*<input type="password" class="form-control" placeholder="Confirm Password" autocomplete="off" name="ConfirmPassword" id="txtReTypePassword" matchid="MemberPassword" validationmatch="validationMatch">*@
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group" validation="validateDDL" id="levelselector">
+                                    @Html.DropDownListFor(o => o.MemberLevel, new SelectList(Model.MemberLevelList, "Value", "Text", Model.MemberLevel), new { @class = "form-control", @validation = "validateDDL", @id = "CareerLevel", @onchange = "GetCareerId(this);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <select class="form-control" id="Domain" name="MemberDomain" validation="validateDDL">
+                                        <option value="0">Select Domain</option>
+                                    </select>
+
+                                </div>
+                                @*<div class="form-group">
+                                        @Html.DropDownListFor(o => o.MemberDomain, new SelectList(Model.MemberDomainList, "Value", "Text", Model.MemberDomain), new { @class = "select", @validation = "validateDDL", @id = "Domain" })
+                                    </div>*@
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.MemberCurrentRate, new { @class = "form-control", @validation = "validateNum", @placeholder = "Per Hour Charges PKR" })
+                                    @*<span class="form-text text-muted">$ 100.00</span>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-0" id="afterlevel" style="display:none">
+                            <div class="form-group" id="BecomeMentor">
+                                <div class="custom-control custom-control-xs custom-checkbox">
+                                    @Html.CheckBoxFor(x => x.IsMentor, new { @class = "custom-control-input", @name = "agreeCheckboxUser", @id = "agree_checkbox_user",  @onclick = "myFun();" })
+                                    <label class="custom-control-label" for="agree_checkbox_user" onkeypress = "myFun();">
+                                        Wanna become a
+                                        Mentor
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="WhomMentor" style="display:none">
+                            <label>Who can be your Mentee?</label>
+                            @Html.DropDownListFor(o => o.MemberPossibleMentee, new MultiSelectList(Model.CareerLevelForMenteeSelectionList, "Value", "Text"), new { @class = "select multiple form-control", @id = "Menteelist", @multiple = "multiple" })
+
+                        </div>
+
+                        <button class="btn btn-primary login-btn" type="submit" formmethod="post" x onclick="return ValidateClick() ;">Create Account</button>
+                        <div class="account-footer text-center mt-3">
+                            Already have an account? <a class="forgot-link mb-0" href="/Member/Login">Login</a>
+                        </div>
+                        <!-- /Register Form -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Register Content -->
+        }
+    </div>
+</div>
+<!-- /Page Content -->
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+                                        //document.addEventListener('keyup', event => {
+                                        //    if (event.code === 'Space') {
+                                        //        return myFun();
+                                        //    }
+                                        //})
+                                        $(document).ready(function () {
+                                            $('#CareerLevel').val(0);
+                                            $('#FirstName').text("");
+                                            $('#CareerLevel').val(0);
+                                            $('#CareerLevel').val(0);
+                                            $('#CareerLevel').val(0);
+                                            $('#CareerLevel').val(0);
+
+                                        })
+    function myFun() {
+        debugger
+        // Get the checkbox
+        let checkBox = document.getElementById("agree_checkbox_user");
+        // Get the output text
+        var WhomMentor = document.getElementById("WhomMentor");
+        let list = document.getElementById('Menteelist');
+        let c = document.getElementById("CareerLevel").value;
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) {
+            WhomMentor.style.display = "block";
+            //list = document.getElementById('Menteelist');
+            list.setAttribute("validation", "validateMultiDDL");
+
+        } else {
+            WhomMentor.style.display = "none";
+            if (WhomMentor.style.display == "none") {
+                list.removeAttribute("validation");
+
+            };
+            
+        }
+    }
+                                function GetCareerId(val) {
+                                    //debugger;
+                                    let WhomMentor = document.getElementById("WhomMentor");
+                                    var level = $('#levelselector').find(":selected").text();
+                                    let checkBox = document.getElementById("agree_checkbox_user");
+                                    debugger
+                                    $("#Menteelist").select2("val", "0");
+                                    checkBox.checked=false
+                                    WhomMentor.style.display = "none";
+                                    if (level == "Professional") {
+                                        //if (checkBox.checked == true) {
+                                        //    WhomMentor.style.display = "block";
+                                        //}
+                                        $('#afterlevel').show();
+
+                                    }
+                                    else if (level == "Entrepreneur") {
+                                        //if (checkBox.checked == true) {
+                                        //    WhomMentor.style.display = "block";
+                                        //}
+                                        $('#afterlevel').show();
+                                    }
+                                    else {
+                                        $('#afterlevel').hide();
+                                    }
+                                    var id = $(val).val();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/Member/GetCareerLevelId',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"Id":"' + $(val).val() + '"}',
+                                        dataType: "json",
+                                        success: function (result) {
+                                            $('#Domain').empty();
+                                            jQuery.each(result, function (index, item) {
+                                                //debugger;
+                                                $("#Domain").append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                                            });
+                                        },
+                                        error: function (xhr) {
+                                            debugger;
+                                            console.log(xhr.responseText);
+                                            alert("Error has occurred..");
+                                        }
+                                    });
+                                        }
+
+                                        @*$('.login-btn').on('click', function () {
+                                            var temp = ValidateClick();
+                                            if (temp && window.SubmitEvent) {
+                                            let b =`@ViewBag.msg`;
+                                                if (b == "Successfully Registe") {
+                                                    debugger
+                                                     $.confirm({
+                                                    title: 'Alert!',
+                                                        content: 'Thanks for joining Mentorment. You will get a verification Email soon.',
+                                                        type: 'blue',
+                                                        typeAnimated: true,
+                                                        buttons: {
+                                                        OK: function () {
+                                                                window.location = '@Url.Action("Login","Member")';
+
+                                                            }
+                                                        }
+
+                                                    })
+                                                }
+                                                else {
+                                                    debugger
+                                                    let a =`@ViewBag.msg` ;
+                                                    if (a == "Email Already Exist!") {
+                                                    $.alert({
+                                                        title: 'Alert!',
+                                                        content: 'Email Already Exist!',
+                                                        type: 'blue',
+                                                        typeAnimated: true,
+
+                                            })
+                                                    }
+                                                }
+                                           }
+                                           return temp;
+                                        })*@
+</script>

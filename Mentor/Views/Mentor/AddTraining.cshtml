@@ -1,0 +1,326 @@
+﻿
+@{
+    ViewBag.Title = "AddTraining";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    
+}
+
+@*<h2>AddTraining</h2>*@
+@using Mentor.BE
+@model MentorTraining
+<link href="~/Content/Mycss/togglebtn.css" rel="stylesheet" />
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="card card-body">
+                        <h2 id="head2">Post New Training</h2>
+                        <br />
+                        <form method="post">
+                            <div class="row">
+                                @Html.HiddenFor(x => x.MentorTrainingId)
+                                @Html.HiddenFor(x => x.MentorId)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Select Career Level</label>
+                                        @Html.DropDownListFor(o => o.CareerLevel, new SelectList(Model.CareerLevelList, "Value", "Text", Model.CareerLevel), new { @class = "form-control ", @validation = "validateDDL", @id = "CareerLevel", @onchange = "GetCareerId(this);" })
+                                        @*<select class="form-control" id="carrr" validation="validateDDL">
+                    <option value="0">Select Career Level</option>
+                </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Select Domain</label>
+                                        @Html.DropDownListFor(o => o.Domain, new SelectList(Model.DomainList, "Value", "Text", Model.Domain), new { @class = "form-control ", @validation = "validateDDL", @id = "Domain", @onchange = "GetDomainId(this);" })
+                                        @*<select class="form-control" id="dom" validation="validateDDL">
+                    <option value="0">Select Domain</option>
+                </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Select Category</label>
+                                        @Html.DropDownListFor(o => o.Category, new SelectList(Model.CategoryList, "Value", "Text", Model.Category), new { @class = "form-control", @validation = "validateDDL", @id = "Category", @onchange = "GetCategoryId(this);" })
+                                        @*<select class="form-control" id="categ" validation="validateDDL">
+                    <option value="0">Select Category</option>
+                </select>*@
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Select Sub-Category</label>
+                                        @Html.DropDownListFor(o => o.SubCategory, new SelectList(Model.SubCategoryList, "Value", "Text", Model.SubCategory), new { @class = "form-control", @validation = "validateDDL", @id = "SubCategory" })
+                                        @*<select class="form-control" id="sub_cat" validation="validateDDL">
+                    <option value="0">Select Sub-Category</option>
+                </select>*@
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Duration</label>
+                                        @Html.DropDownListFor(o => o.Duration, new SelectList(Model.DurationList, "Value", "Text",Model.Duration), new { @class = "form-control", @id = "DurationList", @validation = "validateDDL" })
+                                        @*<select class="form-control" id="Exp" validation="validateDDL">
+                    <option value="0">Select Experience</option>
+                </select>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Experience</label>
+                                        @Html.DropDownListFor(o => o.Experience, new SelectList(Model.ExperienceList, "Value", "Text",Model.Experience), new { @class = "form-control", @id = "ExperienceList", @validation = "validateDDL"})
+                                        @*<select class="form-control" id="Exp" validation="validateDDL">
+                    <option value="0">Select Experience</option>
+                </select>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Title</label>
+                                        @Html.TextBoxFor(x => x.Title, new { @placeholder = "Training Title", @class = "form-control", @validation = "validate", @id = "Title" })
+                                        @*<input type="text" id="title" class="form-control" validation="validateTitle" />*@
+                                    </div>
+
+                                </div>
+                                @*<div class="col-md-6">
+            <div class="form-group">
+                <label for="CompName" class="form-label">Company Name:</label>
+                <input type="text" id="CompName" class="form-control" validation="validate" />
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label" for="CompEmail">Enter Company Email:</label>
+                <input class="form-control" type="email" id="CompEmail" name="email" validation="validateEmail" autocomplete="off">
+            </div>
+
+        </div>*@
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        @Html.TextBoxFor(x => x.City, new { @placeholder = "Training location", @class = "form-control", @validation = "validate", @id = "City" })
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        @Html.TextBoxFor(x => x.TrainingStartDate, new { @placeholder = "Enter Start Date ",@id= "TrainingStartDate", @type = "date", @class = "form-control datepicker", @Value = Model.TrainingStartDate.ToString("yyyy-MM-dd"), @validation = "validate", @*@onkeydown = "return false",*@ @onpaste = "return false" })
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+                                @*<div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Total Hours</label>
+                                        @Html.TextBoxFor(x => x.TotalHours, new { @placeholder = "Total Training Hours", @class = "form-control", @validation = "validateNum", @id = "TotalHours" })
+                                        @*<input type="text" id="City" class="form-control" />
+                                    </div>
+                                </div>*@
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Per Hour Rate</label>
+                                        @Html.TextBoxFor(x => x.TrainingPerHourRate, new { @placeholder = "Per Hour Rate", @class = "form-control", @validation = "validateNum", @id = "TrainingRate" })
+                                        @*<input type="text" id="City" class="form-control" />*@
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-6">
+            <label class="form-label" for="Date">Closing Date</label>
+            <input class="form-control" type="date" id="Date" name="Date" validation="validateDate">
+        </div>*@
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Add a Description</label>
+                                        @Html.TextAreaFor(x => x.Description, new { @placeholder = "Add Training Description", @rows = "4", @cols = "50", @class = "form-control", @validation = "validate" })
+                                        @*<textarea id="descrip" class="form-control" rows="4" cols="50" validation="validate"></textarea>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="container">
+                                        <label class="switch">
+                                            @Html.CheckBoxFor(x => x.IsPublic, new { @type = "checkbox", @name = "My_Check", @id = "myCheck", @onclick = "myFunction();" })
+                                            @*<input type="checkbox" id="myCheck" name="My_Check" onclick="myFunction()">*@
+                                            <span class="slider round"></span>
+                                        </label>
+
+                                        <p id="text" style="display:block;font-weight: bold;">Public</p>
+                                        <p id="text1" style="display:none;font-weight: bold;">Only Mentee</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="submit-section text-right">
+                                        <a href="TrainingList" class="btn btn-primary" id="Back">Training List</a>
+                                        <button id="Job_Sub" type="submit" class="btn btn-primary"  onclick="return ValidateClick();">Schedule Training</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>
+<script>
+    
+    $(document).ready(function () {
+        var temp=@Model.MentorTrainingId;
+        debugger
+        if (temp > 0) {
+            $("#head2").text("Edit Training");
+            //$("#TrainingStartDate").attr("readonly", "readonly");
+            
+        }
+        else {
+            $("#CareerLevel").val(0);
+            $("#Domain").val(0);
+            $("#Category").val(0);
+            $("#SubCategory").val(0);
+            $("#TrainingStartDate").val("");
+        }
+    });
+    function GetCareerId(val) {
+        debugger
+        var id = $(val).val();
+        $.ajax({
+            type: "POST",
+            url: '/Member/GetCareerLevelId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#Domain').empty();
+                jQuery.each(result, function (index, item) {
+                    //debugger;
+                    $("#Domain").append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+    function GetDomainId(val) {
+        debugger;
+        var id = $(val).val();
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: '/Mentor/GetDomainId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#Category').empty();
+                jQuery.each(result, function (index, item) {
+                    $("#Category").append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+    function GetCategoryId(val) {
+
+        var id = $(val).val();
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: '/Member/GetCategoryId',
+            contentType: "application/json; charset=utf-8",
+            data: '{"Id":"' + $(val).val() + '"}',
+            dataType: "json",
+            success: function (result) {
+                $('#SubCategory').empty();
+                jQuery.each(result, function (index, item) {
+                    $("#SubCategory").append("<option value=" + item.Value + ">" + item.Text + "</option>");
+                });
+            },
+            error: function (xhr) {
+
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    }
+
+    function myFunction() {
+        // Get the checkbox
+        var CheckValue;
+        var checkBox = document.getElementById("myCheck");
+        // Get the output text
+        var text = document.getElementById("text");
+        var text1 = document.getElementById("text1");
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) {
+            text1.style.display = "block";
+            text.style.display = "none";
+            CheckValue = 1;
+        } else {
+            text.style.display = "block";
+            text1.style.display = "none";
+            CheckValue = 0;
+        }
+    }
+    @*function AddTraining() {
+        var temp = ValidateClick();
+        if (temp) {
+            var obj = {};
+            @*obj.MentorTrainingId = @Model.MentorTrainingId,
+            obj.MentorId = @Model.MentorId;
+            @*obj.CareerLevel = @Model.CareerLevel;
+            obj.Domain = @Model.Domain;
+            obj.Category = @Model.Category;
+            obj.SubCategory = @Model.SubCategory;
+            obj.Experience = @Model.Experience;
+            obj.Title = @Model.Title;
+            obj.City = @Model.City;
+            obj.TrainingPerHourRate = @Model.TrainingPerHourRate;
+            obj.TrainingStartDate = @Model.TrainingStartDate;
+            obj.Description = @Model.Description;
+            obj.IsPublic = @Model.IsPublic;
+            console.log(obj);
+            id = JSON.stringify({ 'id': obj });
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/Mentor/AddTrainingSchedule',
+                data: id,
+                success: function () {
+                    $('#result').html('"PassThings()" successfully called.');
+                },
+                failure: function (response) {
+                    $('#result').html(response);
+                }
+            });
+        }
+        return temp
+    }*@
+   
+</script>
+

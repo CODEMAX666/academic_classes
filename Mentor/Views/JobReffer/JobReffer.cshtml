@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "JobReffer";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <h2>Mentee Job Request</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-table">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="DataTable" class="table table-hover table-striped table-center mb-0 dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Member ID</th>
+                                                <th>Job ID</th>
+                                                <th>ViewerID</th>
+                                                <th>StatusID</th>
+                                                <th>Mentee Name</th>
+                                                <th>Job Title Name</th>
+                                                <th>Request Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="Mytbody"></tbody>
+                                    </table>
+
+                                </div>
+                                @*<p>
+                                        @Html.ActionLink("Create", "AddJob")
+                                    </p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                   
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var loop = 0;
+        $.ajax({
+            url: '/JobReffer/GetJobrefList',
+            dataType: "json",
+            method: 'GET',
+            success: function (data) {
+                debugger
+                let SumTable = $('#DataTable tbody');
+                SumTable.empty();
+                $(data).each(function (index, emp) {
+                    debugger
+                    $('#Mytbody').append('<tr><td id="memid">' + emp.MemberID + '</td><td id="jobid">' + emp.JobID + '</td><td id="Viewerid">' + emp.ViewerID + '</td><td>' + emp.StatusID  + '</td><td>' + emp.MenteeName + '</td><td>' + emp.JobTitle + '</td><td>' + emp.RequestDate + '</td><td><div class="form-group"><label for= "status" class= "form-label" ></label><select class="mystatus" id="status" validation="validateDDL"><option value="0">Select Action</option></select></div></td><td><button id="Status_Sub" type="submit" class="statusSub btn btn-primary";>Submit</button></td></tr>');
+
+                });
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+         $.ajax({
+                url: '@Url.Action("GetSelectedExpLists", "JobReffer")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+                    $(data).each(function (Value, Text) {
+
+
+                        $('.mystatus').append("<option value=" + Text.Value + ">" + Text.Text + "</option>");
+                    });
+                }
+        });
+       
+        $("#Status_Sub").click(function () {
+            debugger
+            var memid = $('#memid').val();
+            var  jobid= $('#jobid').val();
+            var viewerid = $('#Viewerid').val();
+            var statusid = $('#status').val();
+          
+            
+            debugger;
+            $.ajax('/UpdRefferJob/JobReffer', {
+                type: 'POST',  // http method
+                data: {
+
+                    jobID: jobid,
+                    memberID: memid,
+                    ViewerID: viewerid,
+                    StatusID: statusid
+
+                },  // data to submit
+
+                success: function (data) {
+                    debugger
+                    alert('done');
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+        })
+    });
+  
+</script>

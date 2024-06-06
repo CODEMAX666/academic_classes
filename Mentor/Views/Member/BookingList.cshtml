@@ -1,0 +1,195 @@
+﻿@model List<Mentor.BE.BookingListBE>
+
+@using Mentor.Models
+@using Mentor.BE
+@{
+    ViewBag.Title = "BookingList";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    int id = ViewBag.ID;
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                
+                <div class="col-md-12">
+                    <ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                        <li class="nav-item col">
+                            <a id="description-tab" data-number="1." href="/Member/BookingList?id=0" role="tab" aria-controls="profile_update"><span class="number">1.</span> Booking With Mentor's</a>
+                        </li>
+                        <li class="nav-item col">
+                            <a id="education-tab" data-number="2." onclick="showMenteeBookings()" role="tab" aria-controls="education"><span class="number">2.</span> Booking With Mentee's</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                @*<input type="checkbox" onclick="myFunc()" class="myClass" />Booking  With Mentor's
+                <br />
+                <input type="checkbox" onclick="myFunc()" class="myClass" />Booking  With Mentee's*@
+
+
+                <!-- Mentee List Tab -->
+                <div class="tab-pane show active" id="mentee-list">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0">
+                                    <thead>
+                                        @if (id == 0)
+                                        {
+                                            <tr>
+                                                <th>MENTOR LISTS</th>
+                                                <th>SCHEDULED DATE</th>
+                                                <th class="text-center">Amount</th>
+                                                <th class="text-center">SCHEDULED TIMINGS</th>
+                                                <th class="text-center">ACTION</th>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <th>MENTEE LISTS</th>
+                                                <th>SCHEDULED DATE</th>
+                                                <th class="text-center">Amount</th>
+                                                <th class="text-center">SCHEDULED TIMINGS</th>
+                                                <th class="text-center">ACTION</th>
+                                            </tr>
+                                        }
+                                    </thead>
+                                    <tbody>
+
+                                        @{ 
+                                            HttpCookie cookie = HttpContext.Current.Request.Cookies["MemberCookies"];
+                                            int LoginId = Convert.ToInt32(cookie.Values["ID"]);
+                                        }
+
+                                        @if (ViewBag.List != null && (ViewBag.List as IList<BookingListBE>).Count > 0)
+                                        {
+                                            foreach (BookingListBE item in (List<BookingListBE>)ViewBag.List)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=@item.PhotoURL alt="User Image"></a>
+                                                            <a href="/Member/ShowProfile?memberid=@item.BookingID&viewerid=@LoginId">@item.Name<span>@item.Email</span></a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>@item.scheduleDate<br /><span>@item.Day</span></td>
+                                                    <td class="text-center">@item.Amount</td>
+                                                    <td class="text-center"><span class="pending">@item.scheduleStartTime.Substring(0,5)-@item.scheduleEndTime.Substring(0,5)</span></td>
+                                                    <td class="text-center"><button onclick="DelBooking(@item.BookingID)" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> Delete</button></td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else 
+                                        {
+                                            <p> You are not following any mentor </p>
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Mentee List Tab -->
+            </div>
+            <!-- /Booking summary -->
+           </div>
+        </div>
+    </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        debugger
+        var checkBox = document.getElementById("myCheck");
+
+        if (@id< 1) {
+            $("#description-tab").prop("aria-selected", true);
+            $("#description-tab").attr("class", "nav-link active");
+        }
+        else {
+            $("#description-tab").prop("aria-selected", false);
+            $("#description-tab").removeClass("nav-link active");
+
+            $("#education-tab").prop("aria-selected", true);
+            $("#education-tab").attr("class", "nav-link active");
+            
+        }
+    });
+
+
+    function DelBooking(Id) {
+        //var num = 1;
+
+        debugger
+        window.alert("Are you sure you want to delete this booking");
+        window.location = "/Member/DeleteBooking?bookingId=" + Id + "&harcordedId=@id";
+    }
+
+
+
+    function myFunction() {
+        // Get the checkbox
+        debugger
+        var checkBox = document.getElementById("myCheck");
+        // Get the output text
+        var text = document.getElementById("text");
+        var text1 = document.getElementById("text1");
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) {
+            //text1.checked = false;
+            text1.style.display = "block";
+            text.style.display = "none";
+            window.location.href = "/Member/BookingList?id=1";
+        }
+        else {
+            //text.checked = false;
+            text.style.display = "block";
+            text1.style.display = "none";
+            window.location.href = "/Member/BookingList?id=0";
+        }
+    }
+
+    function showMenteeBookings() {
+        debugger
+
+
+        var get = document.getElementById("education-tab");
+        get.href = "/Member/BookingList?id=1";
+
+        $("#education-tab").prop("aria-selected", true);
+        $("#education-tab").attr("class", "active");
+
+        get.getAttribute("aria-selected", true);
+        get.getAttribute("class", "active");
+    }
+    //function myFunc()
+    //{
+    //    var get = document.getElementsByClassName('myClass');
+    //    if (get[0].checked == true) {
+    //        window.location.href = "/Member/BookingList?id=0";
+    //    }
+    //    else {
+    //        window.location.href = "/Member/BookingList?id=1";
+    //    }
+    //}
+
+
+
+</script>

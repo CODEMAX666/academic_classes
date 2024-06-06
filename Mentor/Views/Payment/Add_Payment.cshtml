@@ -1,0 +1,167 @@
+﻿@model Mentor.BE.PaymentBE
+
+@{
+    ViewBag.Title = "AddPayment";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+<link href="~/Content/Mycss/stylingpaymentradiobuttons.css" rel="stylesheet" />
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="collapse-tabs new-property-step">
+                                <ul class="nav nav-pills py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
+                                    <li class="nav-item col">
+                                        <a class="nav-link active" id="description-tab" data-toggle="pill" data-number="1." href="#profile_update" role="tab" aria-controls="profile_update" aria-selected="true"><span class="number">1.</span> Payment Options</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="payment-detail-tab" data-toggle="pill" data-number="2." href="#payment-detail" role="tab" aria-controls="payment-detail" aria-selected="false"><span class="number">2.</span> Payment Detail</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content border-top-1">
+                                    <div class="tab-content" id="collapse-tabs-accordion">
+                                        <div class="tab-pane fade active show" id="profile_update" role="tabpanel" aria-labelledby="profile_update-tab">
+                                            <div class="card-body">
+                                                <div class="radio">
+                                                    <label class="layersMenu">
+                                                        <input type="radio" id="radioZoom1" name="paymentType" value="1" disabled />
+                                                        <div class="inputRadio" style="padding-top:26px;">
+                                                            <img src="~/assets/img/PaymentMethodImages/credit-card.jpg" /><br />
+                                                            <b>Credit/Debit Card</b>
+                                                        </div>
+                                                    </label>
+
+                                                    <label class="layersMenu">
+                                                        <input type="radio" id="radioZoom2" name="paymentType" value="2" />
+                                                        <div class="inputRadio">
+                                                            <img src="~/assets/img/PaymentMethodImages/easypay.png"><br />
+                                                            <b>Easy Pay</b>
+                                                        </div>
+                                                    </label>
+                                                    <label class="layersMenu">
+                                                        <input type="radio" id="radioZoom3" name="paymentType" value="3" />
+                                                        <div class="inputRadio">
+                                                            <img src="~/assets/img/PaymentMethodImages/mcb.jpg"><br />
+                                                            <b>MCB Bank</b>
+                                                        </div>
+                                                    </label>
+                                                    <label class="layersMenu">
+                                                        <input type="radio" id="radioZoom4" name="paymentType" value="4" disabled />
+                                                        <div class="inputRadio">
+                                                            <img src="~/assets/img/PaymentMethodImages/simsim-app.png"><br />
+                                                            <b>SIMSIM</b>
+                                                        </div>
+                                                    </label>
+
+
+                                                </div><br />
+                                                <div class="submit-section text-right">
+                                                    <!--<a class="edit-link mr-3 next-button" href="#">Skip</a>-->
+                                                    <button type="submit" id="PayNow" class="btn btn-primary next-button">Pay Now</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="payment-detail" role="tabpanel" aria-labelledby="payment-detail-tab">
+                                            <div class="card-body paymentDetail" id="visaCard">
+                                                <form method="post" action="">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h2 id="Payment_Method"></h2>
+                                                            <hr />
+                                                            <div id="EasyDet" style="display:none;">
+                                                                <p>Please visit any nearby EasyPaisa branch and ask EasyPaisa agent to transfer amount. Find details below:</p>
+                                                                <table class="table-responsive">
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Invoice #</th>
+                                                                        <td style="background-color:#eeeeee">836084354</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Account Title</th>
+                                                                        <td style="background-color:#eeeeee">NASEEB ONLINE SERVICES (PVT) LTD</td>
+                                                                    </tr>
+                                                                </table>
+                                                                <br />
+                                                                <p>Please Note: Payments may sometimes take up to 30 minutes to reflect an updated balance.<a href=""> Find your nearby EasyPaisa shop</a></p>
+                                                            </div>
+                                                            <div id="McbDet" style="display:none;">
+                                                                <p> Please transfer the invoice amount of <strong>PKR 3,675.40</strong> in ROZEE.PK MCB account in order to activate your product. You must enter the EXACT amount shown after the decimal to ensure that we can credit your payment.</p>
+
+                                                                <table class="table-responsive">
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Bank Name:</th>
+                                                                        <td style="background-color:#eeeeee">MCB Bank</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Account #:</th>
+                                                                        <td style="background-color:#eeeeee">0616547881006000</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Account Title:</th>
+                                                                        <td style="background-color:#eeeeee">Naseeb Online Services (Pvt) Ltd</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Email:</th>
+                                                                        <td style="background-color:#eeeeee">mcb@rozee.pk</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="background-color:#e0e0e0">Branch Locator</th>
+                                                                        <td style="background-color:#eeeeee"><a href="">Find your nearest branch</a></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Transaction" class="control-label">Transaction ID/Invoice No. :</label>
+                                                            <input type="text" id="Transaction" name="Transaction" class="form-control" />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="Amount" class="control-label">Amount</label>
+                                                            <input type="number" id="Amount" name="Amount" class="form-control" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <a href="#" class="btn btn-primary prev-button">
+                                                                Prev step
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="submit-section text-right">
+                                                                <button id="Payment_Submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/My_JS/Payment.js"></script>
+<script src="~/Scripts/ProfileSetting/ProfileValidation.js"></script>
+<script src="~/Scripts/Register/RegisterationValidation.js"></script>

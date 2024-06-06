@@ -1,0 +1,1292 @@
+﻿@{
+    ViewBag.Title = "ScheduleTimings";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+<!-- Page Content -->
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" id="toggle_btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Schedule Timings</h4>
+                                        <div class="profile-box">
+                                            @*<div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Timing Slot Duration</label>
+                                                            <select class="select form-control">
+                                                                <option>Select</option>
+                                                                <option>15 mins</option>
+                                                                <option selected="selected">30 mins</option>
+                                                                <option>45 mins</option>
+                                                                <option>1 Hour</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card schedule-widget mb-0">
+
+                                                        <!-- Schedule Header -->
+                                                        <div class="schedule-header">
+
+                                                            <!-- Schedule Nav -->
+                                                            <div class="schedule-nav">
+                                                                <ul class="nav nav-tabs nav-justified">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Sunday" href="#slot_sunday">Sunday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active selectday" data-toggle="tab" name="Monday" href="#slot_monday">Monday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Tuesday" href="#slot_tuesday">Tuesday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Wednesday" href="#slot_wednesday">Wednesday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Thursday" href="#slot_thursday">Thursday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Friday" href="#slot_friday">Friday</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link selectday" data-toggle="tab" name="Saturday" href="#slot_saturday">Saturday</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <!-- /Schedule Nav -->
+
+                                                        </div>
+                                                        <!-- /Schedule Header -->
+                                                        <!-- Schedule Content -->
+                                                        <div class="tab-content schedule-cont">
+
+                                                            <!-- Sunday Slot -->
+                                                            <div id="slot_sunday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Sunday Slot -->
+                                                            <!-- Monday Slot -->
+                                                            <div id="slot_monday" class="tab-pane fade show active">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                                <!-- Slot List -->
+                                                                <!-- /Slot List -->
+
+                                                            </div>
+                                                            <!-- /Monday Slot -->
+                                                            <!-- Tuesday Slot -->
+                                                            <div id="slot_tuesday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" id="add_tuesdayslot" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Tuesday Slot -->
+                                                            <!-- Wednesday Slot -->
+                                                            <div id="slot_wednesday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Wednesday Slot -->
+                                                            <!-- Thursday Slot -->
+                                                            <div id="slot_thursday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Thursday Slot -->
+                                                            <!-- Friday Slot -->
+                                                            <div id="slot_friday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Friday Slot -->
+                                                            <!-- Saturday Slot -->
+                                                            <div id="slot_saturday" class="tab-pane fade">
+                                                                <h4 class="card-title d-flex justify-content-between">
+                                                                    <span>Time Slots</span>
+                                                                    <a class="edit-link addlink" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                </h4>
+                                                                <div class="user-times">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- /Saturday Slot -->
+                                                        </div>
+                                                        <!-- /Schedule Content -->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+
+    <!-- /Page Content -->
+    <!-- Add Time Slot Modal -->
+    <div class="modal fade custom-modal" data-backdrop="static" data-keyboard="false" id="add_time_slot">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Time Slots</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="addtimecancelbtn">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="addslotcontainer">
+                    <form>
+                        <div class="hours-info">
+                            <div class="row form-row hours-cont">
+                                <div class="col-12 col-md-12">
+                                    <div class="row form-row">
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label>Start Time</label>
+                                                <select class="form-control" id="starttime">
+                                                    <option value="-1">Select</option>
+                                                    <option value="00:00:00">00:00</option>
+                                                    <option value="01:00:00">01:00 </option>
+                                                    <option value="02:00:00">02:00 </option>
+                                                    <option value="03:00:00">03:00 </option>
+                                                    <option value="04:00:00">04:00 </option>
+                                                    <option value="05:00:00">05:00 </option>
+                                                    <option value="06:00:00">06:00 </option>
+                                                    <option value="07:00:00">07:00 </option>
+                                                    <option value="08:00:00">08:00 </option>
+                                                    <option value="09:00:00">09:00 </option>
+                                                    <option value="10:00:00">10:00 </option>
+                                                    <option value="11:00:00">11:00 </option>
+                                                    <option value="12:00:00">12:00 </option>
+                                                    <option value="13:00:00">13:00 </option>
+                                                    <option value="14:00:00">14:00 </option>
+                                                    <option value="15:00:00">15:00 </option>
+                                                    <option value="16:00:00">16:00 </option>
+                                                    <option value="17:00:00">17:00 </option>
+                                                    <option value="18:00:00">18:00 </option>
+                                                    <option value="19:00:00">19:00 </option>
+                                                    <option value="20:00:00">20:00 </option>
+                                                    <option value="21:00:00">21:00 </option>
+                                                    <option value="22:00:00">22:00 </option>
+                                                    <option value="23:00:00">23:00 </option>
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label>End Time</label>
+                                                <select class="form-control" id="endtime">
+                                                    <option value="-1">Select</option>
+                                                    <option value="00:00:00">00:00</option>
+                                                    <option value="01:00:00">01:00 </option>
+                                                    <option value="02:00:00">02:00 </option>
+                                                    <option value="03:00:00">03:00 </option>
+                                                    <option value="04:00:00">04:00 </option>
+                                                    <option value="05:00:00">05:00 </option>
+                                                    <option value="06:00:00">06:00 </option>
+                                                    <option value="07:00:00">07:00 </option>
+                                                    <option value="08:00:00">08:00 </option>
+                                                    <option value="09:00:00">09:00 </option>
+                                                    <option value="10:00:00">10:00 </option>
+                                                    <option value="11:00:00">11:00 </option>
+                                                    <option value="12:00:00">12:00 </option>
+                                                    <option value="13:00:00">13:00 </option>
+                                                    <option value="14:00:00">14:00 </option>
+                                                    <option value="15:00:00">15:00 </option>
+                                                    <option value="16:00:00">16:00 </option>
+                                                    <option value="17:00:00">17:00 </option>
+                                                    <option value="18:00:00">18:00 </option>
+                                                    <option value="19:00:00">19:00 </option>
+                                                    <option value="20:00:00">20:00 </option>
+                                                    <option value="21:00:00">21:00 </option>
+                                                    <option value="22:00:00">22:00 </option>
+                                                    <option value="23:00:00">23:00 </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="row form-row">
+                                                <div class="col-12 col-md-10">
+
+                                                    <div class="form-group">
+                                                        <label>Duration</label>
+
+                                                        <select class="select form-control" id="slotduration">
+
+                                                            <option selected value="30">30 mins</option>
+                                                            <option value="60">1 Hour</option>
+                                                            <option value="90">1.5 Hours</option>
+                                                            <option value="120">2 Hours</option>
+                                                        </select>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-2">
+                                                    <div class="form-group">
+                                                        <a class="far fa-question-circle trigger" id="erroricon" style="color:red;"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12" style="vertical-align:baseline">
+                                            <div class="form-group">
+
+                                                <p id="msg" style="color:red;"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-more mb-3">
+                            <a id="addnewslot" class=""><i class="fa fa-plus-circle"></i> Add Slot</a>
+                        </div>
+                        <div class="submit-section text-center">
+                            <button type="button" class="btn btn-primary" id="save">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade custom-modal" data-backdrop="static" data-keyboard="false" id="my_edit_slot">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Time Slot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="addtimecancelbtn">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="editslotcontainer">
+                    <form>
+                        <div class="">
+                            <div class="row form-row hours-cont">
+                                <div class="col-12 col-md-12">
+                                    <div class="row form-row">
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label>Start Time</label>
+                                                <select class="form-control" id="edit_starttime">
+                                                    <option value="-1">Select</option>
+                                                    <option value="00:00:00">00:00</option>
+                                                    <option value="01:00:00">01:00 </option>
+                                                    <option value="02:00:00">02:00 </option>
+                                                    <option value="03:00:00">03:00 </option>
+                                                    <option value="04:00:00">04:00 </option>
+                                                    <option value="05:00:00">05:00 </option>
+                                                    <option value="06:00:00">06:00 </option>
+                                                    <option value="07:00:00">07:00 </option>
+                                                    <option value="08:00:00">08:00 </option>
+                                                    <option value="09:00:00">09:00 </option>
+                                                    <option value="10:00:00">10:00 </option>
+                                                    <option value="10:00:00">10:00 </option>
+                                                    <option value="11:00:00">11:00 </option>
+                                                    <option value="12:00:00">12:00 </option>
+                                                    <option value="13:00:00">13:00 </option>
+                                                    <option value="14:00:00">14:00 </option>
+                                                    <option value="15:00:00">15:00 </option>
+                                                    <option value="16:00:00">16:00 </option>
+                                                    <option value="17:00:00">17:00 </option>
+                                                    <option value="18:00:00">18:00 </option>
+                                                    <option value="19:00:00">19:00 </option>
+                                                    <option value="20:00:00">20:00 </option>
+                                                    <option value="21:00:00">21:00 </option>
+                                                    <option value="22:00:00">22:00 </option>
+                                                    <option value="23:00:00">23:00 </option>
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label>End Time</label>
+                                                <select class="form-control" id="edit_endtime">
+                                                    <option value="-1">Select</option>
+                                                    <option value="00:00:00">00:00</option>
+                                                    <option value="01:00:00">01:00 </option>
+                                                    <option value="02:00:00">02:00 </option>
+                                                    <option value="03:00:00">03:00 </option>
+                                                    <option value="04:00:00">04:00 </option>
+                                                    <option value="05:00:00">05:00 </option>
+                                                    <option value="06:00:00">06:00 </option>
+                                                    <option value="07:00:00">07:00 </option>
+                                                    <option value="08:00:00">08:00 </option>
+                                                    <option value="09:00:00">09:00 </option>
+                                                    <option value="10:00:00">10:00 </option>
+                                                    <option value="11:00:00">11:00 </option>
+                                                    <option value="12:00:00">12:00 </option>
+                                                    <option value="13:00:00">13:00 </option>
+                                                    <option value="14:00:00">14:00 </option>
+                                                    <option value="15:00:00">15:00 </option>
+                                                    <option value="16:00:00">16:00 </option>
+                                                    <option value="17:00:00">17:00 </option>
+                                                    <option value="18:00:00">18:00 </option>
+                                                    <option value="19:00:00">19:00 </option>
+                                                    <option value="20:00:00">20:00 </option>
+                                                    <option value="21:00:00">21:00 </option>
+                                                    <option value="22:00:00">22:00 </option>
+                                                    <option value="23:00:00">23:00 </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="row form-row">
+                                                <div class="col-12 col-md-10">
+
+                                                    <div class="form-group">
+                                                        <label>Duration</label>
+
+                                                        <select class="select form-control" id="edit_slotduration">
+
+                                                            <option value="30">30 mins</option>
+                                                            <option value="60">1 Hour</option>
+                                                            <option value="90">1.5 Hours</option>
+                                                            <option value="120">2 Hours</option>
+                                                        </select>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-2">
+                                                    <div class="form-group">
+                                                        <a class="far fa-question-circle trigger" id="edit_erroricon" style="color:red;"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--  <div class="col-12 col-md-1" style="vertical-align:baseline">
+                                            <div class="form-group">
+
+                                                <p id="msg1" style="color:red;"></i></p>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12" style="vertical-align:baseline">
+                                    <div class="form-group">
+
+                                        <p id="edit_msg" style="color:red;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-section text-center">
+                            <button type="button" class="btn btn-primary" id="edit_save">Save Changes</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade custom-modal" data-backdrop="static" data-keyboard="false" id="my_delete">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Slot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="addtimecancelbtn">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="editslotcontainer">
+
+                    <div class="">
+                        <div class="row form-row hours-cont">
+                            <div class="col-12 col-md-12">
+
+                                <div class="submit-section text-center">
+                                    <p>Confrim Deletion</p>
+                                    <button type="button" class="btn btn-danger" id="delete_slot_btn">Delete</button>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+<!-- /Add Time Slot Modal -->
+<!-- Edit Time Slot Modal -->
+<!-- /Edit Time Slot Modal -->
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $('#my_edit_slot').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+
+    var $edit_id;
+    var starttimedd = "start";
+    var endtimedd = "end";
+    var $numslot = 0;
+    var $st, $et, $st1, $et1, $st2, $et2, $slotduration, $slotduration1, $slotduration2;
+    var $sundayslots = $mondayslots = $tuesdayslots = $wednesdayslots = $thursdayslots = $fridayslots = $saturdayslots = 0;
+    $('#erroricon').hide();
+    var $dayname = "Monday";
+    var $current_num_slots;
+    var data_table;
+    $(document).ready(function () {
+
+        $('#edit_erroricon').hide();
+
+        $.ajax({
+            url: '@Url.Action("GetSlotList", "Mentor")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+
+                data_table = data;
+                $(data).each(function (Value, Text) {
+
+                    if (Text.MeetingDay == "Monday") {
+                        //$('#slot_monday').append("<p>" + Text.MeetingDay + "  " + Text.MeetingDuration + "</p>");
+                        $('#slot_monday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $mondayslots++;
+                        if ($mondayslots >= 3) {
+                            $('#slot_monday').find('.addlink').hide();
+                        }
+                    }
+                    else if (Text.MeetingDay == "Tuesday") {
+                        // $('#slot_tuesday').append("<option value=" + Text.MeetingDay + ">" + Text.MeetingDuration + "</option>");
+                        $('#slot_tuesday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+
+                            ' </a>' +
+                            '</div >');
+                        $tuesdayslots++;
+                        if ($tuesdayslots >= 3) {
+                            $('#slot_tuesday').find('.addlink').hide();
+                        }
+
+                    }
+                    else if (Text.MeetingDay == "Wednesday") {
+                        // $('#slot_tuesday').append("<option value=" + Text.MeetingDay + ">" + Text.MeetingDuration + "</option>");
+                        $('#slot_wednesday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $wednesdayslots++;
+                        if ($wednesdayslots >= 3) {
+                            $('#slot_wednesday').find('.addlink').hide();
+                        }
+                    }
+                    else if (Text.MeetingDay == "Thursday") {
+
+                        $('#slot_thursday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $thursdayslots++;
+
+                        if ($thursdayslots >= 3) {
+                            $('#slot_thursday').find('.addlink').hide();
+                        }
+                    }
+                    else if (Text.MeetingDay == "Friday") {
+
+                        $('#slot_friday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $fridayslots++;
+                        if ($fridayslots >= 3) {
+                            $('#slot_friday').find('.addlink').hide();
+                        }
+                    }
+                    else if (Text.MeetingDay == "Saturday") {
+
+                        $('#slot_saturday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $saturdayslots++;
+                        if ($saturdayslots >= 3) {
+                            $('#slot_saturday').find('.addlink').hide();
+                        }
+                    }
+                    else if (Text.MeetingDay == "Sunday") {
+                        // $('#slot_tuesday').append("<option value=" + Text.MeetingDay + ">" + Text.MeetingDuration + "</option>");
+                        $('#slot_sunday').find('.user-times').append('<div class="user-slot-list">' +
+                            ' <a data-toggle="modal" href="#" class="delete_myslot" onclick="get_id_del(' + Text.MemberMeetingScheduleId + ')" class="delete_schedule">' +
+                            ' <i class="fa fa-trash"></i>' +
+                            ' </a>' +
+                            ' ' + Text.MeetingStartTime.substring(0, 5) + " - " + Text.MeetingEndTime.substring(0, 5) +
+                            ' <a data-toggle="modal" href="#" class="edit_myslot" onclick="get_id(\'' + Text.MemberMeetingScheduleId + '\',\'' + Text.MeetingStartTime + '\',\'' + Text.MeetingEndTime + '\',\'' + Text.MeetingDuration + '\');" class="delete_schedule">' +
+                            ' <i class="fa fa-edit"></i>' +
+                            ' </a>' +
+                            '</div >');
+                        $sundayslots++;
+                        if ($sundayslots >= 3) {
+                            $('#slot_sunday').find('.addlink').hide();
+                        }
+                    }
+                });
+                $current_num_slots = $mondayslots;
+
+            }
+        });
+
+
+
+
+
+        //save addlots button
+        debugger
+        $('#save').on('click', function () {
+
+            debugger
+
+            $st = $('#starttime').val();
+            $et = $('#endtime').val();
+
+
+            $st1 = $('#first1').val();
+            $et1 = $('#end1').val();
+
+
+            $st2 = $('#first2').val();
+            $et2 = $('#end2').val();
+
+            if (!(isNaN($st1)) && $st1 == '-1' || !(isNaN($et1)) && $et1 == '-1') {
+                $('#msg1').empty();
+                $('#msg1').append('Please setect values');
+
+                return false;
+            }
+            if (!(isNaN($st2)) && $st2 == '-1' || !(isNaN($et2)) && $et2 == '-1') {
+                $('#msg2').empty();
+                $('#msg2').append('Please setect values');
+                return false;
+            }
+            if (typeof $st !== "undefined" && typeof $et !== "undefined" && $st != "-1" && $et != "-1") {
+                debugger
+                if ($st1 != "-1" && $et1 != "-1") {
+                    if ($st1 >= $st && $st1 < $et || $et1 >= $st && $et1 < $et) {
+                        $('#msg1').empty();
+                        $('#msg1').append('Slots already taken.');
+                        return false;
+                    }
+                    else {
+                        $('#msg1').empty();
+                    }
+
+
+                }
+
+                if ($st2 != "-1" && $et2 != "-1") {
+                    if ($st2 >= $st && $st2 < $et || $et2 >= $st && $et2 < $et || $st2 >= $st1 && $st2 < $et1 || $et2 >= $st1 && $et2 < $et1) {
+                        $('#msg2').empty();
+                        $('#msg2').append('Slots already taken.');
+                        return false;
+                    }
+                    else {
+                        $('#msg2').empty();
+                    }
+
+
+                }
+
+
+
+
+                var $s = new Date("01/01/2007 " + $st);
+                var $e = new Date("01/01/2007 " + $et);
+                var $s1 = new Date("01/01/2007 " + $st1);
+                var $e1 = new Date("01/01/2007 " + $et1);
+                var $s2 = new Date("01/01/2007 " + $st2);
+                var $e2 = new Date("01/01/2007 " + $et2);
+
+
+                var $r = $e.getHours() - $s.getHours();
+                if ($r < 0) {
+                    $r = 24 + $r;
+                }
+
+                var $r1 = $e1.getHours() - $s1.getHours();
+                if ($r1 < 0) {
+                    $r1 = 24 + $r1;
+                }
+
+                var $r2 = $e2.getHours() - $s2.getHours();
+                if ($r2 < 0) {
+                    $r2 = 24 + $r2;
+                }
+
+
+
+                var $minutes = $r * 60;
+                var $minutes1 = $r1 * 60;
+                var $minutes2 = $r2 * 60;
+                $slotduration = $('#slotduration').val();
+                $slotduration1 = $('#slotduration1').val();
+                $slotduration2 = $('#slotduration2').val();
+                debugger
+                if (!(isNaN($minutes)) && $minutes % $slotduration != 0) {
+                    $('#erroricon').show();
+
+                    $('#msg').empty();
+                    $('#msg').append('Hours can not be divided into selected duration');
+                    return false;
+                }
+                else {
+                    $('#msg').empty();
+                    $('#erroricon').hide();
+
+
+
+                }
+                debugger
+                if (!(isNaN($minutes1)) && $minutes1 % $slotduration1 != 0) {
+                    $('#erroricon1').css("visibility", "visible");
+
+                    $('#msg1').empty();
+                    $('#msg1').append('Hours can not be divided into selected duration');
+                    return false;
+                }
+                else {
+                    $('#msg1').empty();
+                    $('#erroricon1').css("visibility", "hidden");
+
+
+
+                }
+                if (!(isNaN($minutes2)) && $minutes2 % $slotduration2 != 0) {
+                    $('#erroricon2').css("visibility", "visible");
+                    $('#msg2').empty();
+                    $('#msg2').append('Hours can not be divided into selected duration');
+                    return false;
+                }
+                else {
+                    $('#msg2').empty();
+                    $('#erroricon2').css("visibility", "hidden");
+
+
+                }
+                var insert_check = false;
+                if ($current_num_slots == 0) {
+                    insert_check = true;
+
+                }
+                else if ($current_num_slots == 1) {
+                    $(data_table).each(function (Value, Text) {
+
+                        if (Text.MeetingDay == $dayname) {
+
+                            if ($st >= Text.MeetingStartTime && $st < Text.MeetingEndTime || $et > Text.MeetingStartTime && $et < Text.MeetingEndTime) {
+                                $('#msg').empty();
+                                $('#msg').append('Slots already exists.');
+                                insert_check = false;
+                                return false;
+                            }
+                            else {
+                                $('#msg').empty();
+                            }
+                            if ($st1 >= Text.MeetingStartTime && $st1 < Text.MeetingEndTime || $et1 > Text.MeetingStartTime && $et1 < Text.MeetingEndTime) {
+                                $('#msg2').empty();
+                                $('#msg2').append('Slots already exists.');
+                                insert_check = false;
+                                return false;
+                            }
+                            else {
+                                $('#msg2').empty();
+                            }
+
+                            insert_check = true;
+
+
+                        }
+
+                    });
+
+
+
+                }
+
+                else if ($current_num_slots == 2) {
+                    $(data_table).each(function (Value, Text) {
+
+                        if (Text.MeetingDay == $dayname) {
+
+                            if ($st >= Text.MeetingStartTime && $st < Text.MeetingEndTime || $et > Text.MeetingStartTime && $et < Text.MeetingEndTime) {
+                                $('#msg').empty();
+                                $('#msg').append('Slots already exists.');
+                                insert_check = false;
+                                return false;
+                            }
+                            else {
+                                $('#msg').empty();
+                            }
+
+                            insert_check = true;
+
+
+                        }
+
+                    });
+
+
+
+                }
+
+                if ($st1 === null) {
+                    $st1 = undefined;
+                }
+                if ($et1 === null) {
+                    $et1 = undefined;
+                }
+                if ($st2 === null) {
+                    $st2 = undefined;
+                }
+                if ($et2 === null) {
+                    $et2 = undefined;
+                }
+
+                debugger
+                if (insert_check) {
+                    $.ajax({
+                        url: '@Url.Action("InsertScheduleTimings", "Mentor")',
+                        type: 'POST',
+                        data: { day: $dayname, sdd1: $st, edd1: $et, d1: $slotduration, sdd2: $st1, edd2: $et1, d2: $slotduration1, sdd3: $st2, edd3: $et2, d3: $slotduration2 },
+                        success: function (data) {
+                            debugger
+                            alert('Sucessfully added!!!');
+                            $('#add_time_slot').modal('hide');
+
+                            // ajax call to update
+
+                            location.reload();
+
+                        }
+                    });
+                }
+
+            }
+            else {
+                $('#msg').empty();
+                $('#msg').append('Please setect values');
+            }
+        });
+
+        //edit slot
+        var $edit_start, $edit_end, $edit_slotduration;
+        $('#edit_save').on('click', function () {
+            $('#edit_erroricon').hide();
+            $edit_start = $('#edit_starttime').val();
+            $edit_end = $('#edit_endtime').val();
+
+            if ($edit_start == "-1" || $edit_end == "-1") {
+
+                $('#edit_msg').empty();
+                $('#edit_msg').append('Please Select Slots.');
+                return false;
+            }
+            else {
+                $('#edit_msg').empty();
+            }
+
+
+            var $edit_s = new Date("01/01/2007 " + $edit_start);
+            var $edit_e = new Date("01/01/2007 " + $edit_end);
+
+            var $edit_r = $edit_s.getHours() - $edit_e.getHours();
+            if ($edit_r < 0) {
+                $edit_r = 24 + $edit_r;
+            }
+
+
+
+
+            var $edit_minutes = $edit_r * 60;
+
+            $edit_slotduration = $('#edit_slotduration').val();
+
+            if ($edit_minutes % $edit_slotduration != 0) {
+                $('#edit_erroricon').show();
+                $('#edit_msg').empty();
+                $('#edit_msg').append('Hours can not be divided into selected duration.');
+                return false;
+
+            }
+            else {
+                $('#edit_erroricon').hide();
+                $('#edit_msg').empty();
+
+
+            }
+            var check = true;
+            $(data_table).each(function (Value, Text) {
+                debugger
+                if (Text.MeetingDay == $dayname) {
+                    if (Text.MemberMeetingScheduleId != $edit_id) {
+                        if ($edit_start >= Text.MeetingStartTime && $edit_start < Text.MeetingEndTime || $edit_end > Text.MeetingStartTime && $edit_end < Text.MeetingEndTime) {
+                            $('#edit_msg').empty();
+                            $('#edit_msg').append('Slots already exists.');
+                            $('#edit_erroricon').show();
+                            check = false;
+                            return false;
+                        }
+                        else {
+                            $('#edit_erroricon').hide();
+                            $('#edit_msg').empty();
+                        }
+                    }
+
+                }
+
+            });
+
+            debugger
+            if (check) {
+
+                $.ajax({
+                    url: '@Url.Action("UpdateScheduleTiming", "Mentor")',
+                    type: 'POST',
+                    data: { mmsid: $edit_id, day: $dayname, sdd1: $edit_start, edd1: $edit_end, d1: $edit_slotduration },
+                    success: function (data) {
+                        debugger
+                        alert('Sucessfully updated!!!');
+                        $('#add_time_slot').modal('hide');
+
+                        // ajax call to update
+
+                        location.reload();
+
+                    }
+                });
+            }
+
+
+        });
+
+        //delete schedule slot btn
+        $('#delete_slot_btn').on('click', function () {
+
+            debugger
+            $.ajax({
+                url: '@Url.Action("DeleteScheduleTiming", "Mentor")',
+                type: 'POST',
+                data: { mmsid: $edit_id },
+                success: function (data) {
+                    debugger
+                    alert('Sucessfully Deleted!!!');
+                    $('#my_delete').modal('hide');
+
+                    // ajax call to update
+
+                    location.reload();
+
+                },
+                error: function () {
+
+                    alert('Failed!!!');
+                    $('#my_delete').modal('hide');
+                    location.reload();
+                }
+            });
+
+
+
+        });
+
+
+
+        $('#addtimecancelbtn').on('click', function () {
+            $('#msg').empty();
+            $('#msg1').empty();
+            $('#msg2').empty();
+            $('#edit_msg').empty();
+            $('#edit_erroricon').hide();
+        });
+
+
+        //select day button
+        $('.selectday').on('click', function () {
+            debugger
+            $dayname = $(this).attr('name');
+
+            if ($dayname == "Sunday") {
+                $current_num_slots = $sundayslots;
+            }
+            else if ($dayname == "Monday") {
+                $current_num_slots = $mondayslots;
+            }
+            else if ($dayname == "Tuesday") {
+                $current_num_slots = $tuesdayslots;
+            }
+            else if ($dayname == "Wednesday") {
+                $current_num_slots = $wednesdayslots;
+            }
+            else if ($dayname == "Thursday") {
+                $current_num_slots = $thursdayslots;
+            }
+            else if ($dayname == "Friday") {
+                $current_num_slots = $fridayslots;
+            }
+            else if ($dayname == "Saturday") {
+                $current_num_slots = $saturdayslots;
+            }
+
+            /* if ($current_num_slots == 2) {
+                 $('#add_time_slot').find('#addnewslot').hide();
+             }
+             else if ($current_num_slots == 1) {
+                 $('#add_time_slot').find('#addnewslot').show();
+             }*/
+
+            //  $('.slide_right').trigger('click');
+
+            $('#starttime').val('-1');
+            $('#endtime').val('-1');
+            $(".hours-info").find('#trashicon1').trigger('click');
+            $(".hours-info").find('#trashicon2').trigger('click');
+        });
+        $('#add_addmore').on('click', function () {
+            debugger
+
+        });
+
+
+
+
+
+
+        var check = false;
+        var $total = 2;
+        var forid = "1";
+        var $slot_index;
+        debugger
+        $('#addnewslot').on('click', function () {
+            $st1 = $st2 = $et1 = $et2 = -1;
+            debugger
+            if ($current_num_slots == 2) {
+                $slot_index = 0;
+            }
+            else if ($current_num_slots == 1) {
+                $slot_index = 1;
+                $('#addnewslot').hide();
+            }
+            else if ($current_num_slots == 0) {
+                $slot_index = 1;
+            }
+            if ($total != 0 && !($slot_index <= 0)) {
+                var d = '<div class="row form-row hours-cont">' +
+                    '<div class="col-12 col-md-12">' +
+                    '<div class="row form-row">' +
+                    '<div class="col-12 col-md-4">' +
+                    '<div class="form-group">' +
+                    '<label>Start Time</label>' +
+                    '<select class="form-control" id="first' + forid + '" > ' +
+                    '<option value="-1">Select</option>' +
+                    '<option value="00:00:00">12:00 </option>' +
+                    '<option value="01:00:00">01:00 </option>' +
+                    '<option value="02:00:00">02:00 </option>' +
+                    '<option value="03:00:00">03:00 </option>' +
+                    '<option value="04:00:00">04:00 </option>' +
+                    '<option value="05:00:00">05:00 </option>' +
+                    '<option value="06:00:00">06:00 </option>' +
+                    '<option value="07:00:00">07:00 </option>' +
+                    '<option value="08:00:00">08:00 </option>' +
+                    '<option value="09:00:00">09:00 </option>' +
+                    '<option value="10:00:00">10:00 </option>' +
+                    '<option value="11:00:00">11:00 </option>' +
+                    '<option value="12:00:00">12:00 </option>' +
+                    '<option value="13:00:00">13:00 </option>' +
+                    '<option value="14:00:00">14:00 </option>' +
+                    '<option value="15:00:00">15:00 </option>' +
+                    '<option value="16:00:00">16:00 </option>' +
+                    '<option value="17:00:00">17:00 </option>' +
+                    '<option value="18:00:00">18:00 </option>' +
+                    '<option value="19:00:00">19:00 </option>' +
+                    '<option value="20:00:00">20:00 </option>' +
+                    '<option value="21:00:00">21:00 </option>' +
+                    '<option value="22:00:00">22:00 </option>' +
+                    '<option value="23:00:00">23:00 </option>' +
+
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-12 col-md-4">' +
+                    '<div class="form-group">' +
+                    '<label>End Time</label>' +
+                    '<select class="form-control" id="end' + forid + '">' +
+                    '<option value="-1">Select</option>' +
+                    '<option value="00:00:00">12:00 </option>' +
+                    '<option value="01:00:00">01:00 </option>' +
+                    '<option value="02:00:00">02:00 </option>' +
+                    '<option value="03:00:00">03:00 </option>' +
+                    '<option value="04:00:00">04:00 </option>' +
+                    '<option value="05:00:00">05:00 </option>' +
+                    '<option value="06:00:00">06:00 </option>' +
+                    '<option value="07:00:00">07:00 </option>' +
+                    '<option value="08:00:00">08:00 </option>' +
+                    '<option value="09:00:00">09:00 </option>' +
+                    '<option value="10:00:00">10:00 </option>' +
+                    '<option value="11:00:00">11:00 </option>' +
+                    '<option value="12:00:00">12:00 </option>' +
+                    '<option value="13:00:00">13:00 </option>' +
+                    '<option value="14:00:00">14:00 </option>' +
+                    '<option value="15:00:00">15:00 </option>' +
+                    '<option value="16:00:00">16:00 </option>' +
+                    '<option value="17:00:00">17:00 </option>' +
+                    '<option value="18:00:00">18:00 </option>' +
+                    '<option value="19:00:00">19:00 </option>' +
+                    '<option value="20:00:00">20:00 </option>' +
+                    '<option value="21:00:00">21:00 </option>' +
+                    '<option value="22:00:00">22:00 </option>' +
+                    '<option value="23:00:00">23:00 </option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    ' <div class="col-12 col-md-3">' +
+                    '<div class="form-group">' +
+                    '<label>Duration</label>' +
+                    '<select class="select form-control" id="slotduration' + forid + '">' +
+                    '   <option selected value="30">30 mins</option>' +
+                    '  <option value="60">1 Hour</option>' +
+                    ' <option value="90">1.5 Hour</option>' +
+                    '<option value="120">2 Hours</option>' +
+                    '</select>' +
+
+                    ' </div>' +
+                    '</div>' +
+
+                    '<div class="col-12 col-md-1">' +
+
+                    '<div class="form-group" >' +
+                    ' <i class="far fa-question-circle" id="erroricon' + forid + '" style="color: red; "></i>' +
+                    '<label class="d-md-block d-sm-none d-none" style="margin-top:-1em;">&nbsp;</label> <a href="#" class="btn btn-danger trash" ><i class="far fa-trash-alt" id="trashicon' + forid + '"></i></a>' +
+                    '</div >' +
+                    '</div > ' +
+
+                    '</div>' +
+                    '</div>' +
+                    ' <div class="col-12 col-md-12" style="vertical-align:baseline">' +
+                    '<div class="form-group">' +
+                    '<p id="msg' + forid + '" style="color:red;"></p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                $slot_index--;
+                $total--;
+                forid++;
+                debugger
+
+                check = true;
+                if ($total == 0) {
+                    $('#addnewslot').hide();
+                }
+                if ($total != 0) {
+                    $('#addnewslot').show();
+                }
+                if ($current_num_slots == 1) {
+                    $slot_index = 1;
+                    $('#addnewslot').hide();
+                }
+
+
+                $('.hours-info').append(d);
+                //$('#erroricon1').hide();
+                $('#erroricon1').css("visibility", "hidden");
+                $('#erroricon2').css("visibility", "hidden");
+                return false;
+            }
+        });
+
+
+        $(".hours-info").on('click', '#trashicon1', function () {
+            $(this).closest('.hours-cont').remove();
+            $('#addslot').show();
+
+            $total++;
+            forid = 1;
+            $("#first1").val(undefined);
+            $('#end1').val(undefined);
+
+            if ($total != 0) {
+                $('#addnewslot').show();
+            }
+            return false;
+        });
+
+
+        $(".hours-info").on('click', '#trashicon2', function () {
+            $(this).closest('.hours-cont').remove();
+            $('#addslot').show();
+
+            $total++;
+            forid = 2;
+            $('#first2').val(undefined);
+            $('#end2').val(undefined);
+            if ($total != 0) {
+                $('#addnewslot').show();
+            }
+            return false;
+        });
+
+    });
+
+
+
+
+
+
+    $(function () {
+        var moveLeft = 20;
+        var moveDown = 10;
+
+        $('a.trigger').hover(function (e) {
+            $('div#pop-up').show();
+            //$('div#pop-up').css('top', e.pageY + moveDown)
+            //$('div#pop-up').css('left', e.pageX + moveLeft)
+            $('div#pop-up').appendTo('body');
+
+        }, function () {
+            $('div#pop-up').hide();
+        });
+
+        $('a.trigger').mousemove(function (e) {
+            $("div#pop-up").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+
+    });
+    debugger
+    function get_id(scid, sv, ev, dv) {
+        // $('#a11').setAttribute("href", "#my_edit_slot");
+        debugger
+        $('.edit_myslot').attr("href", "#my_edit_slot");
+        debugger
+        $edit_id = scid;
+        $('#edit_starttime').val(sv);
+        $('#edit_endtime').val(ev);
+        $('#edit_slotduration').val(parseInt(dv)).change();
+
+        return scid;
+    }
+    function get_id_del(scid) {
+        debugger
+        $('.delete_myslot').attr("href", "#my_delete");
+        debugger
+        $edit_id = scid;
+        return scid;
+    }
+
+
+</script>

@@ -1,0 +1,277 @@
+﻿@using Mentor.BE;
+@using Mentor.DAL;
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from mentoring-html.dreamguystech.com/template/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 May 2021 10:08:44 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Mentorment - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <!-- Favicons -->
+    <link type="image/x-icon" href="~/assets/img/favicon.png" rel="icon">
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Mselect/chosen.min.css" />
+    <script src="~/Mselect/chosen.jquery.min.js"></script>
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/assets/css/select2.min.css">
+    <link href="~/assets/css/phonecode.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/style-2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="~/assets/js/html5shiv.min.js"></script>
+        <script src="~/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-fixed">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg header-nav">
+                        <div class="navbar-header">
+                            <a id="mobile_btn" href="javascript:void(0);">
+                                <span class="bar-icon">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </a>
+                            <a href="/Home/Index" class="navbar-brand logo">
+                                <img src="~/assets/img/user/logo.jpg">
+                            </a>
+                        </div>
+                        <div class="main-menu-wrapper">
+                            <div class="menu-header">
+                                <a href="/Home/Index" class="menu-logo">
+                                    Mentorment
+                                </a>
+                                <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="top-nav-search">
+                                <form>
+                                    <input type="text" class="form-control" placeholder="Search here">
+                                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="profile-sidebar">
+                                <div class="custom-sidebar-nav">
+                                    <ul>
+                                        <li><a href="/Member/Dashboard" class="active"><i class="fas fa-home"></i><p>Dashboard</p> </a></li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#"><i class="fas fa-search"></i><p>Search</p> </a>
+                                            <ul class="dropdown">
+                                                <li><a href="/Member/SearchMentor"><i class="fas fa-user" aria-hidden="true"></i><p>Search Mentor</p> </a></li>
+                                                <li><a href="/Member/SearchTraining"><i class="fas fa-minus" aria-hidden="true"></i><p>Search Training</p> </a></li>
+                                            </ul>
+                                        </li>
+
+                                            @*<li><a href="/Member/Favoritres"><i class="fas fa-star"></i><p>Favourites</p> </a></li>*@
+                                        <li><a href="/JobReffer/JobsRequested"><i class="fas fa-star"></i><p>Jobs Applied</p> </a></li>
+
+
+                                        <li><a href="/Member/BookingList"><i class="fas fa-clock"></i><p>Bookings</p> </a></li>
+                                        <li><a href="/Chat/Messaging"><i class="fas fa-comments"></i><p>Messages</p> </a></li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#"><i class="fas fa-wallet"></i><p>Wallet</p> </a>
+                                            <ul class="dropdown">
+                                                @*<li><a href="/Payment/AddPayment"><i class="fa fa-minus" aria-hidden="true"></i>Add Payment</a></li>*@
+                                                <li><a href="/Payment/Payment_Summary"><i class="fa fa-minus" aria-hidden="true"></i>Summary </a></li>
+                                                <li><a href="/Payment/Add_Payment"><i class="fa fa-minus" aria-hidden="true"></i>Add Amount</a></li>
+
+                                            </ul>
+                                        </li>
+                                        <li><a href="/Invoices/InvoicesList"><i class="fas fa-file-invoice"></i><p>Invoices</p> </a></li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#"><i class="fas fa-user"></i><p>Mentors</p> </a>
+                                            <ul class="dropdown">
+                                                <li><a href="/Member/Dashboard"><i class="fa fa-minus" aria-hidden="true"></i>Mentor Dashboard </a></li>
+                                                <li><a href="/Mentor/ScheduleTimings"><i class="fa fa-minus" aria-hidden="true"></i>Schedule Timings </a></li>
+                                                <li><a href="/Mentor/PackageManagement"><i class="fa fa-minus" aria-hidden="true"></i>Package Managment</a></li>
+                                                <li><a href="/Mentor/MenteeList"><i class="fa fa-minus" aria-hidden="true"></i>Mentee List </a></li>
+                                                @*<li><a href="/Mentor/TaskManagement"><i class="fa fa-minus" aria-hidden="true"></i>Task Managment </a></li>*@
+                                                <li><a href="/Job/AddJobs"><i class="fa fa-minus" aria-hidden="true"></i>Add Market Job </a></li>
+                                                <li><a href="/Job/JobsList"><i class="fa fa-minus" aria-hidden="true"></i>Market Job List </a></li>
+                                                <li><a href="/JobReffer/JobReffer"><i class="fa fa-minus" aria-hidden="true"></i>Mentee Job Request</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#"><i class="fas fa-user"></i><p>Trainings</p> </a>
+                                            <ul class="dropdown">
+                                                <li><a href="/Mentor/AddTraining"><i class="fa fa-minus" aria-hidden="true"></i>Add Training</a></li>
+                                                <li><a href="/Mentor/TrainingList"><i class="fa fa-minus" aria-hidden="true"></i>Tainings List</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="/Member/ShowProfile"><i class="fas fa-user-cog"></i><p>Profile</p> </a></li>
+                                        <li><a href="/Member/Logout"><i class="fas fa-sign-out-alt"></i><p>Logout</p> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav header-navbar-rht">
+
+                            <!-- User Menu -->
+                            @{
+                                MemberBE getObject = new MemberBE();
+                                HttpCookie cookie = HttpContext.Current.Request.Cookies["MemberCookies"];
+                                if (cookie != null)
+                                {
+                                    List<MentorListBE> newList = new List<MentorListBE>();
+                                    int Id = Convert.ToInt32(cookie.Values["ID"]);
+                                    getObject = new LoginDAL().getNameAndPicture(Id);
+                                    //getObject = new MemberBE() { Name = getObject.Name, PhotoURL = getObject.PhotoURL, IsMentor = getObject.IsMentor };
+
+
+                                }
+
+                            }
+                            <!-- User Menu -->
+                            <li class="nav-item dropdown has-arrow logged-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img">
+                                        @{ if (getObject.PhotoURL != "")
+
+                                            {
+                                                <img class="rounded-circle" src="@getObject.PhotoURL" width="31" alt="@getObject.FullName">
+                                            }
+                                            else
+                                            {
+                                                <img src="/Images/MemberProfilePhotos/user.png" alt="User Image" class="avatar-img rounded-circle">
+                                            }
+                                        }
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="user-header">
+                                        <div class="avatar avatar-sm">
+                                            @{ if (getObject.PhotoURL != "")
+                                                {
+                                                    <img src="@getObject.PhotoURL" alt="User Image" class="avatar-img rounded-circle">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Images/MemberProfilePhotos/user.png" alt="User Image" class="avatar-img rounded-circle">
+                                                }
+                                            }
+                                        </div>
+                                        <div class="user-text">
+                                            <h6>@getObject.FullName</h6>
+                                            @if (getObject.IsMentor == true)
+                                            {
+                                                <p class="text-muted mb-0">Mentor</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-muted mb-0">Mentee</p>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item" href="/Member/Dashboard">Dashboard</a>
+                                    <a class="dropdown-item" href="/Member/MemberProfileSetting">Profile Settings</a>
+                                    <a class="dropdown-item" href="/Member/Logout">Logout</a>
+                                </div>
+                            </li>
+                            <!-- /User Menu -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- /Header -->
+        <main class="d-flex collapse-sidebar">
+            <div class="profile-sidebar">
+                <div class="custom-sidebar-nav">
+                    <ul>
+                        <li><a href="/Member/Dashboard" class="active"><i class="fas fa-home"></i><p>Dashboard</p> </a></li>
+                        <li class="menu-item-has-children">
+                            <a href="#"><i class="fas fa-search"></i><p>Search</p> </a>
+                            <ul class="dropdown">
+                                <li><a href="/Member/SearchMentor"><i class="fas fa-user" aria-hidden="true"></i><p>Search Mentor</p> </a></li>
+                                <li><a href="/Member/SearchTraining"><i class="fas fa-minus" aria-hidden="true"></i><p>Search Training</p> </a></li>
+                            </ul>
+                        </li>
+                        @*<li><a href="/Member/Favoritres"><i class="fas fa-star"></i><p>Favourites</p> </a></li>*@
+                        <li><a href="/JobReffer/JobsRequested"><i class="fas fa-star"></i><p>Jobs Applied</p> </a></li>
+
+                        <li><a href="/Member/BookingList"><i class="fas fa-clock"></i><p>Bookings</p> </a></li>
+                        <li><a href="/Chat/Messaging"><i class="fas fa-comments"></i><p>Messages</p> </a></li>
+                        <li class="menu-item-has-children">
+                            <a href="#"><i class="fas fa-wallet"></i><p>Wallet</p> </a>
+                            <ul class="dropdown">
+                                <li><a href="/Payment/Payment_Summary"><i class="fa fa-minus" aria-hidden="true"></i>Summary </a></li>
+                                <li><a href="/Payment/Add_Payment"><i class="fa fa-minus" aria-hidden="true"></i>Add Amount</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="invoices.html"><i class="fas fa-file-invoice"></i><p>Invoices</p> </a></li>
+                        <li class="menu-item-has-children">
+                            <a href="#"><i class="fas fa-user"></i><p>Mentors</p> </a>
+                            <ul class="dropdown">
+                                <li><a href="/Member/Dashboard"><i class="fa fa-minus" aria-hidden="true"></i>Mentor Dashboard </a></li>
+                                <li><a href="/Mentor/ScheduleTimings"><i class="fa fa-minus" aria-hidden="true"></i>Schedule Timings </a></li>
+                                <li><a href="/Mentor/PackageManagement"><i class="fa fa-minus" aria-hidden="true"></i>Package Managment</a></li>
+                                <li><a href="/Mentor/MenteeList"><i class="fa fa-minus" aria-hidden="true"></i>Mentee List </a></li>
+                                @*<li><a href="/Mentor/TaskManagement"><i class="fa fa-minus" aria-hidden="true"></i>Task Managment </a></li>*@
+                                <li><a href="/Job/AddJobs"><i class="fa fa-minus" aria-hidden="true"></i>Add Market Job </a></li>
+                                <li><a href="/Job/JobsList"><i class="fa fa-minus" aria-hidden="true"></i>Market Job List </a></li>
+                                <li><a href="/JobReffer/JobReffer"><i class="fa fa-minus" aria-hidden="true"></i>Mentee Job Request</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#"><i class="fas fa-user"></i><p>Trainings</p> </a>
+                            <ul class="dropdown">
+                                <li><a href="/Mentor/AddTraining"><i class="fa fa-minus" aria-hidden="true"></i>Add Training</a></li>
+                                <li><a href="/Mentor/TrainingList"><i class="fa fa-minus" aria-hidden="true"></i>Tainings List</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/Member/ShowProfile"><i class="fas fa-user-cog"></i><p>Profile</p> </a></li>
+                        <li><a href="/Member/Logout"><i class="fas fa-sign-out-alt"></i><p>Logout</p> </a></li>
+                    </ul>
+                </div>
+            </div>
+            @RenderBody()
+        </main>
+
+        <!-- Footer -->
+        @{Html.RenderPartial("Footer");}
+        <!-- /Footer -->
+
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.maskedinput.min.js"></script>
+    <script src="~/assets/js/select2.min.js"></script>
+    <script src="~/assets/js/mask.js"></script>
+    <script src="~/assets/js/countryPhone.js"></script>
+    <script src="~/assets/js/jquery.ddslick.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+</body>
+<!-- Mirrored from mentoring-html.dreamguystech.com/template/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 May 2021 10:08:44 GMT -->
+</html>

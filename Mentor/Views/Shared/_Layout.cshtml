@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from mentorment-html.dreamguystech.com/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 May 2021 10:08:14 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Mentorment</title>
+    <!-- Favicons -->
+    <link type="image/x-icon" href="/assets/img/favicon.png" rel="icon">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/assets/css/style-2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <!-- Footer -->
+    <!-- /Footer -->
+    <div class="main-wrapper">
+        @RenderBody()
+    </div>
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/select2/js/select2.min.js"></script>
+    <!-- Owl Carousel -->
+    <script type="text/javascript" src="/assets/js/typeit.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="https://finbyz.tech/assets/finbyzweb/js/combine.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/assets/js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetSubCategoryNames", "Home")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    debugger
+                    new TypeIt('#typed-headline', {
+                        strings: data,/*["Engineering", "Product Management", "Machine Learning", "Design", "Startup", "JavaScript", "Marketing", "Python", "Entrepreneur", "Android", "UX Design", "Product", "Data Science", "Web Design", "Agile", "Sales", "Coding", "Java", "User Research", "React", "Web Development", "React", "Cybersecurity", "DevOps", "Product Marketing", "Deep Learning", "Virtual Reality", "SEO", "Programming", "Branding", "Growth", "CEO", "HTML", "Marketing", "Ruby", "UI Design", "Robotics"],
+*/                      speed: 80,
+                        breakLines: false,
+                        autoStart: true,
+                        lifelike: true,
+                        nextStringDelay: [200, 1500],
+                        startDelete: true,
+                        loop: true
+
+                    });
+                    debugger
+
+                    //$('#typed-headline[strings]').append('+ emp.GetSubCategoryName +');
+
+                }
+            });
+            amplitude.getInstance().logEvent("Visit homepage");
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.fn.liScroll = function (settings) {
+                settings = jQuery.extend({
+                    travelocity: 0.03
+                }, settings);
+                return this.each(function () {
+                    var $strip = jQuery(this);
+                    $strip.addClass("newsticker")
+                    var stripHeight = 120;
+                    $strip.find("li").each(function (i) {
+                        stripHeight += jQuery(this, i).outerHeight(true); // thanks to Michael Haszprunar and Fabien Volpi
+                    });
+                    var $mask = $strip.wrap("<div class='mask'></div>");
+                    var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");
+                    var containerHeight = $strip.parent().parent().height();	//a.k.a. 'mask' width
+                    $strip.height(stripHeight);
+                    var totalTravel = stripHeight;
+                    var defTiming = totalTravel / settings.travelocity;	// thanks to Scott Waye
+                    function scrollnews(spazio, tempo) {
+                        $strip.animate({ top: '-=' + spazio }, tempo, "linear", function () { $strip.css("top", containerHeight); scrollnews(totalTravel, defTiming); });
+                    }
+                    scrollnews(totalTravel, defTiming);
+                    $strip.hover(function () {
+                        jQuery(this).stop();
+                    },
+                        function () {
+                            var offset = jQuery(this).offset();
+                            var residualSpace = offset.top + stripHeight;
+                            var residualTime = residualSpace / settings.travelocity;
+                            scrollnews(residualSpace, residualTime);
+                        });
+                });
+            };
+
+            $(function () {
+                $("#ticker01,#ticker02,#ticker03,#ticker04").liScroll();
+            });
+        })
+
+    </script>
+</body>
+<!-- Mirrored from mentorment-html.dreamguystech.com/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 May 2021 10:08:36 GMT -->
+</html>
